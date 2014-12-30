@@ -1,4 +1,14 @@
-  RewriteEngine on
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*)$ mock-api/staff-v1.php/$1 [QSA,NC,L]
+RewriteEngine on
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+#mock API
+RewriteRule ^api(.*) /mock-api/mock-api.php/$1 [L]
+#admin
+RewriteRule ^admin(.*)$ /mock-api/mock-view-processor-admin.php [L]
+#pubic site
+RewriteRule ^about(.*)$ /mock-api/mock-view-processor.php [L]
+RewriteRule ^events(.*)$ /mock-api/mock-view-processor.php [L]
+RewriteRule ^donate(.*)$ /mock-api/mock-view-processor.php [L]
+RewriteRule ^home(.*)$ /mock-api/mock-view-processor.php [L]
+RewriteRule ^$ /mock-api/mock-view-processor.php [L]
