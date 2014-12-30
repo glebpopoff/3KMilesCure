@@ -1,28 +1,13 @@
 /**
-* 3K Miles to a Cure App: directives
+* 3000 Miles to a Cure: Directives
+*
+* More : http://www.sitepoint.com/practical-guide-angularjs-directives/
+* Good tutorial: http://ng-learn.org/2014/01/Dom-Manipulations/
 */
+define(['angular'], function (angular) {
 
-define([
-    "jquery",
-    'angular',
-    "jqlauncher",
-    "angular-scroll",
-    'angular-bootstrap-ui'
-], function ($, angular, jqlauncher) {
-    "use strict";
+"use strict";
 
-	myApp.directive('ngIf', function() {
-    return {
-        link: function(scope, element, attrs) {
-            if(scope.$eval(attrs.ngIf)) {
-                // remove '<div ng-if...></div>'
-                element.replaceWith(element.children())
-            } else {
-                element.replaceWith(' ')
-            }
-        }
-    }
+
+    
 });
-	
-});
-
