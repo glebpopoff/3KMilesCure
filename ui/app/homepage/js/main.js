@@ -22,7 +22,8 @@ window.name = "NG_DEFER_BOOTSTRAP!";
             "angular-route": "/ui/vendor/angular/angular-route.min",
             "global-library": "/ui/app/global/js/lib/global-library",
             "jquery": "/ui/vendor/jquery-legacy/jquery.min",
-            "bootstrap": "/ui/vendor/bootstrap/dist/js/bootstrap.min"
+            "bootstrap": "/ui/vendor/bootstrap/dist/js/bootstrap.min",
+            "google-maps-api": "https://maps.googleapis.com/maps/api/js?v=3.exp"
         },
         shim:{
             angular:{

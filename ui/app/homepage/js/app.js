@@ -9,12 +9,13 @@ define([
     "angular-route",
     "controllers",
     "services",
-    "directives"
+    "directives",
+    "google-maps-api"
 ], function ($, angular, jqlauncher) {
 
 "use strict";
 
-var homepageApp = angular.module('homepageApp', ['ngRoute', 'homepageControllers', 'homepageServices']);
+var homepageApp = angular.module('homepageApp', ['ngRoute', 'homepageControllers', 'homepageServices', "globalDirectives"]);
 
 //application routing
 homepageApp.config(['$routeProvider', '$locationProvider',
