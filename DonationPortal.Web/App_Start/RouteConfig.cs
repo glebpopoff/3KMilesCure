@@ -13,6 +13,12 @@ namespace DonationPortal.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+			routes.MapRoute(
+				name: "AngularRoute",
+				url: "{path}/{*path2}",
+				defaults: new { controller = "Page", action = "Index", path = UrlParameter.Optional }
+			 );
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
