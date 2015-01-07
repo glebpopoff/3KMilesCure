@@ -1,0 +1,45 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <style type="text/css">
+        html, body, #map-canvas {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD0K-y2C9IH2lUf6_kOt8Dvd9TOlZq7sqk">
+    </script>
+    <script src="/ui/js/geoxml3.js"></script>
+    <script type="text/javascript">
+        function initialize() {
+
+            var mapOptions = {
+                center: { lat: 27.453313, lng: -81.35273 },
+                zoom: 16
+            };
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'),
+                mapOptions);
+
+            var myParser = new geoXML3.parser({ map: map });
+
+            myParser.parse('/ui/kml/racetrack.kml');
+            myParser.parse('/ui/kml/shortroute.kml');
+            myParser.parse('/ui/kml/longroute.kml');
+        }
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+</head>
+<body>
+    <div id="map-canvas"></div>
+</body>
+</html>
