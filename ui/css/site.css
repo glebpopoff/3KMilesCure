@@ -1,3 +1,21 @@
+.required
+{
+  color: red;
+}
+
+.donation-message
+{
+  padding-top: 40px;
+  padding-left: 20px;
+}
+
+#map-canvas 
+{
+    height: 100%;
+    margin: 0px;
+    padding: 0px
+}
+
 .header
 {
 	font-size: large;
