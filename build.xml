@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="Intranet" xmlns:dn="antlib:org.apache.ant.dotnet" xmlns="antlib:org.apache.tools.ant">
+	
+	<target name="dev">
+		<property name="configuration">dev</property>
+		<property name="target">\\devweb4\AcsysWeb\Primacy\glassappgeofence.resultsbuilder.com</property>
+		<antcall target="deploy"></antcall>
+	</target>
+
+	<target name="deploy" description="Deploy to the target environment">
+
+		<exec executable="nuget">
+			<arg value="restore" />
+		</exec>
+		
+		<dn:msbuild buildfile="DonationPortal.Web\DonationPortal.Web.csproj">
+			<target name="Package"/>
+			<property name="Configuration" value="${configuration}"/>
+		</dn:msbuild>
+		
+		<sync todir="${target}" includeEmptyDirs="true" failonerror="true" overwrite="true">
+			<fileset dir="DonationPortal.Web\obj\${configuration}\Package\PackageTmp">
+			</fileset>
+		</sync>
+		
+		<sync todir="${target}/ui" includeEmptyDirs="true" failonerror="true" overwrite="true">
+			<fileset dir="DonationPortal.Web/ui">
+			</fileset>
+		</sync>
+		
+		<copy file="DonationPortal.Web\obj\${configuration}\TransformWebConfig\transformed\Web.config" tofile="${target}\web.config" overwrite="true" verbose="true"/>
+	</target>
+	
+</project>
