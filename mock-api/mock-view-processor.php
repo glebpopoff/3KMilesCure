@@ -17,9 +17,9 @@
 	}
 
 	$app = get_angular_app($_SERVER['REQUEST_URI']);
-	$html  = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/Views/Public/Index.cshtml');
-	$html = str_replace('@Model.AppName', $app['name'], $html);
-	$html = str_replace('@Model.AppScript', $app['script'], $html);
+	$html  = file_get_contents($_SERVER['DOCUMENT_ROOT'] . '/DonationPortal.Web/Views/Page/Index.cshtml');
+	$html = str_replace('@Model.AngularAppName', $app['name'], $html);
+	$html = str_replace('@Model.AngularAppMainScript', $app['script'], $html);
 	$html = str_replace('@model 3KMilesCure.Website.Models.MainAppViewModel', '', $html);
 	echo $html;
 	exit;
