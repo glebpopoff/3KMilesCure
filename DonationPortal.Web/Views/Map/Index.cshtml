@@ -1093,7 +1093,7 @@ new google.maps.LatLng(27.521944, -81.403363),
 
                 var isDragging = false;
 
-                google.maps.event.addListener(marker, 'click', function () {
+                google.maps.event.addListener(marker, 'dragstart', function () {
 
                     oSnap = new cSnapToRoute(map);
                     oSnap.init(map, marker, lines);
@@ -1108,7 +1108,7 @@ new google.maps.LatLng(27.521944, -81.403363),
 
                // });
 
-                google.maps.event.addListener(map, 'click', function () {
+                google.maps.event.addListener(marker, 'dragend', function () {
 
                     if (oSnap && isDragging) {
                         oSnap.cancel();

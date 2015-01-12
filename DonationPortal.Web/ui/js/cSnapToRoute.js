@@ -79,7 +79,7 @@ function cSnapToRoute(map) {
     *   @desc internal use only, Load map listeners to calculate and update this.oMarker position.
     **/
 	this.loadMapListener = function () {
-		self.listenerMouseMove = google.maps.event.addListener(self._oMap, 'mousemove', self.updateMarkerLocation);
+		self.listenerMouseMove = google.maps.event.addListener(self._oMarker, 'drag', self.updateMarkerLocation);
 		self.listenerZoomEnd = google.maps.event.addListener(self._oMap, 'zoomend', self.loadRouteData);
 	}
 
