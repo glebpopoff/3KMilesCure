@@ -1110,9 +1110,10 @@ new google.maps.LatLng(27.521944, -81.403363),
 
                 google.maps.event.addListener(map, 'click', function () {
 
-                    if (oSnap) {
+                    if (oSnap && isDragging) {
                         oSnap.cancel();
                         isDragging = false;
+                        alert('you selected ' + marker.getPosition().lat() + ' ' + marker.getPosition().lng());
                     }
 
                 });
