@@ -121,6 +121,7 @@
     <Content Include="ui\images\social-icon-google.png" />
     <Content Include="ui\images\social-icon-twitter.png" />
     <Content Include="ui\images\social-icon-yt.png" />
+    <Content Include="ui\js\cSnapToRoute.js" />
     <Content Include="ui\js\geoxml3.js" />
     <Content Include="ui\vendor\angular-bootstrap\ui-bootstrap-tpls.js" />
     <Content Include="ui\vendor\angular-bootstrap\ui-bootstrap-tpls.min.js" />
@@ -796,7 +797,9 @@
     <Content Include="ui\vendor\underscore\underscore-min.map" />
     <Content Include="Views\Map\Index.cshtml" />
     <Content Include="ui\kml\racetrack.kml" />
-    <Content Include="ui\kml\longroute.kml" />
+    <Content Include="ui\kml\longroute.kml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="ui\kml\shortroute.kml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
