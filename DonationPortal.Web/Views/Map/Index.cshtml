@@ -1060,7 +1060,7 @@ new google.maps.LatLng(27.521944, -81.403363),
                 strokeOpacity: 1.0,
                 strokeWeight: 2
             });
-            
+
             var raceTrackLine = new google.maps.Polyline({
                 path: raceTrackPath,
                 geodisc: true,
@@ -1091,40 +1091,29 @@ new google.maps.LatLng(27.521944, -81.403363),
 
             google.maps.event.addListenerOnce(map, "projection_changed", function () {
 
-                var isDragging = false;
-
                 google.maps.event.addListener(marker, 'dragstart', function () {
 
                     oSnap = new cSnapToRoute(map);
                     oSnap.init(map, marker, lines);
-                    isDragging = true;
-
                 });
 
-               //google.maps.event.addListener(marker, 'dragstart', function () {
+                for (var i = 0; i < lines.length; i++) {
+                    google.maps.event.addListener(lines[i], 'click', function (e) {
 
-               //     oSnap = new cSnapToRoute(map);
-               //     oSnap.init(map, marker, lines);
+                        marker.setPosition(e.latLng);
+                        alert('you selected ' + marker.getPosition().lat() + ' ' + marker.getPosition().lng());
 
-               // });
+                    });
+                }
 
                 google.maps.event.addListener(marker, 'dragend', function () {
 
-                    if (oSnap && isDragging) {
+                    if (oSnap) {
                         oSnap.cancel();
-                        isDragging = false;
                         alert('you selected ' + marker.getPosition().lat() + ' ' + marker.getPosition().lng());
                     }
 
                 });
-
-                //google.maps.event.addListener(marker, 'dragend', function () {
-
-                //    if (oSnap) {
-                //        oSnap.cancel();
-                //    }
-
-                //});
 
             });
 
