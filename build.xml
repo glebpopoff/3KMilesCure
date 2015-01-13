@@ -24,6 +24,7 @@
 			</fileset>
 			<preserveintarget>
 				<include name="creative-templates/"/>
+				<include name="connectionStrings.config"/> <!-- don't delete the file with our connection strings. -->
 				<include name="Web.config"/>
 			</preserveintarget>
 		</sync>
