@@ -21,6 +21,11 @@
           <Property Name="EventID" Type="int" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="UrlSlug" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MapLatitude" Type="float" Nullable="false" />
+          <Property Name="MapLongitude" Type="float" Nullable="false" />
+          <Property Name="MapZoom" Type="tinyint" Nullable="false" />
+          <Property Name="MarkerLatitude" Type="float" Nullable="false" />
+          <Property Name="MarkerLongitude" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="EventRiderRoute">
           <Key>
@@ -143,6 +148,11 @@
           <NavigationProperty Name="Event" Relationship="Self.FK_EventRider_Event" FromRole="EventRider" ToRole="Event" />
           <NavigationProperty Name="Routes" Relationship="Self.EventRiderRoute" FromRole="EventRider" ToRole="Route" />
           <Property Name="UrlSlug" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MapLatitude" Type="Double" Nullable="false" />
+          <Property Name="MapLongitude" Type="Double" Nullable="false" />
+          <Property Name="MapZoom" Type="Byte" Nullable="false" />
+          <Property Name="MarkerLatitude" Type="Double" Nullable="false" />
+          <Property Name="MarkerLongitude" Type="Double" Nullable="false" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -230,6 +240,11 @@
           <EntitySetMapping Name="EventRiders">
             <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
               <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="MarkerLongitude" ColumnName="MarkerLongitude" />
+                <ScalarProperty Name="MarkerLatitude" ColumnName="MarkerLatitude" />
+                <ScalarProperty Name="MapZoom" ColumnName="MapZoom" />
+                <ScalarProperty Name="MapLongitude" ColumnName="MapLongitude" />
+                <ScalarProperty Name="MapLatitude" ColumnName="MapLatitude" />
                 <ScalarProperty Name="UrlSlug" ColumnName="UrlSlug" />
                 <ScalarProperty Name="EventRiderID" ColumnName="EventRiderID" />
                 <ScalarProperty Name="EventID" ColumnName="EventID" />

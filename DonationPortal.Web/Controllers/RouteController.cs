@@ -9,9 +9,10 @@ using DonationPortal.Web.ApiModels.Route;
 
 namespace DonationPortal.Web.Controllers
 {
+	[RoutePrefix("api/v1")]
     public class RouteController : ApiController
     {
-		[Route("api/events/{eventSlug}/riders/{riderSlug}/routes")]
+		[Route("events/{eventSlug}/riders/{riderSlug}/routes")]
 		[HttpGet]
 	    public HttpResponseMessage GetEventRiderRoutes(string eventSlug, string riderSlug)
 	    {
@@ -38,11 +39,10 @@ namespace DonationPortal.Web.Controllers
 					RouteID = route.RouteID,
 					Color = '#' + route.Color,
 					UrlSlug = route.UrlSlug,
-					Vertices = route.RouteVertexes.Select(vertex => new ApiModels.Route.RouteVertex()
+					Vertices = route.RouteVertexes.OrderBy(v => v.Order).Select(vertex => new ApiModels.Route.RouteVertex()
 					{
 						Latitude = (float)vertex.Latitude,
-						Longitude = (float)vertex.Longitude,
-						Order = vertex.Order
+						Longitude = (float)vertex.Longitude
 					}).ToList() // need to materialize now, otherwise the database will already be disposed when the message is serialized.
 				}).ToList(); // see above
 

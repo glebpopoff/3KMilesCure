@@ -23,6 +23,11 @@ namespace DonationPortal.Engine
         public int EventID { get; set; }
         public string Name { get; set; }
         public string UrlSlug { get; set; }
+        public double MapLatitude { get; set; }
+        public double MapLongitude { get; set; }
+        public byte MapZoom { get; set; }
+        public double MarkerLatitude { get; set; }
+        public double MarkerLongitude { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }
