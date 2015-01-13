@@ -104,7 +104,7 @@ module.exports = function (grunt) {
             },
             css: {
                 files: ["ui/less/**/*.less", "ui/css/**/*.css", "!ui/css/main-styles.css", "!ui/css/main-styles.css.map"],
-                tasks: ["less:main-styles"],
+                tasks: ["less:styles"],
                 options: {}
             },
             js: {

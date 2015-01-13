@@ -92,7 +92,7 @@ CUSTOM LESS MIXINS
 CUSTOM VARIABLES/OVERRIDES
 #######################################################################################*/
 
-@font-family-base: Arial, Helvetica, sans-serif;
+@font-family-base: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @white : #fff;
 
 .secondary-grid { /* modify the grid structure within a row (Example: <div class="row secondary-grid">...</div> */
@@ -225,12 +225,147 @@ INTERFACE SHELL STYLES
   margin:0;
   padding:0;
   position:relative;
+  background:#f67000;
   .clearfix();
 
   > .container { /* tier content inner container */
 	/* note: add a set width if non-responsive */
 	position:relative;
+    height:120px;
 	.clearfix();
+  }
+
+  .logo {
+    position:absolute;
+    left:0;
+    top:30px;
+    font-weight:900;
+    font-size:40px;
+    text-transform:uppercase;
+    line-height:1;
+    .tagline {
+      font-weight:500;
+      font-size:24px;
+      text-transform:none;
+    }
+  }
+
+  /* Global Nav */
+
+  .global-nav-container {
+    font-size:12px;
+    text-transform:uppercase;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight:bold;
+    position:absolute;
+    right:0;
+    top:10px;
+
+    a {
+      color:#fff;
+      text-decoration:none;
+
+      &:hover {text-decoration:underline;}
+    }
+
+    > ul {
+      margin:0;
+      padding-left:0;
+      list-style:none;
+
+      li {
+        border-left:1px solid #fff;
+        display:inline-block;
+        .ie7-inline-block();
+        vertical-align:middle;
+        padding:0 15px;
+
+        &.active {
+          a {color:#2e3340;}
+        }
+        &:first-child {border-left:none;}
+      }
+    }
+
+    /* Media Queries and Conditionals */
+
+    @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+    @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+    .lt-ie9 & { /* list less than ie9 styles here */ }
+    .lt-ie8 & { /* list less than ie8 styles here */ }
+
+    .no-js & { /* list no-js styles here */ }
+
+  }
+
+
+
+  /* T1 Navigation */
+
+  .t1-nav-container {
+    display:block;
+    margin:0;
+    padding:0;
+    position:absolute;
+    right:0;
+    bottom:10px;
+    .clearfix();
+
+    > .container { /* tier content inner container */
+      /* note: add a set width if non-responsive */
+      position:relative;
+      .clearfix();
+    }
+
+    .t1-nav {
+      margin:0;
+      padding:0;
+      list-style:none;
+
+      li {
+        font-size:18px;
+        font-weight:900;
+        text-transform:uppercase;
+        float:left;
+        margin:0;
+        padding:0;
+        position:relative;
+
+        a {
+          padding:14px 20px;
+          display:inline-block;
+          color:@white;
+
+          &:hover,
+          &.hover {
+            text-decoration:none;
+          }
+
+          &.active {
+            text-decoration:none;
+
+            &:hover {}
+          }
+
+        }
+
+      }
+
+    }
+
+    /* Media Queries and Conditionals */
+
+    @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+    @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+    .lt-ie9 & { /* list less than ie9 styles here */ }
+    .lt-ie8 & { /* list less than ie8 styles here */ }
+
+    .no-js & { /* list no-js styles here */ }
+
   }
 
 
@@ -349,6 +484,8 @@ INTERFACE SHELL STYLES
 	> .container { /* generic inner container */
 	  /* note: add a set width if non-responsive */
 	  position:relative;
+      padding-top:30px;
+      padding-bottom:30px;
 	  .clearfix();
 	}
 
@@ -362,6 +499,66 @@ INTERFACE SHELL STYLES
   .lt-ie8 & { /* list less than ie8 styles here */ }
 
   .no-js & { /* list no-js styles here */ }
+
+  &.hero {
+    background:#f1f1f1 url(../images/img-homepage-hero.jpg);
+    background-size:cover;
+    .container {
+      min-height:500px;
+      padding:0;
+      .center-content{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width:75%;
+      }
+      h1 {
+        font-size:100px;
+        font-weight:900;
+        text-transform:uppercase;
+        margin:0;
+        color:@white;
+      }
+      h2 {
+        font-size:26px;
+        font-weight:300;
+        color:@white;
+      }
+    }
+  }
+
+  &.carousel-container {
+    .container {
+      padding-top:50px;
+      padding-bottom:50px;
+    }
+  }
+
+  &.map-container {
+    .route-details {
+      background:#ff8c00;
+      .container {
+        position:relative;
+        padding-top:30px;
+        padding-bottom:30px;
+        &:before {
+          position:absolute;
+          top:-25px;
+          left:0;
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 25px 25px 25px;
+          border-color: transparent transparent #ff8c00 transparent;
+        }
+      }
+    }
+  }
+
+  &.content-container {
+
+  }
 
 }
 
@@ -377,120 +574,7 @@ a.skip-nav:hover {
   top: 0;
 }
 
-/* Global Nav
--------------------------------------------------------------------------------------*/
 
-.global-nav-container {
-	font-size:12px;
-	text-transform:uppercase;
-	font-family: Arial, Helvetica, sans-serif;
-	font-weight:bold;
-	position:absolute;
-	right:0;
-	top:10px;
-
-	a {
-		color:#fff;
-		text-decoration:none;
-
-		&:hover {text-decoration:underline;}
-	}
-
-	> ul {
-		margin:0;
-		padding-left:0;
-		list-style:none;
-
-		li {
-			border-left:1px solid #fff;
-			display:inline-block;
-			.ie7-inline-block();
-			vertical-align:middle;
-			padding:0 15px;
-
-			&.active {
-				a {color:#2e3340;}
-			}
-			&:first-child {border-left:none;}
-		}
-	}
-
-  /* Media Queries and Conditionals */
-
-  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
-  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
-  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
-
-  .lt-ie9 & { /* list less than ie9 styles here */ }
-  .lt-ie8 & { /* list less than ie8 styles here */ }
-
-  .no-js & { /* list no-js styles here */ }
-
-}
-
-
-
-/* T1 Navigation
--------------------------------------------------------------------------------------*/
-
-.t1-nav-container {
-  display:block;
-  margin:0;
-  padding:0;
-  position:relative;
-  .clearfix();
-
-  > .container { /* tier content inner container */
-	/* note: add a set width if non-responsive */
-	position:relative;
-	.clearfix();
-  }
-
-	.t1-nav {
-		margin:0;
-		padding:0;
-		list-style:none;
-
-		li {
-			font-size:15px;
-			float:left;
-			margin:0;
-			padding:0;
-			position:relative;
-
-			a {
-				padding:14px 20px;
-				display:inline-block;
-
-				&:hover,
-				&.hover {
-					text-decoration:none;
-				}
-
-				&.active {
-					text-decoration:none;
-
-				  &:hover {}
-				}
-
-			}
-
-		}
-
-	}
-
-  /* Media Queries and Conditionals */
-
-  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
-  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
-  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
-
-  .lt-ie9 & { /* list less than ie9 styles here */ }
-  .lt-ie8 & { /* list less than ie8 styles here */ }
-
-  .no-js & { /* list no-js styles here */ }
-
-}
 
 /* DHTML Menu
 -------------------------------------------------------------------------------------*/
@@ -701,10 +785,14 @@ FOOTER STYLES
   margin:0;
   padding:0;
   position:relative;
+  background:#464646;
+  color:#a3a3a3;
 
   > .container { /* tier content inner container */
 	/* note: add a set width if non-responsive */
 	position:relative;
+    padding-top:30px;
+    padding-bottom:30px;
 	.clearfix();
   }
 
@@ -872,21 +960,19 @@ LAYOUT ELEMENTS / MODULES
 	}
 
 	.carousel-nav { /* carousel nav styles */
-		position:absolute;
-		top:10px;
-		right:10px;
-
+		text-align:center;
+        margin-top:40px;
 		a {
 		  display:inline-block;
 		  width:14px;
 		  height:14px;
 		  margin-right:10px;
 		  border-radius:10px;
-		  background: @white;
+		  background: #f1f1f1;
 
 		  span {display:none;}
-		  &:hover {background: #4a94d3;}
-		  &.selected {background: #025aa5;}
+		  &:hover {background: #ccc;}
+		  &.selected {background: #ff8c00;}
 		}
 
 	}
