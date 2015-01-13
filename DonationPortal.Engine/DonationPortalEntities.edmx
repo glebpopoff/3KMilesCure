@@ -1,0 +1,307 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DonationPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UrlSlug" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventRider">
+          <Key>
+            <PropertyRef Name="EventRiderID" />
+          </Key>
+          <Property Name="EventRiderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="UrlSlug" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="MapLatitude" Type="float" Nullable="false" />
+          <Property Name="MapLongitude" Type="float" Nullable="false" />
+          <Property Name="MapZoom" Type="tinyint" Nullable="false" />
+          <Property Name="MarkerLatitude" Type="float" Nullable="false" />
+          <Property Name="MarkerLongitude" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EventRiderRoute">
+          <Key>
+            <PropertyRef Name="EventRiderID" />
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="EventRiderID" Type="int" Nullable="false" />
+          <Property Name="RouteID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Color" Type="char" MaxLength="6" Nullable="false" />
+          <Property Name="UrlSlug" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RouteVertex">
+          <Key>
+            <PropertyRef Name="RouteVertexID" />
+          </Key>
+          <Property Name="RouteVertexID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="RouteID" Type="int" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_EventRider_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="EventRider" Type="Self.EventRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventRider">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventRiderRoute_EventRider">
+          <End Role="EventRider" Type="Self.EventRider" Multiplicity="1" />
+          <End Role="EventRiderRoute" Type="Self.EventRiderRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventRider">
+              <PropertyRef Name="EventRiderID" />
+            </Principal>
+            <Dependent Role="EventRiderRoute">
+              <PropertyRef Name="EventRiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventRiderRoute_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="EventRiderRoute" Type="Self.EventRiderRoute" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="EventRiderRoute">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteVertex_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="RouteVertex" Type="Self.RouteVertex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="RouteVertex">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DonationPortalModelStoreContainer">
+          <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventRider" EntityType="Self.EventRider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventRiderRoute" EntityType="Self.EventRiderRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RouteVertex" EntityType="Self.RouteVertex" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EventRider_Event" Association="Self.FK_EventRider_Event">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="EventRider" EntitySet="EventRider" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventRiderRoute_EventRider" Association="Self.FK_EventRiderRoute_EventRider">
+            <End Role="EventRider" EntitySet="EventRider" />
+            <End Role="EventRiderRoute" EntitySet="EventRiderRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventRiderRoute_Route" Association="Self.FK_EventRiderRoute_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="EventRiderRoute" EntitySet="EventRiderRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteVertex_Route" Association="Self.FK_RouteVertex_Route">
+            <End Role="Route" EntitySet="Route" />
+            <End Role="RouteVertex" EntitySet="RouteVertex" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DonationPortalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="EventID" />
+          </Key>
+          <Property Name="EventID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UrlSlug" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="EventRiders" Relationship="Self.FK_EventRider_Event" FromRole="Event" ToRole="EventRider" />
+        </EntityType>
+        <EntityType Name="EventRider">
+          <Key>
+            <PropertyRef Name="EventRiderID" />
+          </Key>
+          <Property Name="EventRiderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Event" Relationship="Self.FK_EventRider_Event" FromRole="EventRider" ToRole="Event" />
+          <NavigationProperty Name="Routes" Relationship="Self.EventRiderRoute" FromRole="EventRider" ToRole="Route" />
+          <Property Name="UrlSlug" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MapLatitude" Type="Double" Nullable="false" />
+          <Property Name="MapLongitude" Type="Double" Nullable="false" />
+          <Property Name="MapZoom" Type="Byte" Nullable="false" />
+          <Property Name="MarkerLatitude" Type="Double" Nullable="false" />
+          <Property Name="MarkerLongitude" Type="Double" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Route">
+          <Key>
+            <PropertyRef Name="RouteID" />
+          </Key>
+          <Property Name="RouteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Color" Type="String" MaxLength="6" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="RouteVertexes" Relationship="Self.FK_RouteVertex_Route" FromRole="Route" ToRole="RouteVertex" />
+          <NavigationProperty Name="EventRiders" Relationship="Self.EventRiderRoute" FromRole="Route" ToRole="EventRider" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UrlSlug" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="RouteVertex">
+          <Key>
+            <PropertyRef Name="RouteVertexID" />
+          </Key>
+          <Property Name="RouteVertexID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="RouteID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Route" Relationship="Self.FK_RouteVertex_Route" FromRole="RouteVertex" ToRole="Route" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_EventRider_Event">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="EventRider" Type="Self.EventRider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="EventID" />
+            </Principal>
+            <Dependent Role="EventRider">
+              <PropertyRef Name="EventID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RouteVertex_Route">
+          <End Role="Route" Type="Self.Route" Multiplicity="1" />
+          <End Role="RouteVertex" Type="Self.RouteVertex" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Route">
+              <PropertyRef Name="RouteID" />
+            </Principal>
+            <Dependent Role="RouteVertex">
+              <PropertyRef Name="RouteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EventRiderRoute">
+          <End Role="EventRider" Type="Self.EventRider" Multiplicity="*" />
+          <End Role="Route" Type="Self.Route" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="DonationPortalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Events" EntityType="Self.Event" />
+          <EntitySet Name="EventRiders" EntityType="Self.EventRider" />
+          <EntitySet Name="Routes" EntityType="Self.Route" />
+          <EntitySet Name="RouteVertexes" EntityType="Self.RouteVertex" />
+          <AssociationSet Name="FK_EventRider_Event" Association="Self.FK_EventRider_Event">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="EventRider" EntitySet="EventRiders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RouteVertex_Route" Association="Self.FK_RouteVertex_Route">
+            <End Role="Route" EntitySet="Routes" />
+            <End Role="RouteVertex" EntitySet="RouteVertexes" />
+          </AssociationSet>
+          <AssociationSet Name="EventRiderRoute" Association="Self.EventRiderRoute">
+            <End Role="EventRider" EntitySet="EventRiders" />
+            <End Role="Route" EntitySet="Routes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DonationPortalModelStoreContainer" CdmEntityContainer="DonationPortalEntities">
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="DonationPortalModel.Event">
+              <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UrlSlug" ColumnName="UrlSlug" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventRiders">
+            <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
+              <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="MarkerLongitude" ColumnName="MarkerLongitude" />
+                <ScalarProperty Name="MarkerLatitude" ColumnName="MarkerLatitude" />
+                <ScalarProperty Name="MapZoom" ColumnName="MapZoom" />
+                <ScalarProperty Name="MapLongitude" ColumnName="MapLongitude" />
+                <ScalarProperty Name="MapLatitude" ColumnName="MapLatitude" />
+                <ScalarProperty Name="UrlSlug" ColumnName="UrlSlug" />
+                <ScalarProperty Name="EventRiderID" ColumnName="EventRiderID" />
+                <ScalarProperty Name="EventID" ColumnName="EventID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Routes">
+            <EntityTypeMapping TypeName="DonationPortalModel.Route">
+              <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="UrlSlug" ColumnName="UrlSlug" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RouteVertexes">
+            <EntityTypeMapping TypeName="DonationPortalModel.RouteVertex">
+              <MappingFragment StoreEntitySet="RouteVertex">
+                <ScalarProperty Name="Order" ColumnName="Order" />
+                <ScalarProperty Name="RouteVertexID" ColumnName="RouteVertexID" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EventRiderRoute" TypeName="DonationPortalModel.EventRiderRoute" StoreEntitySet="EventRiderRoute">
+            <EndProperty Name="EventRider">
+              <ScalarProperty Name="EventRiderID" ColumnName="EventRiderID" />
+            </EndProperty>
+            <EndProperty Name="Route">
+              <ScalarProperty Name="RouteID" ColumnName="RouteID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -88,6 +88,10 @@ function cSnapToRoute(map) {
     **/
 	this.loadRouteData = function () {
 		self.routePixels = new Array();
+		// this has a bug.  it will allow snapping to the "line" between the end of one line and the start of the next.
+		// this isn't a big deal with our current Sebring route, and shouldn't be a problem with A -> B routes, 
+		// so we'll loop back when a fix is needed.
+		// to fix, we will need to store a separate set of pixels for each line.  then we need to examine each set individually.
 		for (var lineIndex = 0; lineIndex < self._oPolylines.length; lineIndex++) {
 			for (var i = 0; i < self._oPolylines[lineIndex].getPath().length; i++) {
 				var Px = self.normalProj.fromLatLngToPoint(self._oPolylines[lineIndex].getPath().getAt(i));

@@ -22,14 +22,30 @@
 		<sync todir="${target}" includeEmptyDirs="true" failonerror="true" overwrite="true">
 			<fileset dir="DonationPortal.Web\obj\${configuration}\Package\PackageTmp">
 			</fileset>
+			<preserveintarget>
+				<include name="creative-templates/"/>
+				<include name="connectionStrings.config"/> <!-- don't delete the file with our connection strings. -->
+				<include name="Web.config"/>
+			</preserveintarget>
 		</sync>
-		
+
 		<sync todir="${target}/ui" includeEmptyDirs="true" failonerror="true" overwrite="true">
 			<fileset dir="DonationPortal.Web/ui">
 			</fileset>
 		</sync>
+
+		<sync todir="${target}/creative-templates" includeEmptyDirs="true" failonerror="true" overwrite="true">
+			<fileset dir="creative-templates">
+			</fileset>
+		</sync>
 		
 		<copy file="DonationPortal.Web\obj\${configuration}\TransformWebConfig\transformed\Web.config" tofile="${target}\web.config" overwrite="true" verbose="true"/>
+
+		<dn:msbuild buildfile="DonationPortal.Web\DonationPortal.Web.csproj">
+			<target name="Clean"/>
+			<property name="Configuration" value="${configuration}"/>
+		</dn:msbuild>
+		
 	</target>
 	
 </project>
