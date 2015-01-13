@@ -1,0 +1,1426 @@
+/* NOTES */
+/* When necessary import CSS3 web fonts early for faster loading */
+/* Steps to disabling responsiveness - http://getbootstrap.com/getting-started/#disable-responsive */
+
+/*#####################################################################################
+CSS RESET
+#######################################################################################*/
+
+/* typography */
+h1 { font-size: 2em;margin: 0.67em 0; }
+h2 { font-size: 1.5em;margin: 0.83em 0; }
+h3 { font-size: 1.17em;margin: 1em 0; }
+h4 { font-size: 1em;margin: 1.33em 0; }
+h5 { font-size: 0.83em;margin: 1.67em 0; }
+h6 { font-size: 0.75em;margin: 2.33em 0; }
+abbr[title] { border-bottom: 1px dotted; }
+b, strong { font-weight: bold; }
+blockquote { margin: 1em 40px; }
+dfn { font-style: italic; }
+hr { display: block; height: 1px; border: 0; border-top:1px solid #ccc; margin: 1em 0; padding: 0; }
+mark { background: #ff0; color: #000;}
+pre, code, kbd, samp { font-family: monospace,serif; _font-family: 'courier new', monospace; font-size: 1em; }
+pre { white-space: pre; white-space: pre-wrap; word-wrap: break-word; }
+q { quotes: none; }
+small { font-size: 80%; }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sup { top: -0.5em; }
+sub { bottom: -0.25em; }
+::-moz-selection { background: #E2F5FB; color: #000; text-shadow: none; }
+::selection { background: #E2F5FB; color: #000; text-shadow: none; }
+
+/* text positioning */
+.txt-left{text-align:left;}
+.txt-right {text-align:right;}
+.txt-center {text-align:center;}
+.txt-justify {text-align:justify;}
+
+/* visibility */
+.hidden { display: none !important; visibility: hidden; }
+.visuallyhidden { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+.visuallyhidden.focusable:active, .visuallyhidden.focusable:focus { clip: auto; height: auto; margin: 0; overflow: visible; position: static; width: auto; }
+.invisible { visibility: hidden; }
+
+/*#####################################################################################
+CUSTOM LESS MIXINS
+#######################################################################################*/
+
+/* Retina images - background-image support with non-retina fall back */
+/* Example: .retina-image("/img/bg-1x.png", "/img/bg-2x.png", 100px, 100px); */
+.retina-image(@file-1x, @file-2x, @width-1x, @height-1x) {
+  background-image: url("@{file-1x}");
+
+  @media
+  only screen and (-webkit-min-device-pixel-ratio: 2),
+  only screen and (   min--moz-device-pixel-ratio: 2),
+  only screen and (     -o-min-device-pixel-ratio: 2/1),
+  only screen and (        min-device-pixel-ratio: 2),
+  only screen and (                min-resolution: 192dpi),
+  only screen and (                min-resolution: 2dppx) {
+	background-image: url("@{file-2x}");
+	background-size: @width-1x @height-1x;
+  }
+}
+
+/* Reset filters for IE */
+.reset-filter() {
+  filter: e(%("progid:DXImageTransform.Microsoft.gradient(enabled = false)"));
+}
+
+/* PIE filter for IE8 */
+.pie-filter() {
+  behavior: url(ui/scripts/vendor/pie-1.0.0/pie.htc);
+}
+
+/* IE7 inline-block */
+.ie7-inline-block() {
+  *display: inline;
+  *zoom: 1;
+}
+/* modify the grid structure of a row - Note: must be added to "row" class */
+/* Example: .row {.grid-padding(20px);} */
+.grid-padding(@padding) {
+  margin-left:-@padding;
+  margin-right:-@padding;
+  > [class*='col-'] {
+    padding-right:@padding;
+    padding-left:@padding;
+  }
+}
+
+/*#####################################################################################
+CUSTOM VARIABLES/OVERRIDES
+#######################################################################################*/
+
+@font-family-base: Arial, Helvetica, sans-serif;
+@white : #fff;
+
+.secondary-grid { /* modify the grid structure within a row (Example: <div class="row secondary-grid">...</div> */
+  margin-left:-10px;
+  margin-right:-10px;
+  > [class*='col-'] {
+    padding-right:10px;
+    padding-left:10px;
+  }
+}
+
+/*#####################################################################################
+UNIVERSAL STYLES
+#######################################################################################*/
+
+body {
+  font-family:@font-family-base;
+  color:#333;
+}
+
+/* links */
+a, a:visited {color:@link-color;text-decoration:none;}
+a:hover {color:@link-hover-color;text-decoration:underline;}
+a:focus {
+  outline:none;
+  -webkit-tap-highlight-color: rgba(0,0,0,0); /* remove gray highlight on mobile devices */
+}
+
+/* typography */
+h1,h2,h3,h4,h5,h6 { color:#333; font-family: @font-family-base; }
+
+h1 { /* h1 styles */ }
+h2 { /* h2 styles */ }
+h3 { /* h3 styles */ }
+h4 { /* h4 styles */ }
+h5,h6 { /* h5-6 styles */ }
+p { /* paragraph styles */ }
+
+header {
+  h1, h2, h3, h4, h5, h6 {margin-top:0;}
+}
+
+.photoLeft {float:left;margin:5px 15px 10px 0;}
+.photoRight {float:right;margin:5px 0 15px 10px;}
+
+figure {margin:0;}
+
+.relative {position:relative;}
+.absolute {position:absolute;}
+
+/* bullet lists */
+li {margin:5px 0;}
+ul {list-style-type:disc;}
+ul.noBullet {list-style:none;margin:0;padding:0;}
+ul.noBullet li {padding:2px 0;}
+
+/* layout */
+.block {display:block;}
+.inline-block {display:inline-block;}
+.inline {display:inline;}
+
+/* arrow link styles
+-------------------------------------------------------------------------------------*/
+
+a.arrow:after { /* arrow link */
+	content:"\25B6";
+	display:inline-block;
+	margin-left:5px;
+	font-size:12px;
+}
+
+a.back:before { /* back arrow link */
+	content:"\25C0";
+	display:inline-block;
+	margin-right:5px;
+	font-size:12px;
+}
+
+
+/* Button styles
+-------------------------------------------------------------------------------------*/
+
+a.button { /* generic button link */
+	display:inline-block;
+	background:#6dd8ff;
+	margin:5px 0 15px 0;
+	padding:10px 20px;
+	position: relative;
+	border: solid 1px #84bbfc;
+	text-decoration: none;
+	text-align: center;
+	outline: none;
+	vertical-align: middle;
+	border-radius:@border-radius-base;
+	font-size:14px;
+	color:#00467f;
+	white-space:nowrap;
+
+	.transition(background .1s linear);
+	text-shadow: 1px 1px 1px #fff;
+
+	&:hover {background:#61c1e4;}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+/*#####################################################################################
+INTERFACE SHELL STYLES
+#######################################################################################*/
+
+.main-container {
+	margin:0 auto;
+}
+
+/* Header styles
+-------------------------------------------------------------------------------------*/
+
+.header-container { /* global header outer container */
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+  .clearfix();
+
+  > .container { /* tier content inner container */
+	/* note: add a set width if non-responsive */
+	position:relative;
+	.clearfix();
+  }
+
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+/* HomeContent styles
+-------------------------------------------------------------------------------------*/
+
+.home-container { /* home content outer container */
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+  .clearfix();
+
+  	> .container { /* home content inner container */
+		/* note: add a set width if non-responsive */
+	  	position:relative;
+		.clearfix();
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+/* TierContent styles
+-------------------------------------------------------------------------------------*/
+
+.tier-container { /* tier content outer container */
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+  .clearfix();
+
+	> .container { /* tier content inner container */
+	  /* note: add a set width if non-responsive */
+	  position:relative;
+	  .clearfix();
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+
+/* Utility styles
+-------------------------------------------------------------------------------------*/
+
+.utility-container { /* utility outer container */
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+  .clearfix();
+
+	> .container { /* utility inner container */
+	  /* note: add a set width if non-responsive */
+	  position:relative;
+	  .clearfix();
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+
+/* StackedContainer styles
+-------------------------------------------------------------------------------------*/
+
+.stacked-container { /* generic outer container */
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+  .clearfix();
+
+	> .container { /* generic inner container */
+	  /* note: add a set width if non-responsive */
+	  position:relative;
+	  .clearfix();
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+/*#####################################################################################
+NAVIGATION STYLES
+#######################################################################################*/
+
+a.skip-nav {position:absolute;left:0;top:-9999px;}
+
+a.skip-nav:active,
+a.skip-nav:focus,
+a.skip-nav:hover {
+  top: 0;
+}
+
+/* Global Nav
+-------------------------------------------------------------------------------------*/
+
+.global-nav-container {
+	font-size:12px;
+	text-transform:uppercase;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight:bold;
+	position:absolute;
+	right:0;
+	top:10px;
+
+	a {
+		color:#fff;
+		text-decoration:none;
+
+		&:hover {text-decoration:underline;}
+	}
+
+	> ul {
+		margin:0;
+		padding-left:0;
+		list-style:none;
+
+		li {
+			border-left:1px solid #fff;
+			display:inline-block;
+			.ie7-inline-block();
+			vertical-align:middle;
+			padding:0 15px;
+
+			&.active {
+				a {color:#2e3340;}
+			}
+			&:first-child {border-left:none;}
+		}
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+
+
+/* T1 Navigation
+-------------------------------------------------------------------------------------*/
+
+.t1-nav-container {
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+  .clearfix();
+
+  > .container { /* tier content inner container */
+	/* note: add a set width if non-responsive */
+	position:relative;
+	.clearfix();
+  }
+
+	.t1-nav {
+		margin:0;
+		padding:0;
+		list-style:none;
+
+		li {
+			font-size:15px;
+			float:left;
+			margin:0;
+			padding:0;
+			position:relative;
+
+			a {
+				padding:14px 20px;
+				display:inline-block;
+
+				&:hover,
+				&.hover {
+					text-decoration:none;
+				}
+
+				&.active {
+					text-decoration:none;
+
+				  &:hover {}
+				}
+
+			}
+
+		}
+
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+/* DHTML Menu
+-------------------------------------------------------------------------------------*/
+
+.dhtml-menu-container {
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+  .clearfix();
+
+  > .container { /* tier content inner container */
+	/* note: add a set width if non-responsive */
+	position:relative;
+	.clearfix();
+  }
+
+  .collapsed-menu { /* container for collapsible menu */
+	display:none;
+  }
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+
+/* T2Nav Styles
+-------------------------------------------------------------------------------------*/
+
+.t2-nav-container { /* t2Nav container */
+	display:block;
+	float:left;
+	padding: 0;
+
+	ul { /* t2Nav initial ul styles */
+		margin:0;
+		padding:0;
+		list-style:none;
+
+		li { /* t2Nav initial li styles */
+		  margin:0;
+		  padding:0;
+		}
+
+	}
+
+	.t2-nav { /* t2Nav styles */
+		display:block;
+
+		> li {
+			margin: 10px 0 0 0;
+			padding: 0;
+
+			&:first-child { /* t2Nav first-child styles */
+				margin-top:0;
+			}
+
+			a {
+				display: block;
+				padding: 15px 20px 15px 20px;
+				text-decoration: none;
+				color: @white;
+
+				&:hover { /* t2Nav hover styles */ }
+
+			}
+
+			&.active { /* t2Nav active styles */
+				a {}
+			}
+
+		}
+
+		.t3-nav { /* t3Nav styles */
+			display:block;
+
+			> li {
+				margin: 0;
+				padding: 0;
+
+				&:first-child { /* t3Nav first-child styles */
+					margin-top:0;
+				}
+
+				a {
+					display: block;
+					padding: 15px 20px 15px 40px;
+					text-decoration: none;
+					color: @white;
+
+					&:hover { /* t3Nav hover styles */ }
+
+				}
+
+				&.active { /* t3Nav active styles */
+					a {}
+				}
+
+			}
+
+			.t4-nav { /* t4Nav styles */
+				display:block;
+
+				> li {
+					margin: 0;
+					padding: 0;
+
+					&:first-child { /* t4Nav first-child styles */
+						margin-top:0;
+					}
+
+					a {
+						display: block;
+						padding: 15px 20px 15px 60px;
+						text-decoration: none;
+						color: @white;
+
+						&:hover { /* t4Nav hover styles */ }
+
+					}
+
+					&.active { /* t4Nav active styles */
+						a {}
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+/* Pagination Styles
+-------------------------------------------------------------------------------------*/
+
+.pagination {
+	margin:10px 0;
+	padding:0;
+	list-style:none;
+	text-align:center;
+
+	li {
+		margin:0 2px;
+		padding:0;
+		display:inline-block;
+
+		&.prev a,
+		&.next a {
+			display:inline-block;
+			text-decoration:none;
+			vertical-align:middle;
+		}
+
+		&.prev a {
+			&:before {
+				content:"\25C0";
+			}
+		}
+		&.next a {
+			&:before {
+				content:"\25B6";
+			}
+		}
+
+		&.prev.inactive a {
+		  background-position: 0 -25px;
+		  cursor:default;
+		}
+		&.next.inactive a {
+		  background-position: -25px -25px;
+		  cursor:default;
+		}
+
+	}
+}
+
+
+/*#####################################################################################
+FOOTER STYLES
+#######################################################################################*/
+
+
+.footer-container { /* footer outer container */
+  display:block;
+  margin:0;
+  padding:0;
+  position:relative;
+
+  > .container { /* tier content inner container */
+	/* note: add a set width if non-responsive */
+	position:relative;
+	.clearfix();
+  }
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+/*#####################################################################################
+LAYOUT ELEMENTS / MODULES
+#######################################################################################*/
+
+
+/* Tabs Styles (jquery UI) http://jqueryui.com/tabs/
+-------------------------------------------------------------------------------------*/
+.tab-container { /* tab container */
+	margin:5px 0 20px 0;
+	display:block;
+
+	.tab-nav { /* initial tab ul styles */
+		padding:0;
+
+		> li { /* initial tab li styles */
+			background:@gray-light;
+
+			a { /* initial tab link styles */
+			&:hover {}
+		  }
+
+		  &:first-child { /* first-child tab styles */ }
+
+		  &.ui-state-default { /* default tab styles */
+			a {}
+		  }
+
+		  &.ui-state-hover { /* hover tab styles */
+			a {}
+		  }
+
+		  &.ui-state-active { /* active tab styles */
+			  background:@gray-lighter;
+			  a {}
+		  }
+
+		}
+
+	}
+
+	.tab-content { /* tab content styles */
+	  background:@gray-lighter;
+	}
+
+	&.no-js { /* list styles here if no js detected */ }
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+
+/* Accordion Styles (jquery UI) http://jqueryui.com/accordion/
+-------------------------------------------------------------------------------------*/
+
+.accordion-container { /* accordion container */
+	margin:5px 0 20px 0;
+	display:block;
+
+	.ui-accordion-header { /* accordion headers */
+		background:@gray-light;
+
+		&:first-child { /* first-child accordion styles */ }
+
+		&.ui-state-default { /* default accordion styles */ }
+
+		&.ui-state-hover { /* hover accordion styles */ }
+
+		&.ui-state-active { /* active accordion styles */
+			background:@gray-light;
+		}
+
+		.ui-icon {
+			font-family: FontAwesome;
+			text-indent:0;
+			text-align:center;
+			width:inherit;
+			height:inherit;
+			line-height:1;
+			&.icon-accordion-close {
+				&:before {
+					content:"\f068";
+					font-size:15px;
+				}
+			}
+			&.icon-accordion-open {
+				&:before {
+					content:"\f067";
+					font-size:15px;
+				}
+			}
+		}
+	}
+
+	.accordion-content,
+	.ui-accordion-content { /* accordion content styles */
+		background:@gray-lighter;
+	}
+
+  &.no-js { /* list styles here if no js detected */ }
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+
+/* Carousel Styles (caro.fred.sel) http://caroufredsel.dev7studios.com/
+-------------------------------------------------------------------------------------*/
+
+.carousel-container {
+	display:block;
+	margin:0;
+	padding:0;
+	position:relative;
+	.clearfix();
+
+	.carousel { /* carousel styles */
+		> div,
+		.slide {
+			display: block;
+			float:left;
+			padding: 0;
+			margin:0;
+		}
+        &.no-js {
+          > div,
+          .slide { /* hide all slides except first one */
+            display: none;
+            &:first-child {display:block;}
+          }
+        }
+	}
+
+	.carousel-nav { /* carousel nav styles */
+		position:absolute;
+		top:10px;
+		right:10px;
+
+		a {
+		  display:inline-block;
+		  width:14px;
+		  height:14px;
+		  margin-right:10px;
+		  border-radius:10px;
+		  background: @white;
+
+		  span {display:none;}
+		  &:hover {background: #4a94d3;}
+		  &.selected {background: #025aa5;}
+		}
+
+	}
+
+  /* Media Queries and Conditionals */
+
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
+  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
+  .lt-ie9 & { /* list less than ie9 styles here */ }
+  .lt-ie8 & { /* list less than ie8 styles here */ }
+
+  .no-js & { /* list no-js styles here */ }
+
+}
+
+
+/*#####################################################################################
+FORM STYLES
+#######################################################################################*/
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+textarea {
+  padding:3px 5px;
+  position:relative;
+  border:solid 1px #dcdcdc;
+  text-decoration:none;
+  text-align:left;
+  background:@gray-lighter;
+  color:@gray;
+  outline:none;
+  vertical-align:middle;
+  border-radius:4px;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  margin-left:5px;
+}
+
+input[type="button"] {
+  background:@link-color;
+  margin:@line-height-computed / 2 0 @line-height-computed / 2 0;
+  padding:5px 15px;
+  position:relative;
+  border:1px solid rgba(255, 255, 255, .1);
+  text-decoration:none !important;
+  text-align:center;
+  font-weight:normal;
+  outline:none;
+  vertical-align:middle;
+  border-radius:2px;
+  display: inline-block;
+  .ie7-inline-block();
+  font-size:12px;
+  color:@white;
+  white-space:nowrap;
+  text-transform:uppercase;
+
+  .transition(background .1s linear);
+
+  &:hover {
+	background:@link-hover-color;
+	color:@white !important;
+  }
+}
+
+fieldset {
+  margin:10px 0;
+}
+
+fieldset:first-child {
+  margin-top:0;
+}
+
+input, select {
+  //  &.xsmall {
+  //    max-width:35px;
+  //    min-width:35px;
+  //    width:35px;
+  //  }
+  //  &.small {
+  //    max-width:75px;
+  //    min-width:75px;
+  //    width:75px;
+  //  }
+  //  &.medium {
+  //    max-width:200px;
+  //    min-width:200px;
+  //    width:200px;
+  //  }
+  //  &.large {
+  //    max-width:250px;
+  //    min-width:250px;
+  //    width:250px;
+  //  }
+  //  &.xlarge {
+  //    max-width:300px;
+  //    min-width:300px;
+  //    width:300px;
+  //  }
+  //  &.xxlarge {
+  //    max-width:400px;
+  //    min-width:400px;
+  //    width:400px;
+  //  }
+}
+
+textarea {
+  //  height:50px;
+  //  min-width:300px;
+  //
+  //  &.large {
+  //    min-width:440px;
+  //    width:440px;
+  //  }
+}
+
+/* formContainer styles
+------------------------------------------------------- */
+
+.formContainer label {
+  display: inline-block;
+  vertical-align:top;
+  margin-right:20px;
+}
+
+.formContainer .req {
+  color:#660000;
+}
+
+.formContainer .formErrors {
+  display:none;
+}
+
+.formContainer .formDisclaimer {
+  color:@gray-light;
+  font-size:11px;
+}
+
+/*#####################################################################################
+CUSTOM CHECKBOX STYLES
+#######################################################################################*/
+
+:root input.custom[type=checkbox] {
+  /* original check box are push outside the viexport */
+  position: absolute;
+  left: -1000em;
+  display:inline-block;
+
+  &+ label:before {
+	content: "";
+	display: inline-block;
+	width  : 16px;
+	height : 16px;
+	margin : 0 .5em 0 0;
+	background: red;
+
+	/* The following is used to adjust the position of
+	   the check boxes on the text baseline */
+
+	vertical-align: bottom;
+	position: relative;
+	bottom: 2px;
+  }
+
+  &:checked + label:before,
+  &:focus + label:before {
+	background:green;
+  }
+
+  &:disabled + label:before {
+	background:gray;
+  }
+
+  &:checked:disabled + label:before {
+	background:yellow;
+  }
+
+}
+
+/*#####################################################################################
+CUSTOM RADIO STYLES
+#######################################################################################*/
+
+:root input.custom[type=radio] {
+  /* original check box are push outside the viexport */
+  position: absolute;
+  left: -1000em;
+  display:inline-block;
+
+  &+ label:before {
+	content: "";
+	display: inline-block;
+	width  : 16px;
+	height : 16px;
+	margin : 0 .5em 0 0;
+	background: red;
+
+	/* The following is used to adjust the position of
+	   the check boxes on the text baseline */
+
+	vertical-align: bottom;
+	position: relative;
+	bottom: 2px;
+  }
+
+  &:checked + label:before,
+  &:focus + label:before {
+	background:green;
+  }
+
+  &:disabled + label:before {
+	background:gray;
+  }
+
+  &:checked:disabled + label:before {
+	background:yellow;
+  }
+
+}
+
+/*#####################################################################################
+SELECTBOXIT STYLES
+#######################################################################################*/
+
+/*
+ * jquery.selectBoxIt.css 3.6.0
+ * Author: @gregfranko
+ */
+
+/*
+  Common CSS Properties
+  ---------------------
+  These properties will be applied to any themes that you use
+*/
+
+/* SelectBoxIt container */
+.selectboxit-container {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* SelectBoxIt container full width overwrite */
+select.form-control + .selectboxit-container {
+  width:100%;
+  display:block;
+  .selectboxit {width:100%;}
+}
+
+/* Styles that apply to all SelectBoxIt elements */
+.selectboxit-container * {
+  font: 14px Helvetica, Arial;
+  /* Prevents text selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-none;
+  ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  outline: none;
+  white-space: nowrap;
+}
+
+/* Button */
+.selectboxit-container .selectboxit {
+  width: 220px; /* Inherit width of the select menu */
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  display: block;
+  position: relative;
+
+  //  &.xsmall {
+  //    max-width:35px;
+  //    min-width:35px;
+  //  }
+  //  &.small {
+  //    max-width:75px;
+  //    min-width:75px;
+  //  }
+  //  &.medium {
+  //    max-width:200px;
+  //    min-width:200px;
+  //  }
+  //  &.large {
+  //    max-width:250px;
+  //    min-width:250px;
+  //  }
+  //  &.xlarge {
+  //    max-width:300px;
+  //    min-width:300px;
+  //  }
+  //  &.xxlarge {
+  //    max-width:400px;
+  //    min-width:400px;
+  //  }
+
+  &.input-block-level {
+	width:100% !important;
+	display:block;
+  }
+
+}
+
+/* Height and Vertical Alignment of Text */
+.selectboxit-container span, .selectboxit-container .selectboxit-options a {
+  height: 30px; /* Height of the drop down */
+  line-height: 30px; /* Vertically positions the drop down text */
+  display: block;
+}
+
+/* Focus pseudo selector */
+.selectboxit-container .selectboxit:focus {
+  outline: 0;
+}
+
+/* Disabled Mouse Interaction */
+.selectboxit.selectboxit-disabled, .selectboxit-options .selectboxit-disabled {
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  cursor: default;
+}
+
+/* Button Text */
+.selectboxit-text {
+  text-indent: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  float: left;
+}
+
+.selectboxit .selectboxit-option-icon-container {
+  margin-left: 5px;
+}
+
+/* Options List */
+.selectboxit-container .selectboxit-options {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 100%;  /* Minimum Width of the dropdown list box options */
+  *width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  overflow-x: hidden;
+  overflow-y: auto;
+  cursor: pointer;
+  display: none;
+  z-index: 9999999999999;
+  border-radius: 6px;
+  text-align: left;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+}
+
+/* Individual options */
+.selectboxit-option .selectboxit-option-anchor{
+  padding: 0 2px;
+}
+
+/* Individual Option Hover Action */
+.selectboxit-option .selectboxit-option-anchor:hover {
+  text-decoration: none;
+}
+
+/* Individual Option Optgroup Header */
+.selectboxit-option, .selectboxit-optgroup-header {
+  text-indent: 5px; /* Horizontal Positioning of the select box option text */
+  margin: 0;
+  list-style-type: none;
+}
+
+/* The first Drop Down option */
+.selectboxit-option-first {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+}
+
+/* The first Drop Down option optgroup */
+.selectboxit-optgroup-header + .selectboxit-option-first {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+/* The last Drop Down option */
+.selectboxit-option-last {
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+/* Drop Down optgroup headers */
+.selectboxit-optgroup-header {
+  font-weight: bold;
+}
+
+/* Drop Down optgroup header hover psuedo class */
+.selectboxit-optgroup-header:hover {
+  cursor: default;
+}
+
+/* Drop Down down arrow container */
+.selectboxit-arrow-container {
+  /* Positions the down arrow */
+  width: 30px;
+  position: absolute;
+  right: 0;
+}
+
+/* Drop Down down arrow */
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow {
+  /* Horizontally centers the down arrow */
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  left: 0;
+}
+
+/* Drop Down down arrow for jQueryUI and jQuery Mobile */
+.selectboxit .selectboxit-arrow-container .selectboxit-arrow.ui-icon {
+  top: 30%;
+}
+
+/* Drop Down individual option icon positioning */
+.selectboxit-option-icon-container {
+  float: left;
+}
+
+.selectboxit-container .selectboxit-option-icon {
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+
+/* Drop Down individual option icon positioning */
+.selectboxit-option-icon-url {
+  width: 18px;
+  background-size: 18px 18px;
+  background-repeat: no-repeat;
+  height: 100%;
+  background-position: center;
+  float: left;
+}
+
+/* jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
+.jqueryui .ui-icon {
+  background-color: inherit;
+}
+
+/* Another jQueryUI and jQuery Mobile compatability fix - Feel free to remove this style if you are not using jQuery Mobile */
+.jqueryui .ui-icon-triangle-1-s {
+  background-position: -64px -16px;
+}
+
+/*
+  Default Theme
+  -------------
+  Note: Feel free to remove all of the CSS underneath this line if you are not using the default theme
+*/
+.selectboxit-btn {
+  background-color: #f5f5f5;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+}
+
+.selectboxit-btn.selectboxit-enabled:hover,
+.selectboxit-btn.selectboxit-enabled:focus,
+.selectboxit-btn.selectboxit-enabled:active {
+  color: #333333;
+  background-color: #e6e6e6;
+}
+
+.selectboxit-btn.selectboxit-enabled:hover,
+.selectboxit-btn.selectboxit-enabled:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+}
+
+.selectboxit-default-arrow {
+  width: 0;
+  height: 0;
+  border-top: 4px solid #000000;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+.selectboxit-list {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.selectboxit-list .selectboxit-option-anchor {
+  color: #333333;
+}
+
+.selectboxit-list > .selectboxit-focus > .selectboxit-option-anchor {
+  color: #ffffff;
+  background-color: #0081c2;
+  background-image: -moz-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0077b3));
+  background-image: -webkit-linear-gradient(top, #0088cc, #0077b3);
+  background-image: -o-linear-gradient(top, #0088cc, #0077b3);
+  background-image: linear-gradient(to bottom, #0088cc, #0077b3);
+  background-repeat: repeat-x;
+}
+
+.selectboxit-list > .selectboxit-disabled > .selectboxit-option-anchor {
+  color: #999999;
+}

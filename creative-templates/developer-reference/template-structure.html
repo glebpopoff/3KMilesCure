@@ -1,0 +1,145 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <title>:: Primacy Front-End Template Structure ::</title>
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="msapplication-tap-highlight" content="no" />
+
+  <link rel="stylesheet" type="text/css" href="../ui/css/main-styles.css">
+
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png" />
+  <link rel="icon" href="../favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+<a class="skip-nav" href="#skipToContent" role="link"  tabIndex="0">Skip Navigation</a>
+
+<div class="main-container container">
+<!-- main-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+  <article class="home-container" id="main" role="main">
+  <!-- home-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+  	
+    <section class="home-content" id="skipToContent">
+    <!-- home-content starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <h1>Template Structure</h1>
+		<h2>_developer-less</h2>
+
+			<blockquote style="border-left:5px solid green;">
+				<p><strong>developer-styles.less</strong></p>
+				<p>Main developer stylesheet</p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid green;">
+				<p><strong>developer-breakpoints.less</strong></p>
+				<p>Main media queries and breakpoint stylesheet</p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid darkorange;">
+				<p><strong>developer-bootstrap.less</strong></p>
+				<p>Importing of bootstrap.less and developer libraries.</p>
+				<p><small><strong>Compiles all .less libraries into bootstrap.css</strong></small></p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid darkorange;">
+				<p><strong>developer-responsive.less</strong></p>
+				<p>Importing of responsive.less libraries and developer-breakpoints styles.</p>
+				<p><small><strong>Compiles all .less libraries into responsive.css</strong></small></p>
+				<p><small>Simply comment out responsive.css from your HTML if the site is non-responsive</small></p>
+			</blockquote>
+
+			<blockquote>
+				<p><strong>developer-text.less</strong></p>
+				<p>Stylesheet for content, fonts, headings, etc. </p>
+			</blockquote>
+
+			<blockquote>
+				<p><strong>developer-forms.less</strong></p>
+				<p>Custom form element styling for input fields, select menu, textareas, etc.</p>
+			</blockquote>
+
+			<blockquote>
+				<p><strong>developer-mixins.less</strong></p>
+				<p>Custom tools to perform css operations and functions.</p>
+			</blockquote>
+
+			<blockquote>
+				<p><strong>developer-shadowbox.less</strong></p>
+				<p>Styling for shadowbox overlay</p>
+			</blockquote>
+
+			<blockquote>
+				<p><strong>jquery-ui-1.10.4.custom.less</strong></p>
+				<p>Non-themed stylesheet for jquery ui elements, tabs, accordions, etc.</p>
+			</blockquote>
+
+			<blockquote>
+				<p><strong>font-awesome.less</strong></p>
+				<p>Stylesheet for icon fonts</p>
+			</blockquote>
+
+		<h2>_bootstrap-less</h2>
+
+			<blockquote style="border-left:5px solid green;">
+				<p><strong>variables.less</strong></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, omnis.</p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid darkorange;">
+				<p><strong>bootstrap.less</strong></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, omnis.</p>
+			</blockquote>
+
+		<h2>Scripts</h2>
+
+			<blockquote style="border-left:5px solid green;">
+				<p><strong>main.js</strong></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, omnis.</p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid green;">
+				<p><strong>client.app.js</strong></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, omnis.</p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid orange;">
+				<p><strong>client.navigation.js</strong></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, omnis.</p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid orange;">
+				<p><strong>client.userInterface.js</strong></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, omnis.</p>
+			</blockquote>
+
+			<blockquote style="border-left:5px solid orange;">
+				<p><strong>client.carousel.js</strong></p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, omnis.</p>
+			</blockquote>
+
+
+    <!-- home-content ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+  
+  <!-- home-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+  </article>
+  
+
+<!-- main-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</div>
+
+<script data-main="../ui/scripts/main" src="../ui/scripts/vendor/require/require.js"></script>
+
+</body>
+</html>
