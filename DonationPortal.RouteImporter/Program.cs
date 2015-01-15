@@ -16,8 +16,11 @@ namespace DonationPortal.RouteImporter
 			//var import = new CsvRouteImporter(1);
 			//import.Import(@"C:\github\3KMilesCure\DonationPortal.RouteImporter\Samples\sebring_racetrack.csv");
 
-			var import = new CsvRouteImporter(3);
-			import.Import(@"C:\github\3KMilesCure\DonationPortal.RouteImporter\Samples\sebring_long.csv");
+			//var import = new CsvRouteImporter(3);
+			//import.Import(@"C:\github\3KMilesCure\DonationPortal.RouteImporter\Samples\sebring_long.csv");
+
+			var import = new CsvRouteImporter(4);
+			import.Import(@"C:\github\3KMilesCure\DonationPortal.RouteImporter\Samples\farmington.csv");
 		}
 	}
 }

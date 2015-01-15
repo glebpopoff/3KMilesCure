@@ -25,11 +25,13 @@
     <script src="/ui/js/geoxml3.js"></script>
     <script type="text/javascript">
 
-        var eventSlug = 'sebring-12';
-        var riderSlug = 'sebring-12-hour-rider';
-
+        // todo, determine these based on the event page we're showing
+        var eventSlug = 'farmington';
+        var riderSlug = 'kevin';
+        
         function initialize() {
 
+            // retrieve basic information about the event rider (map default location and zoom, and marker default location)
             $.getJSON('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/').done(function (rider) {
 
                 var mapOptions = {
@@ -47,18 +49,27 @@
                     draggable: true
                 });
 
+                google.maps.event.addListener(marker, 'dragend', function (e) {
+
+                    document.getElementsByName('latitude')[0].value = e.latLng.lat();
+                    document.getElementsByName('longitude')[0].value = e.latLng.lng();
+                });
+
                 // when the map loads, it fires projection_changed.
                 // we need to wait until then for the snap to line functionality.
                 google.maps.event.addListenerOnce(map, "projection_changed", function () {
 
+                    // retrieve the routes associated with this rider
                     $.getJSON('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/routes').done(function (routes) {
 
                         var lines = [];
 
+                        // a rider may be riding on multiple routes throughout a race
                         for (var i = 0; i < routes.length; i++) {
 
                             var route = routes[i];
 
+                            // create a line for this route and draw it on the map
                             var line = new google.maps.Polyline({
                                 path: _.map(route.Vertices, function (vertex) { return new google.maps.LatLng(vertex.Latitude, vertex.Longitude); }),
                                 geodisc: true,
@@ -71,28 +82,21 @@
 
                             lines.push(line);
 
+                            // when the user clicks a line, move the donation marker there.
                             google.maps.event.addListener(lines[i], 'click', function (e) {
 
                                 marker.setPosition(e.latLng);
+
+                                document.getElementsByName('latitude')[0].value = e.latLng.lat();
+                                document.getElementsByName('longitude')[0].value = e.latLng.lng();
                             });
 
                         }
 
-                        var oSnap;
+                        // the map MUST have triggered the projection_changed event before starting to snap to route.
+                        var oSnap = new cSnapToRoute(map);
 
-                        google.maps.event.addListener(marker, 'dragstart', function () {
-
-                            oSnap = new cSnapToRoute(map);
-                            oSnap.init(map, marker, lines);
-                        });
-
-                        google.maps.event.addListener(marker, 'dragend', function () {
-
-                            if (oSnap) {
-                                oSnap.cancel();
-                            }
-
-                        });
+                        oSnap.init(map, marker, lines);
                     });
                 });
             });
@@ -100,9 +104,143 @@
 
         google.maps.event.addDomListener(window, 'load', initialize);
 
+        $.fn.serializeObject = function () {
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name] !== undefined) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+
+        $(function () {
+            $('form').submit(function (e) {
+
+                e.preventDefault();
+
+                var submission = $(this).serializeObject();
+
+                if (submission.presetDonation === 'other') {
+                    submission.donationAmount = submission.otherDonation;
+                } else {
+                    submission.donationAmount = submission.presetDonation;
+                }
+
+                delete submission.otherDonation;
+                delete submission.presentDonation;
+
+                $.post('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/donations', submission).done(function (response) {
+
+                    alert('thanks for your donation!');
+
+                    window.location.reload();
+
+                });
+            });
+        });
+
     </script>
 </head>
 <body>
-    <div id="map-canvas"></div>
+    <div style="width:800px; margin:0 auto;">
+        <form>
+            <h1>Setp 1: Donation Information</h1>
+
+            <div>
+                <label><input type="radio" name="presetDonation" value="25" />$25</label>
+                <label><input type="radio" name="presetDonation" value="50" />$50</label>
+                <label><input type="radio" name="presetDonation" value="75" />$75</label>
+                <label><input type="radio" name="presetDonation" value="100" />$100</label>
+                <label><input type="radio" name="presetDonation" value="other" />Other</label>
+            </div>
+            <div>
+                <label>Other amount:</label><br />
+                <input type="text" value="" name="otherDonation" />
+            </div>
+
+            <h1>Step 2: Location &amp; Messaging</h1>
+            <div>
+                <label>Write Message:</label>
+                <div id="map-canvas" style="height:600px;"></div>
+                <input type="text" name="latitude" />
+                <input type="text" name="longitude" />
+            </div>
+            <div>
+                <label>Write Message:</label><br />
+                <input type="text" value="" name="message" size="120" />
+            </div>
+
+            <h1>Step 3: Billing &amp; Payment Information</h1>
+
+            <div>
+                <label>First Name:</label><br />
+                <input type="text" value="" name="firstName" />
+            </div>
+            <div>
+                <label>Last Name:</label><br />
+                <input type="text" value="" name="lastName" />
+            </div>
+            <div>
+                <label>Street Address 1:</label><br />
+                <input type="text" value="" name="streetAddress1" />
+            </div>
+            <div>
+                <label>Street Address 2:</label><br />
+                <input type="text" value="" name="streetAddress2" />
+            </div>
+            <div>
+                <label>City:</label><br />
+                <input type="text" value="" name="city" />
+            </div>
+            <div>
+                <label>State:</label><br />
+                <select name="state">
+                    <option value="AZ">AZ</option>
+                    <option value="CT">CT</option>
+                    <option value="FL">FL</option>
+                </select>
+            </div>
+            <div>
+                <label>Zip Code:</label><br />
+                <input type="text" value="" name="zipCode" />
+            </div>
+            <div>
+                <label>Email:</label><br />
+                <input type="text" value="" name="email" />
+            </div>
+            <div>
+                <label>Credit Card Number:</label><br />
+                <input type="text" value="" name="creditCardNumber" />
+            </div>
+            <div>
+                <label>Expiration Month:</label><br />
+                <select name="expirationMonth">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                </select>
+            </div>
+            <div>
+                <label>Expiration Year:</label><br />
+                <select name="expirationYear">
+                    <option value="2015">2015</option>
+                    <option value="2016">2016</option>
+                    <option value="2017">2017</option>
+                </select>
+            </div>
+            <div>
+                <label>CVV Number:</label><br />
+                <input type="text" value="" name="cvvNumber" />
+            </div>
+            <input type="submit" value="Donate Now" />
+        </form>
+    </div>
 </body>
 </html>

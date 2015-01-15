@@ -39,6 +39,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotSpatial.Positioning">
+      <HintPath>..\packages\DotSpatial.Positioning.1.7\lib\net40-Client\DotSpatial.Positioning.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -78,7 +81,17 @@
     <Compile Include="EventRider.cs">
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="Messages\DistanceMessageLocationFilter.cs" />
+    <Compile Include="Messages\IMessageLocationFilter.cs" />
+    <Compile Include="Messages\Location.cs" />
+    <Compile Include="PaymentProcessor\IImmediatePaymentProcessor.cs" />
+    <Compile Include="PaymentProcessor\ImmediatePaymentRequest.cs" />
+    <Compile Include="PaymentProcessor\ImmediatePaymentResult.cs" />
+    <Compile Include="PaymentProcessor\MockImmediatePaymentProcessor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RiderMessageDonation.cs">
+      <DependentUpon>DonationPortalEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Route.cs">
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>

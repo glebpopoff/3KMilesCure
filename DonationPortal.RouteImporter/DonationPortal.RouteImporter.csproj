@@ -98,6 +98,7 @@
       <LastGenOutput>DonationaPortalEntities.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="Samples\farmington.csv" />
     <None Include="Samples\sebring_racetrack.csv" />
     <None Include="Samples\sebring_short.csv" />
   </ItemGroup>
