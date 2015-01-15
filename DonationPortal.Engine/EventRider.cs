@@ -17,6 +17,7 @@ namespace DonationPortal.Engine
         public EventRider()
         {
             this.Routes = new HashSet<Route>();
+            this.RiderMessageDonations = new HashSet<RiderMessageDonation>();
         }
     
         public int EventRiderID { get; set; }
@@ -31,5 +32,6 @@ namespace DonationPortal.Engine
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }
+        public virtual ICollection<RiderMessageDonation> RiderMessageDonations { get; set; }
     }
 }

@@ -29,5 +29,6 @@ namespace DonationPortal.Engine
         public virtual DbSet<EventRider> EventRiders { get; set; }
         public virtual DbSet<Route> Routes { get; set; }
         public virtual DbSet<RouteVertex> RouteVertexes { get; set; }
+        public virtual DbSet<RiderMessageDonation> RiderMessageDonations { get; set; }
     }
 }

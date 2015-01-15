@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DotSpatial.Positioning">
+      <HintPath>..\packages\DotSpatial.Positioning.1.7\lib\net40-Client\DotSpatial.Positioning.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -623,14 +626,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiModels\EventDonation\RiderDonation.cs" />
     <Compile Include="ApiModels\EventRider\EventRider.cs" />
+    <Compile Include="ApiModels\Message\DonationMessage.cs" />
     <Compile Include="ApiModels\Route\EventRiderRoute.cs" />
     <Compile Include="ApiModels\Route\RouteVertex.cs" />
     <Compile Include="App_Start\BrowserJsonFormatter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\EventDonationController.cs" />
     <Compile Include="Controllers\EventRiderController.cs" />
     <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\RouteController.cs" />
     <Compile Include="Global.asax.cs">
