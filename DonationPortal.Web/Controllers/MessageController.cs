@@ -31,6 +31,7 @@ namespace DonationPortal.Web.Controllers
 					entities.RiderMessageDonations.Where(
 						d => d.EventRider.UrlSlug.Equals(riderSlug) && d.EventRider.Event.UrlSlug.Equals(eventSlug)).Select(d => new DonationMessage
 						{
+							ID = d.DonationID,
 							Latitude = (float)d.Latitude,
 							Longitude = (float)d.Longitude,
 							Message = d.Message,
@@ -51,6 +52,7 @@ namespace DonationPortal.Web.Controllers
 					.Where(d => d.EventRider.UrlSlug.Equals(riderSlug) && d.EventRider.Event.UrlSlug.Equals(eventSlug)).ToList()
 					.Where(d => _messageLocationFilter.IsMatch(d, locations)).Select(d => new DonationMessage
 					{
+						ID = d.DonationID,
 						Latitude = (float) d.Latitude,
 						Longitude = (float) d.Longitude,
 						Message = d.Message,

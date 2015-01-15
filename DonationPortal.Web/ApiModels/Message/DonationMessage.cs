@@ -7,6 +7,7 @@ namespace DonationPortal.Web.ApiModels.Message
 {
 	public class DonationMessage
 	{
+		public int ID { get; set; }
 		public string Sender { get; set; }
 		public string Message { get; set; }
 		public float Latitude { get; set; }

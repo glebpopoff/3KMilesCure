@@ -19,19 +19,7 @@ namespace DonationPortal.Web.Controllers
 		{
 			_immediatePaymentProcessor = new MockImmediatePaymentProcessor();
 		}
-
-		[Route("events/{eventSlug}/riders/{riderSlug}/donations")]
-		[HttpGet]
-		public HttpResponseMessage GetDonationsForRider(string eventSlug, string riderSlug)
-		{
-			using (var entities = new DonationPortalEntities())
-			{
-				var donations = entities.RiderMessageDonations.Where(d => d.EventRider.UrlSlug.Equals(riderSlug) && d.EventRider.Event.UrlSlug.Equals(eventSlug));
-					
-				throw new NotImplementedException();
-			}
-		}
-
+		
 		[Route("events/{eventSlug}/riders/{riderSlug}/donations")]
 		[HttpPost]
 		public HttpResponseMessage AddDonationForRider(string eventSlug, string riderSlug, RiderDonation donation)
