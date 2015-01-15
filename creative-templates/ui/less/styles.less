@@ -94,6 +94,9 @@ CUSTOM VARIABLES/OVERRIDES
 
 @font-family-base: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @white : #fff;
+@primary-color: #f67000;
+@secondary-color: #f9bf03;
+@tertiary-color: #fa3550;
 
 .secondary-grid { /* modify the grid structure within a row (Example: <div class="row secondary-grid">...</div> */
   margin-left:-10px;
@@ -114,8 +117,6 @@ body {
 }
 
 /* links */
-a, a:visited {color:@link-color;text-decoration:none;}
-a:hover {color:@link-hover-color;text-decoration:underline;}
 a:focus {
   outline:none;
   -webkit-tap-highlight-color: rgba(0,0,0,0); /* remove gray highlight on mobile devices */
@@ -124,8 +125,14 @@ a:focus {
 /* typography */
 h1,h2,h3,h4,h5,h6 { color:#333; font-family: @font-family-base; }
 
-h1 { /* h1 styles */ }
-h2 { /* h2 styles */ }
+h1 {
+  text-transform:uppercase;
+  font-weight:900;
+}
+h2 {
+  text-transform:uppercase;
+  font-weight:900;
+}
 h3 { /* h3 styles */ }
 h4 { /* h4 styles */ }
 h5,h6 { /* h5-6 styles */ }
@@ -225,7 +232,7 @@ INTERFACE SHELL STYLES
   margin:0;
   padding:0;
   position:relative;
-  background:#f67000;
+  background:@primary-color;
   .clearfix();
 
   > .container { /* tier content inner container */
@@ -237,7 +244,7 @@ INTERFACE SHELL STYLES
 
   .logo {
     position:absolute;
-    left:0;
+    left:15px;
     top:30px;
     font-weight:900;
     font-size:40px;
@@ -250,6 +257,19 @@ INTERFACE SHELL STYLES
     }
   }
 
+  .navbar-toggle {
+    position: absolute;
+    right:15px;
+    top:20px;
+    margin:0;
+    padding: 20px;
+    background:none;
+    border: none;
+    border-radius:0;
+    font-size:30px;
+    color:@white;
+  }
+
   /* Global Nav */
 
   .global-nav-container {
@@ -258,14 +278,17 @@ INTERFACE SHELL STYLES
     font-family: Arial, Helvetica, sans-serif;
     font-weight:bold;
     position:absolute;
-    right:0;
-    top:10px;
+    right:15px;
+    top:20px;
 
     a {
       color:#fff;
       text-decoration:none;
 
-      &:hover {text-decoration:underline;}
+      &:hover {
+        text-decoration:none;
+        color:@secondary-color;
+      }
     }
 
     > ul {
@@ -274,11 +297,14 @@ INTERFACE SHELL STYLES
       list-style:none;
 
       li {
-        border-left:1px solid #fff;
         display:inline-block;
-        .ie7-inline-block();
         vertical-align:middle;
-        padding:0 15px;
+        padding:0;
+        margin:0 0 0 20px;
+
+        &:first-child {margin-left:0;}
+
+        &.social-link {font-size:20px;}
 
         &.active {
           a {color:#2e3340;}
@@ -309,8 +335,8 @@ INTERFACE SHELL STYLES
     margin:0;
     padding:0;
     position:absolute;
-    right:0;
-    bottom:10px;
+    right:15px;
+    bottom:20px;
     .clearfix();
 
     > .container { /* tier content inner container */
@@ -328,20 +354,27 @@ INTERFACE SHELL STYLES
         font-size:18px;
         font-weight:900;
         text-transform:uppercase;
-        float:left;
-        margin:0;
+        display:inline-block;
+        margin:0 0 0 20px;
         padding:0;
         position:relative;
+        line-height:1;
+
+        &:first-child {margin-left:0;}
 
         a {
-          padding:14px 20px;
+          padding:0;
+          margin:0;
           display:inline-block;
           color:@white;
 
           &:hover,
           &.hover {
             text-decoration:none;
+            color:@secondary-color;
           }
+
+
 
           &.active {
             text-decoration:none;
@@ -351,6 +384,23 @@ INTERFACE SHELL STYLES
 
         }
 
+        &.callout {
+          background:@tertiary-color;
+          border-radius:5px;
+          a {
+            padding:10px 20px;
+            &:hover {
+              background:@secondary-color;
+              color:@tertiary-color;
+              border-radius:5px;
+            }
+          }
+        }
+
+      }
+
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */
+        li {font-size:15px;}
       }
 
     }
@@ -371,7 +421,72 @@ INTERFACE SHELL STYLES
 
   /* Media Queries and Conditionals */
 
-  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+    >.container {height:auto;}
+    .logo {
+      position:static;
+      display:inline-block;
+      font-size:30px;
+      margin:20px 0;
+      .tagline {
+        font-size:20px;
+      }
+    }
+    .navbar-toggle {
+      padding:10px;
+      line-height:1;
+    }
+    #mobile-nav {
+      border:0;
+      margin:0 -15px;
+      padding:0;
+      box-shadow:none;
+      background:@secondary-color;
+      .box-shadow(inset 0 10px 10px -5px #dda903);
+    }
+    .global-nav-container{
+      position:static;
+      text-align:center;
+      margin:10px 15px 0 15px;
+      a {
+        &:hover {
+          color:#fff;
+        }
+      }
+    }
+    .t1-nav-container {
+      position:static;
+      text-align:center;
+      margin:0 15px 10px 15px;
+      .t1-nav {
+        li {
+          background:#ccc;
+          border-radius:5px;
+          display:block;
+          margin:10px 0;
+          a {
+            display:block;
+            padding:10px 20px;
+            color:#333;
+            &:hover {
+              background:#ccc;
+              color:#333;
+            }
+          }
+          &.callout {
+            a {
+              display:block;
+              color:@white;
+              &:hover {
+                background:@tertiary-color;
+                color:@white;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
   @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
   @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
 
@@ -501,37 +616,100 @@ INTERFACE SHELL STYLES
   .no-js & { /* list no-js styles here */ }
 
   &.hero {
-    background:#f1f1f1 url(../images/img-homepage-hero.jpg);
-    background-size:cover;
     .container {
-      min-height:500px;
       padding:0;
-      .center-content{
+      position:absolute;
+      z-index:1;
+      top:0;
+      bottom:0;
+      left:0;
+      right:0;
+      height:100%;
+      width:100%;
+      .hero-content{
         position: absolute;
+        z-index:1;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        width:75%;
+        .translate(-50%, -50%);
+        width:960px;
+        text-align:center;
+
+        h1 {
+          font-size:100px;
+          font-weight:900;
+          text-transform:uppercase;
+          margin:0;
+          color:@white;
+        }
+        .lead {
+          font-size:26px;
+          font-weight:300;
+          color:@white;
+        }
+
+        @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+          top:auto;
+          bottom:0;
+          left:0;
+          right:0;
+          transform:none;
+          background:rgba(0,0,0,.5);
+          padding:10px;
+          width:100%;
+          h1 {font-size:30px;}
+          .lead {font-size:16px;}
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */
+          width:730px;
+          h1 {font-size:70px;}
+          .lead {font-size:22px;}
+        }
+        @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */
+          width:1170px;
+        }
+
+        .lt-ie9 & { /* list less than ie9 styles here */ }
+        .lt-ie8 & { /* list less than ie8 styles here */ }
+
       }
-      h1 {
-        font-size:100px;
-        font-weight:900;
-        text-transform:uppercase;
-        margin:0;
-        color:@white;
-      }
-      h2 {
-        font-size:26px;
-        font-weight:300;
-        color:@white;
-      }
+    }
+    .hero-image {
+      width:100%;
+      height:100%;
+      position:relative;
+      z-index:0;
+      img {width:100%;}
     }
   }
 
   &.carousel-container {
+    overflow:hidden;
     .container {
       padding-top:50px;
       padding-bottom:50px;
+    }
+    .slide {
+      h2 {
+        margin-top:0;
+        .participant {color:#919191;font-weight:600;}
+      }
+    }
+    .prev, .next {
+      position:absolute;
+      font-size:80px;
+      line-height:80px;
+      top:50%;
+      margin-top:-40px;
+      left:-60px;
+      color:#f1f1f1;
+      &:hover {
+        color:#ccc;
+      }
+    }
+    .next {
+      left:auto;
+      right:-60px;
     }
   }
 
@@ -540,8 +718,8 @@ INTERFACE SHELL STYLES
       background:#ff8c00;
       .container {
         position:relative;
-        padding-top:30px;
-        padding-bottom:30px;
+        padding-top:10px;
+        padding-bottom:10px;
         &:before {
           position:absolute;
           top:-25px;
@@ -551,6 +729,67 @@ INTERFACE SHELL STYLES
           border-style: solid;
           border-width: 0 25px 25px 25px;
           border-color: transparent transparent #ff8c00 transparent;
+        }
+      }
+      .map-heading {
+        text-transform:uppercase;
+        font-weight:900;
+        font-size:26px;
+        line-height:1;
+        margin-top:15px;
+      }
+      .event-specs {}
+      .elapsed,
+      .travelled {
+        list-style:none;
+        margin:0;
+        padding:0;
+        li {
+          display:inline-block;
+          vertical-align:middle;
+          font-weight:600;
+          font-size:16px;
+          &:first-child {
+            margin-left:0;
+          }
+          &.title,
+          &.total,
+          &.divider {
+            font-weight:900;
+            font-size:16px;
+            margin-right:10px;
+            margin-top:20px;
+          }
+          &.hours,
+          &.minutes,
+          &.miles {
+            text-align:center;
+            .counter-label {
+              text-transform:uppercase;
+              font-size:14px;
+              color:@white;
+            }
+            .counter {
+              background:@white;
+              border-radius:2px;
+              color:@brand-success;
+              font-size:30px;
+              font-weight:600;
+              line-height:30px;
+              padding:5px;
+              display:inline-block;
+            }
+          }
+          &.title {
+            @media (max-width: @screen-xs-max) {
+              display:block;
+            }
+            @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+              display:block;
+            }
+          }
+          &.total{margin-right:0;margin-left:5px;}
+          &.divider {margin-left:0;margin-right:0;}
         }
       }
     }
@@ -813,6 +1052,25 @@ FOOTER STYLES
 LAYOUT ELEMENTS / MODULES
 #######################################################################################*/
 
+.module {
+
+  &.donation-block {
+    background:@secondary-color;
+    padding:20px;
+    .heading {
+      text-transform:uppercase;
+      font-size:14px;
+    }
+    .amount {
+      font-weight:900;
+      font-size:18px;
+    }
+    .donate-callout {
+      margin:15px 0 0 0;
+    }
+  }
+
+}
 
 /* Tabs Styles (jquery UI) http://jqueryui.com/tabs/
 -------------------------------------------------------------------------------------*/
