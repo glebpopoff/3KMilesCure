@@ -26,8 +26,8 @@
     <script type="text/javascript">
 
         // todo, determine these based on the event page we're showing
-        var eventSlug = 'sebring-24';
-        var riderSlug = 'sebring-24-hour-rider';
+        var eventSlug = 'farmington';
+        var riderSlug = 'kevin';
         
         function initialize() {
 
@@ -137,7 +137,11 @@
                 delete submission.presentDonation;
 
                 $.post('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/donations', submission).done(function (response) {
-                    
+
+                    alert('thanks for your donation!');
+
+                    window.location.reload();
+
                 });
             });
         });
