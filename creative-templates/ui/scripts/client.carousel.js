@@ -101,13 +101,19 @@ define(function (require) {
 				$carousel.imagesLoaded( function() {
 
 					// Build generic carousel
-					$carousel.carouFredSel(carouselOptions, {wrapper: {classname: "carousel-wrapper"},transition: true}).removeClass('no-js');
+					$carousel.each(function(){
+						$(this).carouFredSel(carouselOptions, {wrapper: {classname: "carousel-wrapper"},transition: true}).removeClass('no-js');
+					});
 
 					// Build generic carousel with auto rotation options
-					$carouselAutoRotate.carouFredSel($.extend(carouselOptions, autoRotate), {wrapper: {classname: "carousel-wrapper"},transition: true}).removeClass('no-js');
+					$carouselAutoRotate.each(function(){
+						$(this).carouFredSel($.extend(carouselOptions, autoRotate), {wrapper: {classname: "carousel-wrapper"},transition: true}).removeClass('no-js');
+					});
 
 					// Build generic carousel with responsive options
-					$carouselResponsive.carouFredSel($.extend(carouselOptions, responsive), {wrapper: {classname: "carousel-wrapper"},transition: true}).removeClass('no-js');
+					$carouselResponsive.each(function(){
+						$(this).carouFredSel($.extend(carouselOptions, responsive), {wrapper: {classname: "carousel-wrapper"},transition: true}).removeClass('no-js');
+					});
 
 				});
 

@@ -49,9 +49,9 @@
 					<!-- global-nav-container starts -->
 					<ul>
 						<li>Unite. Share. Inspire</li>
-						<li><a href="#">F</a></li>
-						<li><a href="#">T</a></li>
-						<li><a href="#">U</a></li>
+						<li class="social-link"><a href="#"><i class="fa fa-facebook"></i></a></li>
+						<li class="social-link"><a href="#"><i class="fa fa-twitter"></i></a></li>
+						<li class="social-link"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
 					</ul>
 					<!-- /global-nav-container ends -->
 				</nav>
@@ -60,7 +60,7 @@
 					<ul class="t1-nav">
 						<li><a href="#">12 Hour Ride</a></li>
 						<li><a href="#">24 Hour Ride</a></li>
-						<li><a href="#">Donate</a></li>
+						<li class="callout"><a href="#">Donate</a></li>
 					</ul>
 					<!-- t1-nav-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 				</nav>
@@ -74,13 +74,13 @@
 
 	<section class="stacked-container hero" id="skipToContent" role="region">
 	<!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+		<figure class="hero-image"><img class="img-responsive" src="ui/images/img-homepage-hero.jpg" alt="Take Action"></figure>
 		<div class="container">
-			<div class="center-content text-center">
+			<div class="hero-content">
 				<h1 role="heading">Take Action.</h1>
-				<h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam atque corporis dolore dolorem doloribus enim expedita ipsa laudantium minus nobis odio perferendis, provident quae quibusdam quisquam sed sit voluptatibus.</h2>
+				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam atque corporis dolore dolorem doloribus enim expedita ipsa laudantium minus nobis odio perferendis, provident quae quibusdam quisquam sed sit voluptatibus.</p>
 			</div>
 		</div>
-		<!--<figure class="hero-image"><img class="img-responsive" src="ui/images/img-homepage-hero.jpg" alt="Take Action"></figure>-->
 	<!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 	</section>
 
@@ -88,11 +88,38 @@
 	<!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 		<div class="container">
 			<div class="carousel responsive no-js">
-				<div class="slide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet beatae, illo iure neque quaerat quo tempora unde. A, eum iure laboriosam quas quos rem veniam. Atque dicta eaque ex voluptates.</div>
+				<div class="slide">
+					<div class="row">
+						<div class="col-sm-8 col-md-7">
+							<h2>12 Hour Ride <span class="participant">/ Maria</span></h2>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab blanditiis, delectus eos harum hic illum laborum minima, necessitatibus officiis recusandae reiciendis reprehenderit veritatis voluptate? Asperiores corporis qui quisquam sint tenetur.</p>
+							<br>
+							<p><a href="#" class="btn btn-lg btn-primary">Learn More</a></p>
+							<br>
+						</div>
+						<div class="col-sm-offset-0 col-md-offset-1 col-sm-4">
+							<div class="module donation-block">
+								<div class="row">
+									<div class="col-xs-6">
+										<div class="heading">Total Raised</div>
+										<div class="amount">$1525</div>
+									</div>
+									<div class="col-xs-6">
+										<div class="heading">Our Goal</div>
+										<div class="amount">$4000</div>
+									</div>
+								</div>
+								<div class="donate-callout"><a href="#" class="btn btn-lg btn-primary btn-block"><i class="fa fa-heart" style="font-weight:bold"></i> Make a Donation</a></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
 				<div class="slide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur eius enim exercitationem iste libero unde, veniam. Alias deleniti dolore dolorum eveniet illum molestias reprehenderit similique. Architecto asperiores officia similique voluptatem.</div>
-				<div class="slide">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad consequuntur deleniti esse expedita inventore maxime quidem. Architecto cum doloremque, earum, fuga id illum iure, necessitatibus sed tenetur totam voluptatem voluptates.</div>
 			</div>
 			<div class="carousel-nav"></div>
+			<a href="#" class="prev"><i class="fa fa-angle-left"></i><span class="sr-only">prev</span></a>
+			<a href="#" class="next"><i class="fa fa-angle-right"></i><span class="sr-only">next</span></a>
 		</div>
 	<!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 	</section>
@@ -102,7 +129,38 @@
 		<div class="map"><img src="http://placehold.it/1170x500&text=Map" style="width:100%;" alt=""/></div>
 		<div class="route-details">
 			<div class="container">
-				<div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aut culpa delectus esse eum harum id illum magni maiores maxime nostrum perferendis perspiciatis possimus quam quas sed ut vel, voluptatum.</div>
+				<div class="row">
+					<div class="col-xs-12 col-sm-4">
+						<div class="map-heading">Rob's Route</div>
+						<div class="event-specs">Event Begins - 6:30AM 2/14/2015</div>
+					</div>
+					<div class="col-xs-6 col-sm-4">
+						<ul class="elapsed">
+							<li class="title">Time Elapsed</li>
+							<li class="hours">
+								<div class="counter-label">Hours</div>
+								<div class="counter">06</div>
+							</li>
+							<li class="divider">:</li>
+							<li class="minutes">
+								<div class="counter-label">Min</div>
+								<div class="counter">52</div>
+							</li>
+							<li class="total">/ 24</li>
+						</ul>
+					</div>
+					<div class="col-xs-6 col-sm-4">
+						<ul class="travelled">
+							<li class="title">Miles Travelled:</li>
+							<li class="miles">
+								<div class="counter-label">Miles</div>
+								<div class="counter">56</div>
+							</li>
+							<li class="total">/ 400</li>
+						</ul>
+
+					</div>
+				</div>
 			</div>
 		</div>
 
