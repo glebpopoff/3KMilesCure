@@ -5,7 +5,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using DonationPortal.Engine;
-using DonationPortal.Web.ApiModels.Route;
+using DonationPortal.Web.ApiModels.Routes;
+using RouteVertex = DonationPortal.Web.ApiModels.Routes.RouteVertex;
 
 namespace DonationPortal.Web.Controllers
 {
@@ -39,7 +40,7 @@ namespace DonationPortal.Web.Controllers
 					RouteID = route.RouteID,
 					Color = '#' + route.Color,
 					UrlSlug = route.UrlSlug,
-					Vertices = route.RouteVertexes.OrderBy(v => v.Order).Select(vertex => new ApiModels.Route.RouteVertex()
+					Vertices = route.RouteVertexes.OrderBy(v => v.Order).Select(vertex => new RouteVertex()
 					{
 						Latitude = (float)vertex.Latitude,
 						Longitude = (float)vertex.Longitude

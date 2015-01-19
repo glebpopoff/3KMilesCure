@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace DonationPortal.Web.ApiModels.Message
+﻿namespace DonationPortal.Web.ApiModels.Messages
 {
 	public class DonationMessage
 	{

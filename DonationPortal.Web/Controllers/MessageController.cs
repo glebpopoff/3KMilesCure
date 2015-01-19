@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DonationPortal.Engine;
 using DonationPortal.Engine.Messages;
-using DonationPortal.Web.ApiModels.Message;
+using DonationPortal.Web.ApiModels.Messages;
 using DotSpatial.Positioning;
 
 namespace DonationPortal.Web.Controllers

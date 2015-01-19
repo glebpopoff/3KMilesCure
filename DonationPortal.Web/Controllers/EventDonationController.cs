@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DonationPortal.Engine;
 using DonationPortal.Engine.PaymentProcessor;
-using DonationPortal.Web.ApiModels.EventDonation;
+using DonationPortal.Web.ApiModels.EventDonations;
 
 namespace DonationPortal.Web.Controllers
 {

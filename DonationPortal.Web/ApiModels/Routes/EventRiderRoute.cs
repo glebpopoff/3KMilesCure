@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
-namespace DonationPortal.Web.ApiModels.Route
+namespace DonationPortal.Web.ApiModels.Routes
 {
 	public class EventRiderRoute
 	{
