@@ -107,6 +107,8 @@ CUSTOM VARIABLES/OVERRIDES
   }
 }
 
+.btn-lg {font-size:16px;}
+
 /*#####################################################################################
 UNIVERSAL STYLES
 #######################################################################################*/
@@ -130,13 +132,16 @@ h1 {
   font-weight:900;
 }
 h2 {
+  margin-bottom:10px;
   text-transform:uppercase;
   font-weight:900;
 }
 h3 { /* h3 styles */ }
 h4 { /* h4 styles */ }
 h5,h6 { /* h5-6 styles */ }
-p { /* paragraph styles */ }
+p {
+  margin:0 0 15px 0;
+}
 
 header {
   h1, h2, h3, h4, h5, h6 {margin-top:0;}
@@ -1035,9 +1040,41 @@ FOOTER STYLES
 	.clearfix();
   }
 
+  h1,h2,h3,h4,h5,h6 {color:@white;}
+  h2 {margin:0 0 5px 0;}
+
+  .footer-links {
+    margin:20px 0 0 0;
+    padding-left:0;
+    list-style:none;
+    text-align:right;
+
+    li {
+      display:inline-block;
+      vertical-align:middle;
+      padding:0;
+      margin:0 0 0 20px;
+
+
+      &:first-child {margin-left:0;}
+
+      &.social-link {
+        font-size:20px;
+        a {color:@white;}
+      }
+
+      &.active {
+        a {color:#2e3340;}
+      }
+      &:first-child {border-left:none;}
+    }
+  }
+
   /* Media Queries and Conditionals */
 
-  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+    .footer-links {text-align:left;}
+  }
   @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */ }
   @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
 
@@ -1067,6 +1104,81 @@ LAYOUT ELEMENTS / MODULES
     }
     .donate-callout {
       margin:15px 0 0 0;
+    }
+    @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+      margin-top:30px;
+    }
+  }
+
+  &.recent-messages {
+    padding-left:10px;
+    &:before {
+      content: "";
+      display: inline-block;
+      border-left: 1px solid #ccc;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      margin-top: -10px;
+    }
+    .message {
+      margin:15px 0;
+      line-height:1.4;
+      .post {
+        font-style:italic;
+        &:before {
+          content:"\f10d";
+          display: inline-block;
+          font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
+          text-rendering: auto; // optimizelegibility throws things off #1094
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          margin-right:4px;
+          vertical-align: top;
+          font-size:10px;
+          margin-top: 4px;
+          color:#888;
+        }
+        &:after {
+          content:"\f10e";
+          display: inline-block;
+          font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
+          text-rendering: auto; // optimizelegibility throws things off #1094
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          margin-left:4px;
+          vertical-align: top;
+          font-size:10px;
+          margin-top: 4px;
+          color:#888;
+        }
+      }
+      .author {
+        color:#888;
+        &:before {
+          content:"\f068";
+          display: inline-block;
+          font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
+          font-size: inherit; // can't have font-size inherit on line above, so need to override
+          text-rendering: auto; // optimizelegibility throws things off #1094
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          margin-right:4px;
+          font-size:10px;
+        }
+      }
+    }
+    @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+      padding-left:0;
+      &:before {
+        content: none;
+        display: none;
+      }
+      >h2:first-child {
+        border-top:1px solid #ccc;
+        margin-top:20px;
+        padding-top:20px;
+      }
     }
   }
 
