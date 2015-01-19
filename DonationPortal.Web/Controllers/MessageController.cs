@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DonationPortal.Engine;
 using DonationPortal.Engine.Messages;
-using DonationPortal.Web.ApiModels.Message;
+using DonationPortal.Web.ApiModels.Messages;
 using DotSpatial.Positioning;
 
 namespace DonationPortal.Web.Controllers
@@ -25,6 +25,8 @@ namespace DonationPortal.Web.Controllers
 		[HttpGet]
 		public HttpResponseMessage GetMessagesForRider(string eventSlug, string riderSlug)
 		{
+			// should we return 404's for events or riders that don't exist?
+
 			using (var entities = new DonationPortalEntities())
 			{
 				var donations =
@@ -42,6 +44,7 @@ namespace DonationPortal.Web.Controllers
 			}
 		}
 
+		// this method isn't very restful...
 		[Route("events/{eventSlug}/riders/{riderSlug}/messages/near")]
 		[HttpPost]
 		public HttpResponseMessage GetNearbyMessages(string eventSlug, string riderSlug, [FromBody]IEnumerable<Location> locations)

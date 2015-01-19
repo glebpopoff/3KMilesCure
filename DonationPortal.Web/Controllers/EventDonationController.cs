@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using DonationPortal.Engine;
 using DonationPortal.Engine.PaymentProcessor;
-using DonationPortal.Web.ApiModels.EventDonation;
+using DonationPortal.Web.ApiModels.EventDonations;
 
 namespace DonationPortal.Web.Controllers
 {
@@ -24,6 +24,8 @@ namespace DonationPortal.Web.Controllers
 		[HttpPost]
 		public HttpResponseMessage AddDonationForRider(string eventSlug, string riderSlug, RiderDonation donation)
 		{
+			// 404 or 400's for events/riders that don't exist?
+
 			var paymentResult = _immediatePaymentProcessor.Process(new ImmediatePaymentRequest
 			{
 				Amount = donation.DonationAmount,

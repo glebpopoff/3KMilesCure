@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace DonationPortal.Web.ApiModels.EventRider
+﻿namespace DonationPortal.Web.ApiModels.EventRiders
 {
 	public class EventRider
 	{
