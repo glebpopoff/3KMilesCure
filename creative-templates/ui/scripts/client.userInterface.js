@@ -3,7 +3,6 @@ define(function (require) {
 	"use strict";
 
 	var $ = require("jquery");
-	var Shadowbox = require("shadowBox");
 	require("jquery");
 	require("jqueryUI");
 	require("bootstrap");
@@ -89,9 +88,25 @@ define(function (require) {
 		//Shadowbox - http://www.shadowbox-js.com/
 		function initShadowbox() {
 			var $target = $('a[rel*="shadowbox"]');
+			var $video = $('a[rel*="shadowbox"].video');
 			if ($target.length > 0) {
-				Shadowbox.init();
+				window.Shadowbox.init();
 			}
+			if ($video.length > 0) {
+				$video.attr('rel','shadowbox;width=720;height=480;');
+			}
+		}
+
+		function initFormSteps() {
+			var $doanteOptions = $(".donate-options input[type='radio']");
+			var $otherAmount = $(".other-radio");
+			$doanteOptions.on("click", function(){
+				if ($otherAmount.is(':checked')){
+					$(".other-input").show();
+				} else if (!($otherAmount.is(':checked'))) {
+					$(".other-input").hide();
+				}
+			});
 		}
 
 		//init functions
@@ -101,6 +116,7 @@ define(function (require) {
 		initUITabs();
 		initSmoothScroll();
 		initShadowbox();
+		initFormSteps();
 
 	}());
 

@@ -107,6 +107,7 @@ CUSTOM VARIABLES/OVERRIDES
   }
 }
 
+.btn {margin:10px 0;}
 .btn-lg {font-size:16px;}
 
 /*#####################################################################################
@@ -136,7 +137,7 @@ h2 {
   text-transform:uppercase;
   font-weight:900;
 }
-h3 { /* h3 styles */ }
+h3 { font-weight:600; }
 h4 { /* h4 styles */ }
 h5,h6 { /* h5-6 styles */ }
 p {
@@ -227,6 +228,7 @@ INTERFACE SHELL STYLES
 
 .main-container {
 	margin:0 auto;
+    overflow:hidden;
 }
 
 /* Header styles
@@ -249,7 +251,7 @@ INTERFACE SHELL STYLES
 
   .logo {
     position:absolute;
-    left:15px;
+    left:0;
     top:30px;
     font-weight:900;
     font-size:40px;
@@ -622,9 +624,9 @@ INTERFACE SHELL STYLES
 
   &.hero {
     .container {
-      padding:0;
       position:absolute;
       z-index:1;
+      padding:0;
       top:0;
       bottom:0;
       left:0;
@@ -651,6 +653,7 @@ INTERFACE SHELL STYLES
           font-size:26px;
           font-weight:300;
           color:@white;
+          margin-bottom:0;
         }
 
         @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
@@ -658,7 +661,7 @@ INTERFACE SHELL STYLES
           bottom:0;
           left:0;
           right:0;
-          transform:none;
+          .translate(0, 0);
           background:rgba(0,0,0,.5);
           padding:10px;
           width:100%;
@@ -674,9 +677,72 @@ INTERFACE SHELL STYLES
           width:1170px;
         }
 
+        .lt-ie9 & { /* list less than ie9 styles here */
+          top: 25%;
+          left: 50%;
+          margin-left:-480px;
+          .translate(0, 0);
+          @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+            top:auto;
+            left:0;
+            margin-left:0;
+          }
+          @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */
+            left: 50%;
+            margin-left:-365px;
+            .translate(0, 0);
+          }
+          @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */
+            left: 50%;
+            margin-left:-585px;
+            .translate(0, 0);
+          }
+        }
+        .lt-ie8 & { /* list less than ie8 styles here */ }
+
+      }
+      .event-header {
+        position:absolute;
+        z-index:1;
+        top:20px;
+        width:960px;
+        left: 50%;
+        margin-left:-480px;
+
+        h1 {
+          font-size:50px;
+          font-weight:900;
+          text-transform:uppercase;
+          margin:0;
+        }
+        .title {
+          font-size:30px;
+          font-weight:600;
+          line-height:1;
+        }
+
+        @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+          width:100%;
+          left:15px;
+          margin-left:0;
+          h1 {font-size:20px;}
+          .title {font-size:14px;}
+        }
+        @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */
+          width:730px;
+          margin-left:-365px;
+          h1 {font-size:34px;}
+          .title {font-size:20px;}
+        }
+        @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */
+          width:1170px;
+          margin-left:-585px;
+        }
+
         .lt-ie9 & { /* list less than ie9 styles here */ }
         .lt-ie8 & { /* list less than ie8 styles here */ }
 
+        .no-js & { /* list no-js styles here */ }
       }
     }
     .hero-image {
@@ -695,10 +761,7 @@ INTERFACE SHELL STYLES
       padding-bottom:50px;
     }
     .slide {
-      h2 {
-        margin-top:0;
-        .participant {color:#919191;font-weight:600;}
-      }
+      h2 {margin-top:0;}
     }
     .prev, .next {
       position:absolute;
@@ -788,20 +851,157 @@ INTERFACE SHELL STYLES
           &.title {
             @media (max-width: @screen-xs-max) {
               display:block;
+              font-size:14px;
             }
             @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
               display:block;
             }
           }
-          &.total{margin-right:0;margin-left:5px;}
+          &.total{
+            margin-right:0;margin-left:5px;
+            @media (max-width: @screen-xs-max) {
+              display:none;
+            }
+          }
           &.divider {margin-left:0;margin-right:0;}
+        }
+      }
+      .travelled {
+        @media (max-width: @screen-xs-max) {
+            text-align:center;
+        }
+      }
+    }
+    &.event-detail {
+      background:#fdeedc;
+      >.container {padding-top:40px;}
+      .route-details{
+        .container{
+          &:before{
+            top:auto;
+            bottom:-25px;
+            border-width:25px 25px 0 25px;
+            border-color:#ff8c00 transparent transparent  transparent;
+          }
+        }
+      }
+      .map {margin:20px 0;}
+      .module {
+        &.recent-messages {
+          &:before {content:none;display:none;}
+          @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+            h2:first-child {border-top:none; margin-top:0;}
+          }
         }
       }
     }
   }
 
-  &.content-container {
+  &.image-gallery {
+    background:#f1f1f1;
+    .gallery-item {
+      position:relative;
+      margin:10px 0;
+      > a {
+        display:inline-block;
+        > img {width:100%;}
+      }
+      .fig-caption {
+        display:block;
+        position:absolute;
+        bottom:0;
+        right:0;
+        left:0;
+        padding:5px 10px;
+        background:rgba(0,0,0,.3);
+        color:@white;
+        font-size:12px;
+        text-decoration:none !important;
+      }
+      .social-icon {
+        position:absolute;
+        top:0;
+        right:5px;
+        width:25px;
+        height:30px;
+        overflow:hidden;
+        padding:5px 0;
+        display:inline-block;
+        line-height:1;
+        font-size:18px;
+        text-align:center;
+        vertical-align:middle;
+        &:after {
+          content:"\f0ac";
+          display: inline-block;
+          font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
+          font-size: inherit; // can't have font-size inherit on line above, so need to override
+          text-rendering: auto; // optimizelegibility throws things off #1094
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          color:@white;
+          vertical-align:middle;
+        }
+        &.twitter {
+          background:#55acee;
+          &:after {content:"\f099";}
+        }
+        &.facebook {
+          background:#3b5998;
+          &:after {content:"\f09a";}
+        }
+        &.youtube {
+          background:#e52d27;
+          z-index:1;
+          &:after {content:"\f16a";}
+        }
+      }
+      .video {
+        position:relative;
+        display:inline-block;
+        font-size:50px;
+        text-decoration:none !important;
+        &:before {
+          position:absolute;
+          z-index:1;
+          content:"\f144";
+          display: inline-block;
+          font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
+          font-size: inherit; // can't have font-size inherit on line above, so need to override
+          text-rendering: auto; // optimizelegibility throws things off #1094
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          color:@white;
+          top: 50%;
+          left: 50%;
+          .translate(-50%, -50%);
+          .opacity(.7);
+        }
+        &:hover {
+          &:before {.opacity(1);}
+        }
+        .lt-ie9 & {
+          &:before {
+            width:50px;
+            height:50px;
+            top: 50%;
+            left: 50%;
+            margin-top:-25px;
+            margin-left:-25px;
+            .translate(0, 0);
+          }
+        }
+      }
+    }
+    @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+      .gallery-item {
+        .fig-caption {display:none;}
+      }
+    }
+  }
 
+  &.stats {
+    background:#eee;
   }
 
 }
@@ -1182,7 +1382,17 @@ LAYOUT ELEMENTS / MODULES
     }
   }
 
+  &.ride-details {
+    h2 {
+      margin:0;
+      .participant {color:#919191;font-weight:600;}
+    }
+    h3 {margin-top:5px;}
+  }
+
 }
+
+
 
 /* Tabs Styles (jquery UI) http://jqueryui.com/tabs/
 -------------------------------------------------------------------------------------*/
@@ -1375,7 +1585,7 @@ textarea {
   border:solid 1px #dcdcdc;
   text-decoration:none;
   text-align:left;
-  background:@gray-lighter;
+//  background:@gray-lighter;
   color:@gray;
   outline:none;
   vertical-align:middle;
@@ -1463,6 +1673,10 @@ textarea {
   //    min-width:440px;
   //    width:440px;
   //  }
+}
+
+.other-input{
+  display:none;
 }
 
 /* formContainer styles
