@@ -24,7 +24,7 @@ require.config({
         imagesLoaded:   'vendor/imagesLoaded/imagesloaded.pkgd.min', // Plugin to detect when images have been loaded
         transit:      	'vendor/carouFredSel/helper-plugins/jquery.transit.min', // Plugin to utilize css3 transitions with jquery fallback
         touchSwipe:     'vendor/carouFredSel/helper-plugins/jquery.touchSwipe.min', // A jquery based plugin for touch based device support
-        selectBoxIt:    'vendor/jquery.selectBoxIt/jquery.selectBoxIt-3.8.1.min', // Plugin for custom select menus
+        //selectBoxIt:    'vendor/jquery.selectBoxIt/jquery.selectBoxIt-3.8.1.min', // Plugin for custom select menus
         placeholder:    'vendor/jquery.placeholder/jquery.placeholder.min', // Adds placeholder support for non-modern browsers
         shadowBox:      'vendor/shadowbox/shadowbox.min' // Adds overlay menu functionality
     },
@@ -36,7 +36,7 @@ require.config({
         'carousel':    	['jquery'],
         'transit':    	['jquery'],
         'touchSwipe':   ['jquery'],
-        'selectBoxIt':  ['jqueryUI'],
+        //'selectBoxIt':  ['jqueryUI'],
         'placeholder':	['jquery'],
         'shadowBox':    ['jquery']
     }

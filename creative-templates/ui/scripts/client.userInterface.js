@@ -6,22 +6,22 @@ define(function (require) {
 	require("jquery");
 	require("jqueryUI");
 	require("bootstrap");
-	require("selectBoxIt");
+	//require("selectBoxIt");
 	require("placeholder");
 	require("shadowBox");
 
 	(function() {
 
 		// jQuery SelectBoxIt - http://gregfranko.com/jquery.selectBoxIt.js/
-		function initSelectBoxIt(){
-			if($('select').length > 0) {
-				$("select").selectBoxIt({
-					aggressiveChange: true,
-					theme: 'default',
-					autoWidth: false
-				});
-			}
-		}
+		//function initSelectBoxIt(){
+		//	if($('select').length > 0) {
+		//		$("select").selectBoxIt({
+		//			aggressiveChange: true,
+		//			theme: 'default',
+		//			autoWidth: false
+		//		});
+		//	}
+		//}
 
 		// jQuery placeholder - https://github.com/mathiasbynens/jquery-placeholder
 		function initPlaceholder(){
@@ -98,25 +98,65 @@ define(function (require) {
 		}
 
 		function initFormSteps() {
+
 			var $doanteOptions = $(".donate-options input[type='radio']");
 			var $otherAmount = $(".other-radio");
 			$doanteOptions.on("click", function(){
 				if ($otherAmount.is(':checked')){
 					$(".other-input").show();
 				} else if (!($otherAmount.is(':checked'))) {
-					$(".other-input").hide();
+					$(".other-input").hide().find('input').val("");
 				}
 			});
+
+			//var $step1button = $('#step-1-button');
+			//var $step2button = $('#step-2-button');
+			//var $step3button = $('#step-3-button');
+			//$doanteOptions.on('click', function(){
+			//	if($doanteOptions.is(':checked')){
+			//		$step1button.prop('disabled', false);
+			//	} else {
+			//		$step1button.prop('disabled', true);
+			//	}
+			//});
+			//
+			//var $message = $('#write-message');
+			//$message.on('focus', function(){
+			//	if($message.val()){
+			//		$step2button.prop('disabled', false);
+			//	} else {
+			//		$step2button.prop('disabled', true);
+			//	}
+			//});
+			//
+			//var $requiredField = $('.required-field');
+			//$requiredField.on('focus', function(){
+			//	if($requiredField.val()){
+			//		$step3button.prop('disabled', false);
+			//	} else {
+			//		$step3button.prop('disabled', true);
+			//	}
+			//});
+
+
+		}
+
+		function initToolTip(){
+			var $toolTip = $('[data-toggle="tooltip"]');
+			if($toolTip.length > 0) {
+				$toolTip.tooltip();
+			}
 		}
 
 		//init functions
-		initSelectBoxIt();
+		//initSelectBoxIt();
 		initPlaceholder();
 		initUIAccordion();
 		initUITabs();
 		initSmoothScroll();
 		initShadowbox();
 		initFormSteps();
+		initToolTip();
 
 	}());
 

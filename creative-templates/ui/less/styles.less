@@ -109,6 +109,28 @@ CUSTOM VARIABLES/OVERRIDES
 
 .btn {margin:10px 0;}
 .btn-lg {font-size:16px;}
+.panel-title > a {
+  display:block;
+  position:relative;
+  text-decoration:none;
+  &:after {
+	content:"\f068";
+	position:absolute;
+	right:0;
+	top:3px;
+	display: inline-block;
+	font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
+	font-size: inherit; // can't have font-size inherit on line above, so need to override
+	text-rendering: auto; // optimizelegibility throws things off #1094
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+  }
+  &.collapsed {
+	&:after {
+	  content:"\f067";
+	}
+  }
+}
 
 /*#####################################################################################
 UNIVERSAL STYLES
@@ -1630,6 +1652,22 @@ fieldset {
 
 fieldset:first-child {
   margin-top:0;
+}
+
+label {
+  &.required {
+	&:after {
+	  content:"*";
+	  color:@brand-danger;
+	}
+  }
+}
+
+.expiration-fields {
+  .form-control {
+	display:inline-block;
+	width:auto;
+  }
 }
 
 input, select {
