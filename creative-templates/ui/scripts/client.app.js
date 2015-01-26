@@ -3,7 +3,8 @@ define([
 	"jquery",
 	"client.navigation",
 	"client.userInterface",
-	"client.carousel"
+	"client.carousel",
+	"client-socialStream"
 ], function ($) {
 	"use strict";
 

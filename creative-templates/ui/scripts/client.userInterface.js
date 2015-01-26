@@ -9,6 +9,7 @@ define(function (require) {
 	//require("selectBoxIt");
 	require("placeholder");
 	require("shadowBox");
+	require("circiful");
 
 	(function() {
 
@@ -148,6 +149,13 @@ define(function (require) {
 			}
 		}
 
+		function initCirciful(){
+			var $circleChart = $(".circle-chart");
+			if($circleChart.length > 0) {
+				$circleChart.circliful();
+			}
+		}
+
 		//init functions
 		//initSelectBoxIt();
 		initPlaceholder();
@@ -157,6 +165,7 @@ define(function (require) {
 		initShadowbox();
 		initFormSteps();
 		initToolTip();
+		initCirciful();
 
 	}());
 
