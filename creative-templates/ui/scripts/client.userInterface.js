@@ -89,7 +89,7 @@ define(function (require) {
 		//Shadowbox - http://www.shadowbox-js.com/
 		function initShadowbox() {
 			var $target = $('a[rel*="shadowbox"]');
-			var $video = $('a[rel*="shadowbox"].video');
+			var $video = $('.social-youtube a[rel*="shadowbox"]');
 			if ($target.length > 0) {
 				window.Shadowbox.init();
 			}

@@ -6,21 +6,21 @@ define(function (require) {
 	require("isotope");
 
 	(function() {
-
 	    function initSocialStream(){
 			if ($('#social-stream').length > 0) {
-
 				var $container = $('#social-stream .stream');
 				// initialize Isotope
 				$container.isotope({
-					// options...
 					itemSelector: '.social-block',
-					layoutMode: 'masonry'
+					masonry: {
+						columnWidth: '.grid-sizer'
+					}
 				});
 
 				// layout Isotope again after all images have loaded
 				$container.imagesLoaded( function() {
 					$container.isotope('layout');
+					log('loaded');
 				});
 
 				// filtering Isotope
@@ -31,10 +31,11 @@ define(function (require) {
 					$(this).parent().addClass('active');
 					if($(this).parent('li').is('active')){
 						// filter is active
+						log('is active');
 					} else {
 						$filter.removeClass('active');
 						$(this).parent('li').addClass('active');
-						var $getFilter = $(this).text();
+						//var $getFilter = $(this).text();
 					}
 					e.preventDefault();
 				});

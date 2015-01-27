@@ -25,7 +25,7 @@ require.config({
         transit:      	'vendor/carouFredSel/helper-plugins/jquery.transit.min', // Plugin to utilize css3 transitions with jquery fallback
         touchSwipe:     'vendor/carouFredSel/helper-plugins/jquery.touchSwipe.min', // A jquery based plugin for touch based device support
 		circiful:     	'vendor/circiful/jquery.circliful.min', // A jquery based plugin for circle charts
-		isotope:   		'vendor/isotope/jquery.isotope.min', // A jquery based plugin masonry positioning elements
+		isotope:   		'vendor/isotope/isotope.pkgd.min', // A jquery based plugin masonry positioning elements
         //selectBoxIt:    'vendor/jquery.selectBoxIt/jquery.selectBoxIt-3.8.1.min', // Plugin for custom select menus
         placeholder:    'vendor/jquery.placeholder/jquery.placeholder.min', // Adds placeholder support for non-modern browsers
         shadowBox:      'vendor/shadowbox/shadowbox.min' // Adds overlay menu functionality
