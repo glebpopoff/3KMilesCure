@@ -26,7 +26,7 @@ require.config({
         touchSwipe:     'vendor/carouFredSel/helper-plugins/jquery.touchSwipe.min', // A jquery based plugin for touch based device support
 		circiful:     	'vendor/circiful/jquery.circliful.min', // A jquery based plugin for circle charts
 		isotope:   		'vendor/isotope/isotope.pkgd.min', // A jquery based plugin masonry positioning elements
-        //selectBoxIt:    'vendor/jquery.selectBoxIt/jquery.selectBoxIt-3.8.1.min', // Plugin for custom select menus
+        bridget:    	'vendor/jquery-bridget/jquery.bridget', // Plugin for isotope compatibility
         placeholder:    'vendor/jquery.placeholder/jquery.placeholder.min', // Adds placeholder support for non-modern browsers
         shadowBox:      'vendor/shadowbox/shadowbox.min' // Adds overlay menu functionality
     },
@@ -39,8 +39,8 @@ require.config({
         'transit':    	['jquery'],
         'touchSwipe':   ['jquery'],
         'circiful':   	['jquery'],
-        'isotope':   	['jquery'],
-        //'selectBoxIt':  ['jqueryUI'],
+        'isotope':   	['bridget','jquery'],
+        'bridget':  	['jquery'],
         'placeholder':	['jquery'],
         'shadowBox':    ['jquery']
     }

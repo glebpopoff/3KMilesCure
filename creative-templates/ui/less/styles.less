@@ -1600,51 +1600,58 @@ LAYOUT ELEMENTS / MODULES
 	margin:0 10px;
   }
 
+  #social-stream {
+	background:none;
+	&.loading {
+	  background:url(../images/loading.gif)no-repeat center 40px;
+	  .social-block {visibility:hidden;}
+	}
+  }
+
   /* nav-filters */
   .social-nav {
-	overflow:hidden;
-	margin:0 10px;
 	ul {
 	  background:none;
 	  padding:0;
 	  border-bottom:none;
-	  margin:0 0 20px -3px;
+	  margin:0 0 20px 0;
 	  font-size:14px;
 
 	  li {
-		float:left;
-		display:block;
+		display:inline-block;
+		vertical-align:middle;
 		margin:3px;
-		> a {
-		  background:#cccccc;
-		  display:block;
-		  color:#fff;
-		  border:none;
-		  padding:10px;
-		  height:20px;
-		  text-align:center;
-		  position:relative;
-		  text-decoration:none;
 
-		  .social-icon {
+		  > a {
 			font-size:24px;
 			line-height:1;
 			margin-top:-1px;
+			background:#cccccc;
+			display:block;
+			color:#fff;
+			border:none;
+			padding:10px;
+			text-align:center;
+			position:relative;
+			text-decoration:none;
+
 		  }
-		}
 		&.active {
 		  > a {
 			background:#005696;
 			font-weight:normal;
 		  }
 		}
-		&.rss {
-		  .social-icon {}
+		&.see-all {
+			> a {font-size:16px;}
 		}
 		&.facebook {
 		  .social-icon {}
 		}
 		&.twitter {
+		  .social-icon {}
+		}
+		&.youtube {
 		  .social-icon {}
 		}
 	  }
@@ -1654,22 +1661,38 @@ LAYOUT ELEMENTS / MODULES
   }
 
   .social-block {
+	visibility:visible;
 	font-size: 12px;
 	padding: 0 0 40px 0;
-//	width: 25%;
-//	margin: 10px;
+	width: 300px;
+	margin: 10px 0;
 	line-height: 20px;
+	.transition(opacity 0.3s linear);
+
+	.social-icon {
+	  padding-top:12px;
+	}
+
+	/* Media Queries and Conditionals */
+
+	@media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+		width:280px;
+	}
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */
+	  width: 226px;
+	}
+	@media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */
+		width:270px;
+	}
+
   }
 
-  .grid-sizer {width:25%;}
-
-  /* Media Queries and Conditionals */
-
-  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */ }
-  @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */
-	.grid-sizer {width: 33.333333%;}
+  @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+	#social-stream {
+	  width:280px;
+	  margin:0 auto;
+	}
   }
-  @media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
 
 }
 
