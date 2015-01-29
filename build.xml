@@ -29,7 +29,6 @@
 		<!-- copy the website files to the server, except for compiled .NET dlls and the transformed web.configs -->
 		<sync todir="${target}" includeEmptyDirs="true" failonerror="true" verbose="true">
 			<fileset dir="${project-directory}" casesensitive="false">
-				<exclude name="connectionStrings.config"/>
 				<!-- standard set of excludes below -->
 				<exclude name="bin/"/>
 				<exclude name="obj/"/>
@@ -43,9 +42,11 @@
 				<exclude name="properties/"/>
 			</fileset>
 			<preserveintarget>
+				<include name="creative-templates/"/>
+				<include name="connectionStrings.config"/>
+				<!-- standard set of excludes below -->
 				<include name="bin/"/>
 				<include name="web.config"/>
-				<include name="creative-templates/"/>
 			</preserveintarget>
 		</sync>
 
