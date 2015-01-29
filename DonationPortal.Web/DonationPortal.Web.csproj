@@ -106,28 +106,45 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <None Include="connectionStrings.config" />
-    <Content Include="ui\scripts\vendor\underscore\underscore.js" />
-    <Content Include="ui\scripts\vendor\underscore\underscore.min.js" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="ui\css\bootstrap-theme.css" />
+    <Content Include="ui\css\bootstrap-theme.min.css" />
+    <Content Include="ui\css\bootstrap.css" />
+    <Content Include="ui\css\bootstrap.min.css" />
     <Content Include="ui\css\main-styles.css" />
+    <Content Include="ui\css\select2-bootstrap.css" />
+    <Content Include="ui\css\site.css" />
     <Content Include="ui\fonts\fontawesome-webfont.svg" />
     <Content Include="ui\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="ui\images\600x450&amp;text=image.gif" />
+    <Content Include="ui\images\ajax-loader.gif" />
     <Content Include="ui\images\glyphicons-halflings-white.png" />
     <Content Include="ui\images\glyphicons-halflings.png" />
+    <Content Include="ui\images\hero-image-hp.png" />
     <Content Include="ui\images\icon-selectBox-arrow.png" />
     <Content Include="ui\images\img-homepage-hero.jpg" />
+    <Content Include="ui\images\img-maria-event-details.jpg" />
+    <Content Include="ui\images\loading.gif" />
+    <Content Include="ui\images\logo-3kforcure.png" />
     <Content Include="ui\images\sb-close.png" />
     <Content Include="ui\images\sb-loading.gif" />
     <Content Include="ui\images\sb-next.png" />
     <Content Include="ui\images\sb-pause.png" />
     <Content Include="ui\images\sb-play.png" />
     <Content Include="ui\images\sb-previous.png" />
+    <Content Include="ui\images\social-icon-fb.png" />
+    <Content Include="ui\images\social-icon-google.png" />
+    <Content Include="ui\images\social-icon-twitter.png" />
+    <Content Include="ui\images\social-icon-yt.png" />
+    <Content Include="ui\scripts\client-socialStream.js" />
     <Content Include="ui\scripts\client.app.js" />
     <Content Include="ui\scripts\client.carousel.js" />
     <Content Include="ui\scripts\client.navigation.js" />
     <Content Include="ui\scripts\client.userInterface.js" />
-    <Content Include="ui\scripts\main.js" />
+    <Content Include="ui\scripts\cSnapToRoute.js" />
+    <Content Include="ui\scripts\geoxml3.js" />
     <Content Include="ui\scripts\jquery.serializeObject.js" />
+    <Content Include="ui\scripts\main.js" />
     <Content Include="ui\scripts\vendor\bootstrap\bootstrap-3.2.0.js" />
     <Content Include="ui\scripts\vendor\bootstrap\bootstrap-3.2.0.min.js" />
     <Content Include="ui\scripts\vendor\carouFredSel\helper-plugins\jquery.ba-throttle-debounce.min.js" />
@@ -138,9 +155,13 @@
     <Content Include="ui\scripts\vendor\carouFredSel\jquery-1.8.2.min.js" />
     <Content Include="ui\scripts\vendor\carouFredSel\jquery.carouFredSel-6.2.1-packed.js" />
     <Content Include="ui\scripts\vendor\carouFredSel\jquery.carouFredSel-6.2.1.js" />
+    <Content Include="ui\scripts\vendor\circiful\jquery.circliful.min.js" />
     <Content Include="ui\scripts\vendor\imagesLoaded\imagesloaded.js" />
     <Content Include="ui\scripts\vendor\imagesLoaded\imagesloaded.pkgd.js" />
     <Content Include="ui\scripts\vendor\imagesLoaded\imagesloaded.pkgd.min.js" />
+    <Content Include="ui\scripts\vendor\isotope\isotope.pkgd.js" />
+    <Content Include="ui\scripts\vendor\isotope\isotope.pkgd.min.js" />
+    <Content Include="ui\scripts\vendor\jquery-bridget\jquery.bridget.js" />
     <Content Include="ui\scripts\vendor\jquery.placeholder\jquery.placeholder.min.js" />
     <Content Include="ui\scripts\vendor\jquery.selectBoxIt\jquery.selectBoxIt-3.8.1.js" />
     <Content Include="ui\scripts\vendor\jquery.selectBoxIt\jquery.selectBoxIt-3.8.1.min.js" />
@@ -154,6 +175,8 @@
     <Content Include="ui\scripts\vendor\pie\PIE_uncompressed.js" />
     <Content Include="ui\scripts\vendor\require\require.js" />
     <Content Include="ui\scripts\vendor\shadowbox\shadowbox.min.js" />
+    <Content Include="ui\scripts\vendor\underscore\underscore.js" />
+    <Content Include="ui\scripts\vendor\underscore\underscore.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +186,7 @@
     <Compile Include="ApiModels\Messages\DonationMessage.cs" />
     <Compile Include="ApiModels\Routes\EventRiderRoute.cs" />
     <Compile Include="ApiModels\Routes\RouteVertex.cs" />
+    <Compile Include="ApiModels\Social\SocialFeedItem.cs" />
     <Compile Include="App_Start\BrowserJsonFormatter.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -178,6 +202,7 @@
     <Compile Include="Controllers\API\RouteController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
     <Compile Include="Extensions\HtmlHelperExtensions.cs" />
+    <Compile Include="Controllers\SocialController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,6 +325,16 @@
     <Content Include="Views\Template\Footer.cshtml" />
     <Content Include="Views\RiderDetail\Index.cshtml" />
     <Content Include="Views\Donation\Index.cshtml" />
+    <Content Include="Views\Social\Index.cshtml" />
+    <Content Include="ui\css\main-styles.css.map" />
+    <Content Include="ui\fonts\fontawesome-webfont.eot" />
+    <Content Include="ui\fonts\fontawesome-webfont.ttf" />
+    <Content Include="ui\fonts\fontawesome-webfont.woff" />
+    <Content Include="ui\fonts\FontAwesome.otf" />
+    <Content Include="ui\scripts\vendor\pie\PIE.php" />
+    <Content Include="ui\scripts\vendor\underscore\underscore.min.map" />
+    <Content Include="ui\css\bootstrap.css.map" />
+    <Content Include="ui\css\bootstrap-theme.css.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

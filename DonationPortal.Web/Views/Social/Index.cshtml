@@ -1,0 +1,377 @@
+﻿@model List<SocialFeedItem>
+@using DonationPortal.Web.ApiModels.Social;
+<!DOCTYPE html>
+
+<html lang="en" class="no-js">
+
+<head>
+    <base href="/" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1024, initial-scale=1.0">
+    <title ng-bind="title">3000 Miles to a Cure</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Place favicon.ico and apple-touch-icon(s) in the root directory -->
+    <!-- Bootstrap core CSS -->
+    <link href="/ui/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" type="text/css" href="/ui/css/main-styles.css">
+
+    <script src="/ui/scripts/vendor/modernizr/modernizr.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/ui/vendor/html5shiv/dist/html5shiv.js"></script>
+    <script src="/ui/vendor/respond/dest/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<!--[if lt IE 7]>      <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <body class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <body class="lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <body class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<body>
+    <!--<![endif]-->
+
+    <a class="skip-nav" href="#skipToContent" role="link" tabindex="0">Skip Navigation</a>
+
+    <div class="main-container">
+        <!-- main-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+        <header class="header-container" role="banner">
+            <!-- header-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+            <div class="container">
+                <figure class="logo">
+                    <div>Bike Sebring</div>
+                    <div class="tagline">3000 Miles to a Cure</div>
+                </figure>
+                <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-nav"><span class="fa fa-bars"><span class="sr-only">Toggle navigation</span></span></a>
+                <div class="collapse navbar-collapse" id="mobile-nav">
+                    <nav class="global-nav-container" role="navigation">
+                        <!-- global-nav-container starts -->
+                        <ul>
+                            <li>Unite. Share. Inspire</li>
+                            <li class="social-link"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li class="social-link"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li class="social-link"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+                        </ul>
+                        <!-- /global-nav-container ends -->
+                    </nav>
+                    <nav class="t1-nav-container" role="navigation">
+                        <!-- t1-nav-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+                        <ul class="t1-nav">
+                            <li><a href="#">12 Hour Ride</a></li>
+                            <li><a href="#">24 Hour Ride</a></li>
+                            <li class="callout"><a href="#">Donate</a></li>
+                        </ul>
+                        <!-- t1-nav-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+                    </nav>
+                </div>
+            </div>
+            <!-- header-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        </header>
+
+        <div id="main" role="main">
+            <!-- main starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+            <div class="stacked-container social-dashboard" id="skipToContent" role="region">
+                <!-- stacked-container starts   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+                <div class="container">
+
+                    <nav class="social-nav">
+                        <!-- t2-navigation -->
+                        <strong>Filter:</strong>
+                        <ul>
+                            <!--<li class="active"><a href="#" data-filter="*">See All</a></li>-->
+                            <!--<li class="facebook"><a href="#" data-filter=".social-facebook" title="facebook"><span class="social-icon fa fa-facebook"></span></a></li>-->
+                            <li class="twitter active"><a href="#" data-filter=".social-twitter" title="twitter"><span class="social-icon fa fa-twitter"></span></a></li>
+                            <!--<li class="youtube"><a href="#" data-filter=".social-youtube" title="youtube"><span class="social-icon fa fa-youtube"></span></a></li>-->
+                        </ul>
+                        <!-- /t2-navigation -->
+                    </nav>
+
+                    <div id="social-stream" class="loading">
+                        <!-- social-stream -->
+                        <section class="stream">
+
+                            <div class="grid-sizer"></div>
+                            @foreach (SocialFeedItem item in Model)
+                            {
+                                <div class="social-block social-twitter">
+                                    <a href="#" class="social-media" target="_blank"><img src="http://placehold.it/298x150&text=placeholder" alt="placeholder"></a>
+                                    <div class="inner">
+                                        <div class="social-thumb">
+                                            <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                            <div class="social-user">
+                                                <a href="#"><strong>User Name</strong><br>@@username</a>
+                                            </div>
+                                        </div>
+                                        <div class="social-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ex harum inventore neque sequi, suscipit. <a href="#">pic.twitter.com/byjkECBtl4</a> <a href="#">#hashtag</a> <a href="#">#loremipsum</a></div>
+                                        <div class="social-meta">
+                                            <ul>
+                                                <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                                <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                                <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="social-details">
+                                            <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                        </div>
+                                        <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="social-block social-twitter">
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Want to win a free laptop? Register for classes by Friday, Jan. 10 and be entered into our drawing! Contact your advisor for more details. <a href="#">pic.twitter.com/byjkECBtl4</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <a href="#" class="social-media" target="_blank"><img src="http://placehold.it/298x150&text=placeholder" alt="placeholder"></a>
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ex harum inventore neque sequi, suscipit. <a href="#">pic.twitter.com/byjkECBtl4</a> <a href="#">#hashtag</a> <a href="#">#loremipsum</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Want to win a free laptop? Register for classes by Friday, Jan. 10 and be entered into our drawing! Contact your advisor for more details. <a href="#">pic.twitter.com/byjkECBtl4</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <a href="#" class="social-media" target="_blank"><img src="http://placehold.it/298x150&text=placeholder" alt="placeholder"></a>
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ex harum inventore neque sequi, suscipit. <a href="#">pic.twitter.com/byjkECBtl4</a> <a href="#">#hashtag</a> <a href="#">#loremipsum</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Want to win a free laptop? Register for classes by Friday, Jan. 10 and be entered into our drawing! Contact your advisor for more details. <a href="#">pic.twitter.com/byjkECBtl4</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <a href="#" class="social-media" target="_blank"><img src="http://placehold.it/298x150&text=placeholder" alt="placeholder"></a>
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ex harum inventore neque sequi, suscipit. <a href="#">pic.twitter.com/byjkECBtl4</a> <a href="#">#hashtag</a> <a href="#">#loremipsum</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Want to win a free laptop? Register for classes by Friday, Jan. 10 and be entered into our drawing! Contact your advisor for more details. <a href="#">pic.twitter.com/byjkECBtl4</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <a href="#" class="social-media" target="_blank"><img src="http://placehold.it/298x150&text=placeholder" alt="placeholder"></a>
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem ex harum inventore neque sequi, suscipit. <a href="#">pic.twitter.com/byjkECBtl4</a> <a href="#">#hashtag</a> <a href="#">#loremipsum</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                            <div class="social-block social-twitter">
+                                <div class="inner">
+                                    <div class="social-thumb">
+                                        <a href="#" class="thumb"><img src="http://placehold.it/80x80&text=icon" alt=""></a>
+                                        <div class="social-user">
+                                            <a href="#"><strong>User Name</strong><br>@@username</a>
+                                        </div>
+                                    </div>
+                                    <div class="social-text">Want to win a free laptop? Register for classes by Friday, Jan. 10 and be entered into our drawing! Contact your advisor for more details. <a href="#">pic.twitter.com/byjkECBtl4</a></div>
+                                    <div class="social-meta">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-reply"></i>Reply</a></li>
+                                            <li><a href="#"><i class="fa fa-retweet"></i>Retweet</a></li>
+                                            <li><a href="#"><i class="fa fa-star"></i>Favorite</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="social-details">
+                                        <a href="#">Tweeted</a> <span>XX hrs ago</span>
+                                    </div>
+                                    <a href="#" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+                                </div>
+                            </div>
+
+                        </section>
+                        <!-- /social-stream -->
+                    </div>
+
+                </div>
+                <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+            </div>
+
+            <!-- main ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        </div>
+
+        <footer class="footer-container" role="contentinfo">
+            <!-- footer-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>3000 Miles to a Cure</h2>
+                        <p>&copy; 2015 3000 Miles to a Cure is 501(c)(3)<br> Visit us at <a href="#">3000milestoacure.com</a> to learn more about our organization</p>
+                    </div>
+                    <div class="col-sm-6">
+                        <ul class="footer-links">
+                            <li><a href="#" class="btn btn-primary">Donate Now</a></li>
+                            <li class="social-link"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li class="social-link"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li class="social-link"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- footer-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        </footer>
+
+        <!-- main-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </div>
+
+    <script data-main="ui/scripts/main" src="ui/scripts/vendor/require/require.js"></script>
+
+</body>
+</html>
