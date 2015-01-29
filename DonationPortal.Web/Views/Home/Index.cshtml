@@ -1,0 +1,130 @@
+﻿@model DonationPortal.Web.ViewModels.Home.HomeViewModel
+
+<div class="home-container" id="main" role="main">
+    <!-- home-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <section class="stacked-container hero" id="skipToContent" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <figure class="hero-image"><img class="img-responsive" src="ui/images/img-homepage-hero.jpg" alt="Take Action"></figure>
+        <div class="container">
+            <div class="hero-content">
+                <h1 role="heading">Take Action.</h1>
+                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam atque corporis dolore dolorem doloribus enim expedita ipsa laudantium minus nobis odio perferendis, provident quae quibusdam quisquam sed sit voluptatibus.</p>
+            </div>
+        </div>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+
+    <section class="stacked-container carousel-container" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <div class="container">
+            <div class="carousel responsive no-js">
+                @foreach (var rider in Model.Riders)
+                {
+                    <div class="slide">
+                        <div class="row">
+                            <div class="col-sm-8 col-md-7">
+                                <h2>@rider.EventName <span class="participant">/ @rider.RiderName</span></h2>
+                                @rider.RiderDescription
+                                <br>
+                                <p><a href="@rider.DetailUrl" class="btn btn-lg btn-primary">Learn More</a></p>
+                            </div>
+                            <div class="col-sm-offset-0 col-md-offset-1 col-sm-4">
+                                <div class="module donation-block">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="heading">Total Raised</div>
+                                            <div class="amount">@rider.TotalRaised.ToString("C0")</div>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="heading">Our Goal</div>
+                                            <div class="amount">@rider.DonationGoal.ToString("C0")</div>
+                                        </div>
+                                    </div>
+                                    <div class="donate-callout"><a href="@rider.DetailUrl" class="btn btn-lg btn-primary btn-block"><i class="fa fa-heart" style="font-weight: bold"></i> Make a Donation</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="carousel-nav"></div>
+            <a href="#" class="prev"><i class="fa fa-angle-left"></i><span class="sr-only">prev</span></a>
+            <a href="#" class="next"><i class="fa fa-angle-right"></i><span class="sr-only">next</span></a>
+        </div>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+
+    <section class="stacked-container map-container" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <div class="map"><img src="http://placehold.it/1170x500&text=Map" style="width:100%;" alt="" /></div>
+        <div class="route-details">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4">
+                        <div class="map-heading">@Model.FeaturedRider.PossessiveRiderName Route</div>
+                        <div class="event-specs">Event Begins - @Model.FeaturedRider.RiderStart.ToString("h:mmtt M/d/yyyy")</div>
+                    </div>
+                    <div class="col-xs-6 col-sm-4">
+                        <ul class="elapsed">
+                            <li class="title">Time Elapsed</li>
+                            <li class="hours">
+                                <div class="counter-label">Hours</div>
+                                <div class="counter">00</div>
+                            </li>
+                            <li class="divider">:</li>
+                            <li class="minutes">
+                                <div class="counter-label">Min</div>
+                                <div class="counter">00</div>
+                            </li>
+                            <li class="total">@(Model.FeaturedRider.HasDurationGoal ? "/ " + Model.FeaturedRider.DurationGoal : null)</li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-6 col-sm-4">
+                        <ul class="travelled">
+                            <li class="title">Miles Travelled:</li>
+                            <li class="miles">
+                                <div class="counter-label">Miles</div>
+                                <div class="counter">00</div>
+                            </li>
+                            <li class="total">@(Model.FeaturedRider.HasDistanceGoal ? "/ " + Model.FeaturedRider.DistanceGoal : null)</li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+
+    <section class="stacked-container content-container" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h2>Lorem ipsum dolor</h2>
+                    @Model.FeaturedRider.RiderStory
+                    <br>
+                    <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-primary btn-lg"><i class="fa fa-camera"></i> View @Model.FeaturedRider.PossessiveRiderName Journey</a></p>
+                </div>
+                <div class="col-sm-6">
+                    <div class="module recent-messages">
+                        <h2>Recent Messages</h2>
+                        <!-- todo w/ ajax
+                            <div class="message">
+                                <div class="post">Lorem ipsum dolor sit amet.</div>
+                                <div class="author">Anne</div>
+                            </div>
+                            -->
+                        <br>
+                        <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-primary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+
+    <!-- home-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</div>

@@ -1,11 +1,14 @@
-﻿namespace DonationPortal.Web.ApiModels.EventDonations
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DonationPortal.Engine.PaymentProcessor
 {
-	public class RiderDonation
+	public class RecurringPaymentRequest
 	{
-		public decimal DonationAmount { get; set; }
-		public float Latitude { get; set; }
-		public float Longitude { get; set; }
-		public string Message { get; set; }
+		public decimal Amount { get; set; }
 		public string FirstName { get; set; }
 		public string LastName { get; set; }
 		public string StreetAddress1 { get; set; }
@@ -17,5 +20,7 @@
 		public int ExpirationMonth { get; set; }
 		public int ExpirationYear { get; set; }
 		public string CvvNumber { get; set; }
+		// recur type?
+		// start date?
 	}
 }

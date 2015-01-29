@@ -29,6 +29,14 @@ namespace DonationPortal.Engine
         public byte MapZoom { get; set; }
         public double MarkerLatitude { get; set; }
         public double MarkerLongitude { get; set; }
+        public decimal DonationGoal { get; set; }
+        public System.DateTime Start { get; set; }
+        public string Story { get; set; }
+        public string Teaser { get; set; }
+        public string DurationGoal { get; set; }
+        public string DistanceGoal { get; set; }
+        public string PossessiveName { get; set; }
+        public Nullable<System.DateTime> End { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }

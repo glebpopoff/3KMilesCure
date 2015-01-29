@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -9,7 +8,7 @@ using DonationPortal.Engine.Messages;
 using DonationPortal.Web.ApiModels.Messages;
 using DotSpatial.Positioning;
 
-namespace DonationPortal.Web.Controllers
+namespace DonationPortal.Web.Controllers.API
 {
 	[RoutePrefix("api/v1")]
 	public class MessageController : ApiController

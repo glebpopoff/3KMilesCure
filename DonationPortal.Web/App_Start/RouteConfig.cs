@@ -14,21 +14,15 @@ namespace DonationPortal.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
-				name: "Map",
-				url: "map/{action}",
-				defaults: new { controller = "Map", action = "Index" }
-			 );
-
-			routes.MapRoute(
-				name: "AngularRoute",
-				url: "{path}/{*path2}",
-				defaults: new { controller = "Page", action = "Index", path = UrlParameter.Optional }
-			 );
+				name: "Event Detail",
+				url: "rider-detail/{eventUrlSlug}/{riderUrlSlug}",
+				defaults: new { controller = "RiderDetail", action = "Index" }
+			);
 
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Page", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

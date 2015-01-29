@@ -1,0 +1,219 @@
+﻿@using DonationPortal.Web.Extensions
+@using DonationPortal.Web.ViewModels.Donation
+@model DonationPortal.Web.ViewModels.Donation.DonationViewModel
+
+@{
+}
+
+<div id="main" role="main">
+    <!-- main starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <section class="stacked-container" id="skipToContent" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1>Donate</h1>
+                    <h2>100% OF YOUR GIFT FUNDS BRAIN CANCER RESEARCH.</h2>
+                    <p>We choose to deliver 100% of individual donations to brain cancer research. This 100% promise is made possible through strategic partnerships with entities who support the mission of 3000 Miles to a Cure. These partners deliver in-kind donations and fund specific needs within 3000 Miles to a Cure's operational budget including advertising, administrative costs, event hosting costs and transaction fees.</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-8">
+                    @using (Html.BeginForm())
+                    {
+                        if (Html.HasAnyErrors())
+                        {
+                            <div class="alert alert-danger">Please fill out the required fields below</div>
+                        }
+                        if (Model.HasSuccessfulDonation)
+                        {
+                            <div class="alert alert-success">Thank you for your donation!</div>
+                        }
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Donation Information</h2>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="form-group donate-options @(Html.HasError(m => m.SelectedDonationAmount) ? "has-error" : null)">
+                            <div><label class="required control-label">Select donation amount:</label></div>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(m => m.SelectedDonationAmount, "25") $25
+                            </label>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(m => m.SelectedDonationAmount, "50") $50
+                            </label>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(m => m.SelectedDonationAmount, "75") $75
+                            </label>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(m => m.SelectedDonationAmount, "100") $100
+                            </label>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(m => m.SelectedDonationAmount, "other", new { @class = "other-radio" }) Other
+                            </label>
+                            @Html.ValidationMessageFor(m => m.SelectedDonationAmount, null, new { @class = "help-block" })
+                        </div>
+                        <div class="form-group other-input @(Html.HasError(m => m.OtherDonationAmount) ? "has-error" : null)">
+                            <label for="other-amount" class="control-label">Other Amount:</label>
+                            <div class="input-group col-sm-4">
+                                <div class="input-group-addon">$</div>
+                                @Html.TextBoxFor(m => m.OtherDonationAmount, new { @class = "form-control", palceholder = "" })
+                                <div class="input-group-addon">.00</div>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.OtherDonationAmount, null, new { @class = "help-block" })
+                        </div>
+                        <div class="form-group @(Html.HasError(m => m.DonationType) ? "has-error" : null)">
+                            <div><label class="required control-label">Donation type:</label></div>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.OneTimeDonation.ToString()) One-time donation
+                            </label>
+                            <label class="radio-inline">
+                                @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.MonthlyRecurringDonation.ToString()) Monthly recurring donation
+                            </label>
+                            @Html.ValidationMessageFor(m => m.DonationType, null, new { @class = "help-block" })
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h2>Billing Information</h2>
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group @(Html.HasError(m => m.FirstName) ? "has-error" : null)">
+                                    <label for="first-name" class="required control-label">First Name:</label>
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control required-field", placeholder = "", id = "first-name" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group @(Html.HasError(m => m.LastName) ? "has-error" : null)">
+                                    <label for="last-name" class="required control-label">Last Name:</label>
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control required-field", placeholder = "", id = "last-name" })
+                                    @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group @(Html.HasError(m => m.StreetAddress1) ? "has-error" : null)">
+                                    <label for="street-address-1" class="required control-label">Street Address 1:</label>
+                                    @Html.TextBoxFor(m => m.StreetAddress1, new { @class = "form-control required-field", placeholder = "", id = "street-address-1" })
+                                    @Html.ValidationMessageFor(m => m.StreetAddress1, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group @(Html.HasError(m => m.StreetAddress2) ? "has-error" : null)">
+                                    <label for="street-address-2" class="control-label">Street Address 2:</label>
+                                    @Html.TextBoxFor(m => m.StreetAddress2, new { @class = "form-control required-field", placeholder = "", id = "street-address-2" })
+                                    @Html.ValidationMessageFor(m => m.StreetAddress2, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group @(Html.HasError(m => m.City) ? "has-error" : null)">
+                                    <label for="city" class="required control-label">City:</label>
+                                    @Html.TextBoxFor(m => m.City, new { @class = "form-control required-field", placeholder = "", id = "city" })
+                                    @Html.ValidationMessageFor(m => m.City, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group @(Html.HasError(m => m.State) ? "has-error" : null)">
+                                    <label for="state" class="required control-label">State:</label>
+                                    @Html.DropDownListFor(m => m.State, Model.States, new { @class = "form-control required-field", id = "state" })
+                                    @Html.ValidationMessageFor(m => m.State, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group @(Html.HasError(m => m.ZipCode) ? "has-error" : null)">
+                                    <label for="zip" class="required control-label">Zip:</label>
+                                    @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control required-field", placeholder = "", id = "zip" })
+                                    @Html.ValidationMessageFor(m => m.ZipCode, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group @(Html.HasError(m => m.Email) ? "has-error" : null)">
+                                    <label for="email" class="required control-label">Email:</label>
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control required-field", placeholder = "", id = "email" })
+                                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <h2>Payment Information</h2>
+                                <hr>
+                            </div>
+                            <div class="col-sm-5">
+                                <div class="form-group @(Html.HasError(m => m.CreditCardNumber) ? "has-error" : null)">
+                                    <label for="credit-card" class="required control-label">Credit Card Number:</label>
+                                    @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control required-field", placeholder = "", id = "credit-card" })
+                                    @Html.ValidationMessageFor(m => m.CreditCardNumber, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="form-inline expiration-fields">
+                                    <div class="form-group @(Html.HasError(m => m.ExpirationMonth) || Html.HasError(m => m.ExpirationYear) ? "has-error" : null)">
+                                        <div><label for="date" class="required control-label">Expiration Date:</label></div>
+                                        @Html.DropDownListFor(m => m.ExpirationMonth, Model.ExpirationMonths, new { @class = "form-control required-field", id = "date" })
+                                        <label for="year" class="sr-only control-label">Expiration Date:</label>
+                                        @Html.DropDownListFor(m => m.ExpirationYear, Model.ExpirationYears, new { @class = "form-control required-field", id = "year" })
+                                        @Html.ValidationMessageFor(m => m.ExpirationMonth, null, new { @class = "help-block" })
+                                        @Html.ValidationMessageFor(m => m.ExpirationYear, null, new { @class = "help-block" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group @(Html.HasError(m => m.CvvNumber) ? "has-error" : null)">
+                                    <div></div>
+                                    <label for="cvv" class="control-label">CVV Number:</label>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            @Html.TextBoxFor(m => m.CvvNumber, new { @class = "form-control required-field", id = "cvv" })
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <a href="#" style="margin-left: 5px;" data-toggle="tooltip" title="Lorem ipsum dolor tooltip">What's This?</a>
+                                        </div>
+                                    </div>
+                                    @Html.ValidationMessageFor(m => m.CvvNumber, null, new { @class = "help-block" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-sm-12">
+                                <div class="help-block"><i class="fa fa-paypal"></i> Paypal integration disclaimer...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</div>
+                            </div>
+                        </div>
+                        <p><button class="btn btn-primary btn-lg" id="step-3-button">Donate Now</button></p>
+                    }
+                </div>
+                <div class="col-sm-4">
+                    <div class="module callout-promo">
+                        <h2>Every Dollar Counts</h2>
+                        <p>Every dollar you donate will cover the cost of analyzing 10 genes. Each genome consists of about 20,000 genes. With enough data, we can crack the code.</p>
+                    </div>
+                    <div class="module callout-promo">
+                        <h2>Other Ways to Give</h2>
+                        <h3>Donate by mail.</h3>
+                        <p>Mail your donations and completed form to:</p>
+                        <address>
+                            3000 Miles to a Cure<br>
+                            104 Red Oak Ct.<br>
+                            Lumberton, NC 28358
+                        </address>
+                        <h3>Become a partner.</h3>
+                        <p>To invest in our mission as an operational partner, email Charlie Mulligan at <a href="#">charlie@3000milestoacure.com.</a></p>
+                    </div>
+                    <div class="module callout-promo">
+                        <h2>Our Events</h2>
+                        <p>Find out more about the current events for 3000 Miles to a Cure and learn how your donation can make a difference.</p>
+                        <p>
+                            <a href="#">Race Sebring / Feb 2015</a><br>
+                            <a href="#">Race Across America / June 2015</a>
+                        </p>
+                        <p><a href="#" class="btn btn-primary btn-lg">View All Events</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+
+    <!-- main ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</div>

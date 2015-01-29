@@ -12,7 +12,7 @@ namespace DonationPortal.Engine
     using System;
     using System.Collections.Generic;
     
-    public partial class RiderMessageDonation
+    public partial class Donation
     {
         public int DonationID { get; set; }
         public string FirstName { get; set; }
@@ -23,13 +23,7 @@ namespace DonationPortal.Engine
         public string State { get; set; }
         public string ZipCode { get; set; }
         public string Email { get; set; }
-        public string Message { get; set; }
-        public double Latitude { get; set; }
-        public double Longitude { get; set; }
         public string TransactionID { get; set; }
-        public int EventRiderID { get; set; }
         public decimal Amount { get; set; }
-    
-        public virtual EventRider EventRider { get; set; }
     }
 }
