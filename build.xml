@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <project name="Intranet" xmlns:dn="antlib:org.apache.ant.dotnet" xmlns="antlib:org.apache.tools.ant">
+
+	<property name="project-directory">DonationPortal.Web</property>
 	
 	<target name="dev">
 		<property name="configuration">dev</property>
@@ -13,35 +15,46 @@
 		<exec executable="nuget">
 			<arg value="restore" />
 		</exec>
-		
-		<dn:msbuild buildfile="DonationPortal.Web\DonationPortal.Web.csproj">
-			<target name="Package"/>
-			<property name="Configuration" value="${configuration}"/>
-		</dn:msbuild>
-		
-		<sync todir="${target}" includeEmptyDirs="true" failonerror="true" overwrite="true">
-			<fileset dir="DonationPortal.Web\obj\${configuration}\Package\PackageTmp">
-			</fileset>
-			<preserveintarget>
-				<include name="creative-templates/"/>
-				<include name="connectionStrings.config"/> <!-- don't delete the file with our connection strings. -->
-				<include name="Web.config"/>
-			</preserveintarget>
-		</sync>
-
-		<sync todir="${target}/ui" includeEmptyDirs="true" failonerror="true" overwrite="true">
-			<fileset dir="DonationPortal.Web/ui">
-			</fileset>
-		</sync>
 
 		<sync todir="${target}/creative-templates" includeEmptyDirs="true" failonerror="true" overwrite="true">
 			<fileset dir="creative-templates">
 			</fileset>
 		</sync>
 		
-		<copy file="DonationPortal.Web\obj\${configuration}\TransformWebConfig\transformed\Web.config" tofile="${target}\web.config" overwrite="true" verbose="true"/>
+		<dn:msbuild buildfile="${project-directory}\DonationPortal.Web.csproj">
+			<target name="Package"/>
+			<property name="Configuration" value="${configuration}"/>
+		</dn:msbuild>
 
-		<dn:msbuild buildfile="DonationPortal.Web\DonationPortal.Web.csproj">
+		<!-- copy the website files to the server, except for compiled .NET dlls and the transformed web.configs -->
+		<sync todir="${target}" includeEmptyDirs="true" failonerror="true" verbose="true">
+			<fileset dir="${project-directory}" casesensitive="false">
+				<exclude name="bin/"/>
+				<exclude name="obj/"/>
+				<exclude name="*.csproj"/>
+				<exclude name="*.user"/>
+				<exclude name="*.suo"/>
+				<exclude name="**/*.cs"/>
+				<exclude name="**/*.less"/>
+				<exclude name="web.config"/>
+				<exclude name="web.*.config"/>
+				<exclude name="properties/"/>
+			</fileset>
+			<preserveintarget>
+				<include name="bin/"/>
+				<include name="web.config"/>
+				<include name="creative-templates/"/>
+			</preserveintarget>
+		</sync>
+
+		<!-- copy the compiled bin and transformed web.config to the server -->
+		<sync todir="${target}/bin" includeEmptyDirs="true" failonerror="true" verbose="true" overwrite="true">
+			<fileset dir="${project-directory}/obj/${configuration}/Package/PackageTmp/bin">
+			</fileset>
+		</sync>
+		<copy file="${project-directory}\obj\${configuration}\TransformWebConfig\transformed\Web.config" tofile="${target}\web.config" verbose="true" failonerror="true" overwrite="true" />
+		
+		<dn:msbuild buildfile="${project-directory}\DonationPortal.Web.csproj">
 			<target name="Clean"/>
 			<property name="Configuration" value="${configuration}"/>
 		</dn:msbuild>
