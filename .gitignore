@@ -70,3 +70,5 @@ packages
 
 #secrets
 DonationPortal.Web/connectionStrings.config
+
+node_modules
