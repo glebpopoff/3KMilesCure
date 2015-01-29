@@ -19,6 +19,12 @@ namespace DonationPortal.Web
 				defaults: new { controller = "Map", action = "Index" }
 			 );
 
+            routes.MapRoute(
+                name: "Social",
+                url: "social/{action}",
+                defaults: new { controller = "Social", action = "Index" }
+             );
+
 			routes.MapRoute(
 				name: "AngularRoute",
 				url: "{path}/{*path2}",
