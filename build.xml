@@ -16,7 +16,7 @@
 			<arg value="restore" />
 		</exec>
 
-		<sync todir="${target}/creative-templates" includeEmptyDirs="true" failonerror="true" overwrite="true">
+		<sync todir="${target}/creative-templates" includeEmptyDirs="true" failonerror="true">
 			<fileset dir="creative-templates">
 			</fileset>
 		</sync>
