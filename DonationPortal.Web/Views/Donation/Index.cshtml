@@ -95,6 +95,8 @@
                                     @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "help-block" })
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group @(Html.HasError(m => m.StreetAddress1) ? "has-error" : null)">
                                     <label for="street-address-1" class="required control-label">Street Address 1:</label>
@@ -109,6 +111,8 @@
                                     @Html.ValidationMessageFor(m => m.StreetAddress2, null, new { @class = "help-block" })
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group @(Html.HasError(m => m.City) ? "has-error" : null)">
                                     <label for="city" class="required control-label">City:</label>
@@ -123,6 +127,7 @@
                                     @Html.ValidationMessageFor(m => m.State, null, new { @class = "help-block" })
                                 </div>
                             </div>
+
                             <div class="col-sm-4">
                                 <div class="form-group @(Html.HasError(m => m.ZipCode) ? "has-error" : null)">
                                     <label for="zip" class="required control-label">Zip:</label>
@@ -130,6 +135,8 @@
                                     @Html.ValidationMessageFor(m => m.ZipCode, null, new { @class = "help-block" })
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group @(Html.HasError(m => m.Email) ? "has-error" : null)">
                                     <label for="email" class="required control-label">Email:</label>
@@ -137,6 +144,8 @@
                                     @Html.ValidationMessageFor(m => m.Email, null, new { @class = "help-block" })
                                 </div>
                             </div>
+                        </div>
+                        <div class="row">
                             <div class="col-sm-12">
                                 <h2>Payment Information</h2>
                                 <hr>
