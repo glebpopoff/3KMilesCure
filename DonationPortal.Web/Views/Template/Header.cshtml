@@ -5,10 +5,13 @@
 <header class="header-container" role="banner">
     <!-- header-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <div class="container">
-        <figure class="logo">
-            <div>@Model.FeaturedEventTitle</div>
-            <div class="tagline">3000 Miles to a Cure</div>
-        </figure>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5 col-md-4 col-lg-3">
+                <figure class="logo">
+                    <img class="img-responsive" width="275" height="80" src="/ui/images/logo-3kforcure.png" alt="3000 Miles For A Cure" />
+                </figure>
+            </div>
+        </div>
         <a href="#" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#mobile-nav"><span class="fa fa-bars"><span class="sr-only">Toggle navigation</span></span></a>
         <div class="collapse navbar-collapse" id="mobile-nav">
             <nav class="global-nav-container" role="navigation">
@@ -28,7 +31,7 @@
                     {
                         <li><a href="@rider.Url">@rider.Name</a></li>
                     }
-                    <li class="callout"><a href="#">Donate</a></li>
+                    <li class="callout">@Html.ActionLink("Donate", "Index", "Donation")</li>
                 </ul>
                 <!-- t1-nav-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
             </nav>
