@@ -102,13 +102,18 @@ define(function (require) {
 
 			var $doanteOptions = $(".donate-options input[type='radio']");
 			var $otherAmount = $(".other-radio");
-			$doanteOptions.on("click", function(){
-				if ($otherAmount.is(':checked')){
+
+			var toggleOtherAmount = function() {
+				if ($otherAmount.is(':checked')) {
 					$(".other-input").show();
 				} else if (!($otherAmount.is(':checked'))) {
 					$(".other-input").hide().find('input').val("");
 				}
-			});
+			};
+
+			toggleOtherAmount();
+
+			$doanteOptions.on("click", toggleOtherAmount);
 
 			//var $step1button = $('#step-1-button');
 			//var $step2button = $('#step-2-button');
