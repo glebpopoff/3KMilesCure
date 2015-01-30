@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DonationPortal.Web.Attributes;
+using Foolproof;
 
 namespace DonationPortal.Web.ViewModels.Donation
 {
@@ -16,8 +17,7 @@ namespace DonationPortal.Web.ViewModels.Donation
 		[AllowedValues(typeof(string), "25", "50", "75", "100", "other")]
 		public string SelectedDonationAmount { get; set; }
 
-		// gotta think about this one...
-		// [RequiredIf("SelectedDonationAmount", "other")]
+		[RequiredIf("SelectedDonationAmount", "other")]
 		[DisplayName("Other Donation Amount")]
 		public decimal? OtherDonationAmount { get; set; }
 
@@ -80,7 +80,6 @@ namespace DonationPortal.Web.ViewModels.Donation
 
 		[Required]
 		[DisplayName("CVV Number")]
-		[StringLength(3, MinimumLength = 3)] // is this true?
 		public string CvvNumber { get; set; }
 
 		public bool HasSuccessfulDonation { get; set; }
