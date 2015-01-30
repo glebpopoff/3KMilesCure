@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
@@ -11,30 +12,36 @@ namespace DonationPortal.Web.ViewModels.Donation
 	public class DonationViewModel
 	{
 		[Required]
+		[DisplayName("Donation Amount")]
 		[AllowedValues(typeof(string), "25", "50", "75", "100", "other")]
 		public string SelectedDonationAmount { get; set; }
 
 		// gotta think about this one...
 		// [RequiredIf("SelectedDonationAmount", "other")]
+		[DisplayName("Other Donation Amount")]
 		public decimal? OtherDonationAmount { get; set; }
 
 		[Required]
+		[DisplayName("Donation Type")]
 		[EnumDataType(typeof(NonEventDonationType))]
 		public NonEventDonationType DonationType { get; set; }
 
 		[Required]
+		[DisplayName("First Name")]
 		[StringLength(255, MinimumLength = 1)]
 		public string FirstName { get; set; }
 
 		[Required]
+		[DisplayName("Last Name")]
 		[StringLength(255, MinimumLength = 1)]
 		public string LastName { get; set; }
 
 		[Required]
+		[DisplayName("Street Address 1")]
 		[StringLength(255, MinimumLength = 1)]
 		public string StreetAddress1 { get; set; }
 
-		[Required]
+		[DisplayName("Street Address 2")]
 		[StringLength(255, MinimumLength = 1)]
 		public string StreetAddress2 { get; set; }
 
@@ -47,6 +54,7 @@ namespace DonationPortal.Web.ViewModels.Donation
 		public string State { get; set; }
 
 		[Required]
+		[DisplayName("Zip Code")]
 		[StringLength(10, MinimumLength = 5)]
 		public string ZipCode { get; set; }
 
@@ -56,18 +64,22 @@ namespace DonationPortal.Web.ViewModels.Donation
 
 		[Required]
 		// basic format validation?
+		[DisplayName("Credit Card Number")]
 		public string CreditCardNumber { get; set; }
 
 		[Required]
+		[DisplayName("Expiration Month")]
 		[Range(1, 12)]
 		public int ExpirationMonth { get; set; }
 
 		[Required]
+		[DisplayName("Expiration Year")]
 		// could do some validation here?
 		// really should make sure it is one of the dropdown values
 		public int ExpirationYear { get; set; }
 
 		[Required]
+		[DisplayName("CVV Number")]
 		[StringLength(3, MinimumLength = 3)] // is this true?
 		public string CvvNumber { get; set; }
 
