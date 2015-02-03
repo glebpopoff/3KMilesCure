@@ -14,6 +14,7 @@
 		public string State { get; set; }
 		public string ZipCode { get; set; }
 		public string Email { get; set; }
+		public string CreditCardNumber { get; set; }
 		public int ExpirationMonth { get; set; }
 		public int ExpirationYear { get; set; }
 		public string CvvNumber { get; set; }

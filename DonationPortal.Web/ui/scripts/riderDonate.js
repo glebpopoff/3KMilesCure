@@ -26,10 +26,14 @@
                     draggable: true
                 });
 
+                $('#step-2-content').on('shown.bs.collapse', function (e) {
+                	google.maps.event.trigger(map, 'resize');
+                });
+
                 google.maps.event.addListener(marker, 'dragend', function (e) {
 
-                    document.getElementsByName('latitude')[0].value = e.latLng.lat();
-                    document.getElementsByName('longitude')[0].value = e.latLng.lng();
+                    document.getElementsByName('Latitude')[0].value = e.latLng.lat();
+                    document.getElementsByName('Longitude')[0].value = e.latLng.lng();
                 });
 
                 // when the map loads, it fires projection_changed.
@@ -64,8 +68,8 @@
 
                                 marker.setPosition(e.latLng);
 
-                                document.getElementsByName('latitude')[0].value = e.latLng.lat();
-                                document.getElementsByName('longitude')[0].value = e.latLng.lng();
+                                document.getElementsByName('Latitude')[0].value = e.latLng.lat();
+                                document.getElementsByName('Longitude')[0].value = e.latLng.lng();
                             });
 
                         }
@@ -86,26 +90,26 @@
                 google.maps.event.addDomListener(window, 'load', initialize);
 
                 $(function () {
-                    $('form').submit(function (e) {
 
-                        e.preventDefault();
 
-                        var submission = $(this).serializeObject();
+                	// this should handle enter key and stuff too, but the <button>s in the other accordion panes trigger the 'submit' event on the form.
+					// we're using click for now ...
+                	$('#step-3-button').click(function (e) {
 
-                        if (submission.presetDonation === 'other') {
-                            submission.donationAmount = submission.otherDonation;
+                        var submission = $(this).closest('form').serializeObject();
+
+                        if (submission.DonationOption === 'other') {
+                        	submission.DonationAmount = submission.OtherAmount;
                         } else {
-                            submission.donationAmount = submission.presetDonation;
+                        	submission.DonationAmount = submission.DonationOption;
                         }
 
-                        delete submission.otherDonation;
-                        delete submission.presentDonation;
+                        delete submission.DonationOption;
+                        delete submission.OtherAmount;
 
                         $.post('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/donations', submission).done(function (response) {
 
                             alert('thanks for your donation!');
-
-                            window.location.reload();
 
                         });
                     });
