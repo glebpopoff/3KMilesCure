@@ -124,8 +124,8 @@
 								alert('thanks for your donation!');
 							})
     						.fail(function (response) {
-    							console.log(response);
-    						});
+						    alert('validation errors');
+					    });
     				});
     			});
     		}
