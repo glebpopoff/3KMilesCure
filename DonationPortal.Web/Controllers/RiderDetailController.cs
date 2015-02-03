@@ -34,7 +34,14 @@ namespace DonationPortal.Web.Controllers
 			        EventName = eventEntity.Name,
 					PossessiveRiderName = riderEntity.PossessiveName,
 					RiderName = riderEntity.Name,
-					RiderStart = riderEntity.Start
+					RiderStart = riderEntity.Start,
+					DonationGoal = riderEntity.DonationGoal,
+					DonationTotal = riderEntity.RiderMessageDonations.Sum(r => r.Amount),
+					RiderEnd = riderEntity.End,
+					DurationGoal = riderEntity.DurationGoal,
+					MilesGoal = riderEntity.DistanceGoal,
+					MilesTravelled = 0, // todo: no clue how we're calculating this yet...
+					DonationStart = riderEntity.DonationStart,
 		        };
 
 				return View("Index", model);

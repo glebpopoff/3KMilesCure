@@ -44,12 +44,13 @@
           <Property Name="MarkerLongitude" Type="float" Nullable="false" />
           <Property Name="DonationGoal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
           <Property Name="Start" Type="datetime2" Precision="7" Nullable="false" />
-          <Property Name="End" Type="datetime2" Precision="7" />
+          <Property Name="End" Type="datetime2" Precision="7" Nullable="false" />
           <Property Name="Story" Type="nvarchar(max)" />
           <Property Name="Teaser" Type="nvarchar(max)" />
-          <Property Name="DurationGoal" Type="varchar" MaxLength="50" />
-          <Property Name="DistanceGoal" Type="varchar" MaxLength="50" />
-          <Property Name="PossessiveName" Type="varchar" MaxLength="255" />
+          <Property Name="DurationGoal" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DistanceGoal" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PossessiveName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DonationStart" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="EventRiderRoute">
           <Key>
@@ -220,10 +221,11 @@
           <Property Name="Start" Type="DateTime" Nullable="false" Precision="7" />
           <Property Name="Story" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Teaser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="DurationGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DistanceGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PossessiveName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="End" Type="DateTime" Precision="7" />
+          <Property Name="DurationGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DistanceGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PossessiveName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="End" Type="DateTime" Precision="7" Nullable="false" />
+          <Property Name="DonationStart" Type="DateTime" Nullable="false" Precision="7" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -366,6 +368,7 @@
           <EntitySetMapping Name="EventRiders">
             <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
               <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="DonationStart" ColumnName="DonationStart" />
                 <ScalarProperty Name="End" ColumnName="End" />
                 <ScalarProperty Name="PossessiveName" ColumnName="PossessiveName" />
                 <ScalarProperty Name="DistanceGoal" ColumnName="DistanceGoal" />

@@ -36,7 +36,8 @@ namespace DonationPortal.Engine
         public string DurationGoal { get; set; }
         public string DistanceGoal { get; set; }
         public string PossessiveName { get; set; }
-        public Nullable<System.DateTime> End { get; set; }
+        public System.DateTime End { get; set; }
+        public System.DateTime DonationStart { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }

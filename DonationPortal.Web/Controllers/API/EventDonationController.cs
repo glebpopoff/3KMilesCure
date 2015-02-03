@@ -22,6 +22,11 @@ namespace DonationPortal.Web.Controllers.API
 		[HttpPost]
 		public HttpResponseMessage AddDonationForRider(string eventSlug, string riderSlug, RiderDonation donation)
 		{
+			if (!ModelState.IsValid)
+			{
+				return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+			}
+
 			// 404 or 400's for events/riders that don't exist?
 
 			var paymentResult = _immediatePaymentProcessor.Process(new ImmediatePaymentRequest

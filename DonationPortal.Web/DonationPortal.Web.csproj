@@ -344,6 +344,11 @@
     <Content Include="ui\scripts\vendor\underscore\underscore.min.map" />
     <Content Include="ui\css\bootstrap.css.map" />
     <Content Include="ui\css\bootstrap-theme.css.map" />
+    <Content Include="Views\RiderDetail\Social.cshtml" />
+    <Content Include="Views\RiderDetail\Route.cshtml" />
+    <Content Include="Views\RiderDetail\Statistics.cshtml" />
+    <Content Include="Views\RiderDetail\Donate.cshtml" />
+    <Content Include="ui\scripts\vendor\knockout\knockout-3.2.0.min" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -356,6 +361,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="ui\scripts\vendor\knockout-validation\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DonationPortal.Engine\DonationPortal.Engine.csproj">
