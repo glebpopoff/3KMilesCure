@@ -5,7 +5,7 @@
 <section class="stacked-container" role="region">
     <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
     <div class="container">
-        <form>
+        <form id="donation-form">
             <div class="row">
                 <div class="col-sm-12">
                     <h2>Help us Reach our Goal. Donate Today</h2>
@@ -25,26 +25,26 @@
                                     <div class="form-group donate-options">
                                         <div><label class="required">Select donation amount:</label></div>
                                         <label class="radio-inline">
-                                            <input type="radio" name="donation-option" id="donation-option-1" value="25"> $25
+                                            <input type="radio" name="DonationOption" id="donation-option-1" value="25"> $25
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="donation-option" id="donation-option-2" value="50"> $50
+                                            <input type="radio" name="DonationOption" id="donation-option-2" value="50"> $50
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="donation-option" id="donation-option-3" value="75"> $75
+                                            <input type="radio" name="DonationOption" id="donation-option-3" value="75"> $75
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" name="donation-option" id="donation-option-4" value="100"> $100
+                                            <input type="radio" name="DonationOption" id="donation-option-4" value="100"> $100
                                         </label>
                                         <label class="radio-inline">
-                                            <input type="radio" class="other-radio" name="donation-option" id="donation-option-5" value="other"> Other
+                                            <input type="radio" class="other-radio" name="DonationOption" id="donation-option-5" value="other"> Other
                                         </label>
                                     </div>
                                     <div class="form-group other-input">
                                         <label for="other-amount">Other Amount:</label>
                                         <div class="input-group col-sm-4">
                                             <div class="input-group-addon">$</div>
-                                            <input type="text" class="form-control" id="other-amount" placeholder="">
+                                            <input type="text" class="form-control" id="OtherAmount" placeholder="">
                                             <div class="input-group-addon">.00</div>
                                         </div>
                                     </div>
@@ -69,14 +69,16 @@
                                             <div class="form-group required">
                                                 <label for="select-location" class="required">Select Location from Map:</label>
                                                 <div style="margin-bottom:10px;">
-                                                    <div id="map-canvas"></div>
+                                                    <div id="map-canvas" style="height:400px;"></div>
+                                                    <input type="hidden" name="Latitude" />
+                                                    <input type="hidden" name="Longitude" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-sm-12 col-md-5">
                                             <div class="form-group">
                                                 <label for="write-message" class="required">Write Message:</label>
-                                                <textarea class="form-control required-field" id="write-message" rows="6"></textarea>
+                                                <textarea class="form-control required-field" name="Message" rows="6"></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -99,37 +101,37 @@
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="first-name" class="required">First Name:</label>
-                                                <input type="text" class="form-control required-field" id="first-name" placeholder="">
+                                                <input type="text" class="form-control required-field" id="first-name" placeholder="" name="FirstName">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="last-name" class="required">Last Name:</label>
-                                                <input type="text" class="form-control required-field" id="last-name" placeholder="">
+                                                <input type="text" class="form-control required-field" id="last-name" placeholder="" name="LastName">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="street-address-1" class="required">Street Address 1:</label>
-                                                <input type="text" class="form-control required-field" id="street-address-1" placeholder="">
+                                                <input type="text" class="form-control required-field" id="street-address-1" placeholder="" name="StreetAddress1">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
                                                 <label for="street-address-2">Street Address 2:</label>
-                                                <input type="text" class="form-control" id="street-address-2" placeholder="">
+                                                <input type="text" class="form-control" id="street-address-2" placeholder="" name="StreetAddress2">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="city" class="required">City:</label>
-                                                <input type="text" class="form-control required-field" id="city" placeholder="">
+                                                <input type="text" class="form-control required-field" id="city" placeholder="" name="City">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="state" class="required">State:</label>
-                                                <select class="form-control required-field" id="state">
+                                                <select class="form-control required-field" id="state" name="State">
                                                     <option value="AL">Alabama</option>
                                                     <option value="AK">Alaska</option>
                                                     <option value="AZ">Arizona</option>
@@ -187,20 +189,28 @@
                                         <div class="col-sm-4">
                                             <div class="form-group">
                                                 <label for="zip" class="required">Zip:</label>
-                                                <input type="text" class="form-control required-field" id="zip" placeholder="">
+                                                <input type="text" class="form-control required-field" id="zip" placeholder="" name="ZipCode">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="credit-card" class="required">Credit Card Number:</label>
-                                                <input type="text" class="form-control required-field" id="credit-card" placeholder="">
+                                                <label for="email" class="required">Email:</label>
+                                                <input type="text" class="form-control required-field" id="email" placeholder="" name="Email">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label for="credit-card" class="required">Credit Card Number:</label>
+                                                <input type="text" class="form-control required-field" id="credit-card" placeholder="" name="CreditCardNumber">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-2">
                                             <div class="form-inline expiration-fields">
                                                 <div class="form-group">
                                                     <div><label for="date" class="required">Expiration Date:</label></div>
-                                                    <select class="form-control required-field" id="date">
+                                                    <select class="form-control required-field" id="date" name="ExpirationMonth">
                                                         <option value="01">01</option>
                                                         <option value="02">02</option>
                                                         <option value="03">03</option>
@@ -215,7 +225,7 @@
                                                         <option value="12">12</option>
                                                     </select>
                                                     <label for="year" class="sr-only">Expiration Date:</label>
-                                                    <select class="form-control required-field" id="year">
+                                                    <select class="form-control required-field" id="year" name="ExpirationYear">
                                                         <option value="2015">2015</option>
                                                         <option value="2016">2016</option>
                                                         <option value="2017">2017</option>
@@ -228,7 +238,19 @@
                                                         <option value="2024">2024</option>
                                                         <option value="2025">2025</option>
                                                     </select>
-                                                    <a href="#" style="margin-left:5px;" data-toggle="tooltip" title="Lorem ipsum dolor tooltip">What's This?</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label for="cvv" class="control-label required">CVV Number:</label>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <input type="text" class="form-control required-field" id="cvv" placeholder="" name="CvvNumber">
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <a href="#" style="margin-left: 5px;" data-toggle="tooltip" title="Lorem ipsum dolor tooltip">What's This?</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

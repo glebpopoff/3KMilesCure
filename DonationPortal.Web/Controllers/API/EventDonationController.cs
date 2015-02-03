@@ -61,7 +61,8 @@ namespace DonationPortal.Web.Controllers.API
 					StreetAddress2 = donation.StreetAddress2,
 					TransactionID = paymentResult.TransactionID,
 					ZipCode = donation.ZipCode,
-					EventRider = entities.Events.Single(e => e.UrlSlug.Equals(eventSlug)).EventRiders.Single(r => r.UrlSlug.Equals(riderSlug))
+					EventRider = entities.Events.Single(e => e.UrlSlug.Equals(eventSlug)).EventRiders.Single(r => r.UrlSlug.Equals(riderSlug)),
+					Amount = donation.DonationAmount
 				});
 
 				entities.SaveChanges();
