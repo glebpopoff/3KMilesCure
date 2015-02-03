@@ -206,6 +206,7 @@
     <Compile Include="Controllers\API\EventDonationController.cs" />
     <Compile Include="Controllers\API\EventRiderController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\DTO\RecentMessage.cs" />
     <Compile Include="Controllers\RiderDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />

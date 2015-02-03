@@ -14,6 +14,11 @@ namespace DonationPortal.Engine
     
     public partial class RiderMessageDonation
     {
+        public RiderMessageDonation()
+        {
+            this.RecentMessages = new HashSet<RecentMessage>();
+        }
+    
         public int DonationID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -31,5 +36,6 @@ namespace DonationPortal.Engine
         public decimal Amount { get; set; }
     
         public virtual EventRider EventRider { get; set; }
+        public virtual ICollection<RecentMessage> RecentMessages { get; set; }
     }
 }

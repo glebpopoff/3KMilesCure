@@ -15,7 +15,9 @@
         <EntityTypeShape EntityType="DonationPortalModel.RiderMessageDonation" Width="1.5" PointX="0.75" PointY="5.75" />
         <AssociationConnector Association="DonationPortalModel.FK_RiderMessageDonation_EventRider" />
         <EntityTypeShape EntityType="DonationPortalModel.Donation" Width="1.5" PointX="5.375" PointY="4.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="DonationPortalModel.RecentMessage" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="DonationPortalModel.FK_RecentMessages_RiderMessageDonation" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

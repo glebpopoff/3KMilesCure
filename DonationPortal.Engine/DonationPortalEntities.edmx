@@ -60,6 +60,14 @@
           <Property Name="EventRiderID" Type="int" Nullable="false" />
           <Property Name="RouteID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="RecentMessages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonationID" Type="int" Nullable="false" />
+          <Property Name="DateReceived" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="RiderMessageDonation">
           <Key>
             <PropertyRef Name="DonationID" />
@@ -135,6 +143,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RecentMessages_RiderMessageDonation">
+          <End Role="RiderMessageDonation" Type="Self.RiderMessageDonation" Multiplicity="1" />
+          <End Role="RecentMessages" Type="Self.RecentMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiderMessageDonation">
+              <PropertyRef Name="DonationID" />
+            </Principal>
+            <Dependent Role="RecentMessages">
+              <PropertyRef Name="DonationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RiderMessageDonation_EventRider">
           <End Role="EventRider" Type="Self.EventRider" Multiplicity="1" />
           <End Role="RiderMessageDonation" Type="Self.RiderMessageDonation" Multiplicity="*" />
@@ -164,6 +184,7 @@
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventRider" EntityType="Self.EventRider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventRiderRoute" EntityType="Self.EventRiderRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecentMessages" EntityType="Self.RecentMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RiderMessageDonation" EntityType="Self.RiderMessageDonation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RouteVertex" EntityType="Self.RouteVertex" Schema="dbo" store:Type="Tables" />
@@ -178,6 +199,10 @@
           <AssociationSet Name="FK_EventRiderRoute_Route" Association="Self.FK_EventRiderRoute_Route">
             <End Role="Route" EntitySet="Route" />
             <End Role="EventRiderRoute" EntitySet="EventRiderRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecentMessages_RiderMessageDonation" Association="Self.FK_RecentMessages_RiderMessageDonation">
+            <End Role="RiderMessageDonation" EntitySet="RiderMessageDonation" />
+            <End Role="RecentMessages" EntitySet="RecentMessages" />
           </AssociationSet>
           <AssociationSet Name="FK_RiderMessageDonation_EventRider" Association="Self.FK_RiderMessageDonation_EventRider">
             <End Role="EventRider" EntitySet="EventRider" />
@@ -300,7 +325,12 @@
             <End Role="RiderMessageDonation" EntitySet="RiderMessageDonations" />
           </AssociationSet>
           <EntitySet Name="Donations" EntityType="DonationPortalModel.Donation" />
-        </EntityContainer>
+          <EntitySet Name="RecentMessages" EntityType="DonationPortalModel.RecentMessage" />
+          <AssociationSet Name="FK_RecentMessages_RiderMessageDonation" Association="DonationPortalModel.FK_RecentMessages_RiderMessageDonation">
+            <End Role="RiderMessageDonation" EntitySet="RiderMessageDonations" />
+            <End Role="RecentMessage" EntitySet="RecentMessages" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="RiderMessageDonation">
           <Key>
             <PropertyRef Name="DonationID" />
@@ -321,7 +351,8 @@
           <Property Name="EventRiderID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventRider" Relationship="DonationPortalModel.FK_RiderMessageDonation_EventRider" FromRole="RiderMessageDonation" ToRole="EventRider" />
           <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
-        </EntityType>
+          <NavigationProperty Name="RecentMessages" Relationship="DonationPortalModel.FK_RecentMessages_RiderMessageDonation" FromRole="RiderMessageDonation" ToRole="RecentMessage" />
+          </EntityType>
         <Association Name="FK_RiderMessageDonation_EventRider">
           <End Type="DonationPortalModel.EventRider" Role="EventRider" Multiplicity="1" />
           <End Type="DonationPortalModel.RiderMessageDonation" Role="RiderMessageDonation" Multiplicity="*" />
@@ -350,7 +381,28 @@
           <Property Name="TransactionID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
         </EntityType>
-      </Schema>
+        <EntityType Name="RecentMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonationID" Type="Int32" Nullable="false" />
+          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RiderMessageDonation" Relationship="DonationPortalModel.FK_RecentMessages_RiderMessageDonation" FromRole="RecentMessage" ToRole="RiderMessageDonation" />
+        </EntityType>
+        <Association Name="FK_RecentMessages_RiderMessageDonation">
+          <End Type="DonationPortalModel.RiderMessageDonation" Role="RiderMessageDonation" Multiplicity="1" />
+          <End Type="DonationPortalModel.RecentMessage" Role="RecentMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiderMessageDonation">
+              <PropertyRef Name="DonationID" />
+            </Principal>
+            <Dependent Role="RecentMessage">
+              <PropertyRef Name="DonationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -453,6 +505,15 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecentMessages">
+            <EntityTypeMapping TypeName="DonationPortalModel.RecentMessage">
+              <MappingFragment StoreEntitySet="RecentMessages">
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
