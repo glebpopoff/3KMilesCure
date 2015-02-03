@@ -150,10 +150,11 @@
     <Content Include="ui\scripts\client.carousel.js" />
     <Content Include="ui\scripts\client.navigation.js" />
     <Content Include="ui\scripts\client.userInterface.js" />
-    <Content Include="ui\scripts\cSnapToRoute.js" />
-    <Content Include="ui\scripts\geoxml3.js" />
+    <Content Include="ui\scripts\requireConfig.js" />
+    <Content Include="ui\scripts\snapToRoute.js" />
     <Content Include="ui\scripts\jquery.serializeObject.js" />
     <Content Include="ui\scripts\main.js" />
+    <Content Include="ui\scripts\riderDonate.js" />
     <Content Include="ui\scripts\vendor\bootstrap\bootstrap-3.2.0.js" />
     <Content Include="ui\scripts\vendor\bootstrap\bootstrap-3.2.0.min.js" />
     <Content Include="ui\scripts\vendor\carouFredSel\helper-plugins\jquery.ba-throttle-debounce.min.js" />
@@ -182,6 +183,7 @@
     <Content Include="ui\scripts\vendor\pie\PIE.js" />
     <Content Include="ui\scripts\vendor\pie\PIE_uncompressed.htc" />
     <Content Include="ui\scripts\vendor\pie\PIE_uncompressed.js" />
+    <Content Include="ui\scripts\vendor\require\async.js" />
     <Content Include="ui\scripts\vendor\require\require.js" />
     <Content Include="ui\scripts\vendor\shadowbox\shadowbox.min.js" />
     <Content Include="ui\scripts\vendor\underscore\underscore.js" />
