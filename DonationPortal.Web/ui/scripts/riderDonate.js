@@ -97,6 +97,10 @@
 
                 $(function () {
 
+					// don't submit the form when we click to advance to the next step.
+	                $('#step-1-button, #step-2-button').click(function(e) {
+		                e.preventDefault();
+	                });
 
                 	// this should handle enter key and stuff too, but the <button>s in the other accordion panes trigger the 'submit' event on the form.
 					// we're using click for now ...
