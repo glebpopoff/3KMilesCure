@@ -10,7 +10,7 @@ namespace DonationPortal.Engine.Messages
 	{
 		public float Latitude { get; set; }
 		public float Longitude { get; set; }
-
+        public DateTime Date { get; set; }
 		public override string ToString()
 		{
 			return string.Format("{0} {1}", Latitude, Longitude);

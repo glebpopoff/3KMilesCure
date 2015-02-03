@@ -7,6 +7,7 @@ using DonationPortal.Engine;
 using DonationPortal.Engine.Messages;
 using DonationPortal.Web.ApiModels.Messages;
 using DotSpatial.Positioning;
+using System;
 
 namespace DonationPortal.Web.Controllers.API
 {
@@ -43,6 +44,26 @@ namespace DonationPortal.Web.Controllers.API
 			}
 		}
 
+        [Route("events/{eventSlug}/riders/{riderSlug}/messages/recent")]
+        [HttpGet]
+        public HttpResponseMessage GetRecentMessages(string eventSlug, string riderSlug, int messageCount)
+        {
+            using (var entities = new DonationPortalEntities())
+            {
+                var recentMessages = entities.RecentMessages
+                    .OrderByDescending(d => d.DateReceived)
+                    .Take(messageCount)
+                    .Select(d => new DTO.RecentMessage() {
+                         DateReceived = d.DateReceived,
+                         Username = d.RiderMessageDonation.FirstName + " " + d.RiderMessageDonation.LastName,
+                         Message = d.RiderMessageDonation.Message
+                    })
+                    .ToList();
+
+                return Request.CreateResponse(HttpStatusCode.OK, recentMessages);
+            }
+        }
+
 		// this method isn't very restful...
 		[Route("events/{eventSlug}/riders/{riderSlug}/messages/near")]
 		[HttpPost]
@@ -60,6 +81,21 @@ namespace DonationPortal.Web.Controllers.API
 						Message = d.Message,
 						Sender = d.FirstName + " " + d.LastName
 					});
+
+                foreach (DonationMessage dm in donations)
+                {
+                    var recentMessages = entities.RecentMessages.Where(d => d.DonationID == dm.ID).Any();
+                    if (!recentMessages)
+                    {
+                        var tempMess = new RecentMessage();
+                        tempMess.DateReceived = DateTime.Now;
+                        tempMess.DonationID = dm.ID;
+                        entities.RecentMessages.Add(tempMess);
+                    }
+                    entities.SaveChanges();
+                }
+
+
 
 				return Request.CreateResponse(HttpStatusCode.OK, donations);
 			}

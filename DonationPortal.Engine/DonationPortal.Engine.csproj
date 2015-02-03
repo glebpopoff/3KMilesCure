@@ -98,6 +98,9 @@
     <Compile Include="PaymentProcessor\RecurringPaymentRequest.cs" />
     <Compile Include="PaymentProcessor\RecurringPaymentResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecentMessage.cs">
+      <DependentUpon>DonationPortalEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="RiderMessageDonation.cs">
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
