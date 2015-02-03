@@ -26,10 +26,16 @@
                     draggable: true
                 });
 
+				// set the lat/lng hidden fields to the marker's initial position
+                document.getElementsByName('Latitude')[0].value = marker.position.lat();
+                document.getElementsByName('Longitude')[0].value = marker.position.lng();
+
+				// whenever the map pane gets expanded, trigger a resize refresh
                 $('#step-2-content').on('shown.bs.collapse', function (e) {
                 	google.maps.event.trigger(map, 'resize');
                 });
 
+				// whenever the marker is dropped (after dragging), update the hidden fields.
                 google.maps.event.addListener(marker, 'dragend', function (e) {
 
                     document.getElementsByName('Latitude')[0].value = e.latLng.lat();
@@ -95,6 +101,8 @@
                 	// this should handle enter key and stuff too, but the <button>s in the other accordion panes trigger the 'submit' event on the form.
 					// we're using click for now ...
                 	$('#step-3-button').click(function (e) {
+
+		                e.preventDefault();
 
                         var submission = $(this).closest('form').serializeObject();
 
