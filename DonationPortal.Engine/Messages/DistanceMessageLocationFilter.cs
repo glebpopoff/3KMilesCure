@@ -16,7 +16,7 @@ namespace DonationPortal.Engine.Messages
 			this._maximumDistance = maximumDistance;
 		}
 
-		public bool IsMatch(RiderMessageDonation message, IEnumerable<Location> locations)
+		public bool IsMatch(RiderMessageDonation message, IEnumerable<LocationVisit> locations)
 		{
 			var clientLocations = locations.Select(l => new Position(
 				   new Latitude(l.Latitude),

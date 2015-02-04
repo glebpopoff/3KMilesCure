@@ -57,7 +57,7 @@
 
     <section class="stacked-container map-container" role="region">
         <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-        <div class="map"><img src="http://placehold.it/1170x500&text=Map" style="width:100%;" alt="" /></div>
+        <div class="map" id="map-canvas" style="height:500px;"></div>
         <div class="route-details">
             <div class="container">
                 <div class="row">
@@ -70,12 +70,12 @@
                             <li class="title">Time Elapsed</li>
                             <li class="hours">
                                 <div class="counter-label">Hours</div>
-                                <div class="counter">00</div>
+                                <div class="counter">@String.Format("{0:00}", Model.FeaturedRider.ElapsedTime.Hours)</div>
                             </li>
                             <li class="divider">:</li>
                             <li class="minutes">
                                 <div class="counter-label">Min</div>
-                                <div class="counter">00</div>
+                                <div class="counter">@String.Format("{0:00}", Model.FeaturedRider.ElapsedTime.Minutes)</div>
                             </li>
                             <li class="total">@(Model.FeaturedRider.HasDurationGoal ? "/ " + Model.FeaturedRider.DurationGoal : null)</li>
                         </ul>
@@ -85,7 +85,7 @@
                             <li class="title">Miles Travelled:</li>
                             <li class="miles">
                                 <div class="counter-label">Miles</div>
-                                <div class="counter">00</div>
+                                <div class="counter">@Model.FeaturedRider.TotalMiles.ToString("N")</div>
                             </li>
                             <li class="total">@(Model.FeaturedRider.HasDistanceGoal ? "/ " + Model.FeaturedRider.DistanceGoal : null)</li>
                         </ul>
@@ -111,12 +111,13 @@
                 <div class="col-sm-6">
                     <div class="module recent-messages">
                         <h2>Recent Messages</h2>
-                        <!-- todo w/ ajax
+                        @foreach (var message in Model.FeaturedRider.RecentMessages)
+                        {
                             <div class="message">
-                                <div class="post">Lorem ipsum dolor sit amet.</div>
-                                <div class="author">Anne</div>
+                                <div class="post">@message.RiderMessageDonation.Message</div>
+                                <div class="author">@(message.RiderMessageDonation.FirstName + " " + message.RiderMessageDonation.LastName)</div>
                             </div>
-                            -->
+                        }
                         <br>
                         <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-primary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
                     </div>
@@ -128,3 +129,15 @@
 
     <!-- home-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 </div>
+@section Scripts
+{
+    <script type="text/javascript">
+
+        require(['riderLocation'], function (riderLocation) {
+
+            riderLocation.setup();
+
+        });
+
+    </script>
+}

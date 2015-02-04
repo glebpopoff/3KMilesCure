@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DonationPortal.Engine;
 
 namespace DonationPortal.Web.ViewModels.Home
 {
@@ -25,5 +26,27 @@ namespace DonationPortal.Web.ViewModels.Home
 			get { return !string.IsNullOrWhiteSpace(DistanceGoal); }
 		}
 		public string PossessiveRiderName { get; set; }
+		public double TotalMiles { get; set; }
+
+		public TimeSpan ElapsedTime
+		{
+			get
+			{
+				if (DateTime.Now < RiderStart)
+				{
+					return new TimeSpan();
+				}
+
+				if (DateTime.Now > RiderEnd)
+				{
+					return RiderEnd - RiderStart;
+				}
+
+				return DateTime.Now - RiderStart;
+			}
+		}
+
+		public DateTime RiderEnd { get; set; }
+		public IEnumerable<RecentMessage> RecentMessages { get; set; }
 	}
 }

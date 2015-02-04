@@ -93,9 +93,10 @@
 
     	return {
     		setup: function () {
-    			google.maps.event.addDomListener(window, 'load', initialize);
 
     			$(function () {
+
+    				initialize();
 
     				// don't submit the form when we click to advance to the next step.
     				$('#step-1-button, #step-2-button').click(function (e) {

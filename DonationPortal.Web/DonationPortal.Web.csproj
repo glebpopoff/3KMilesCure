@@ -51,6 +51,9 @@
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Monads">
+      <HintPath>..\packages\Monads.1.1.5.0\lib\net40\Monads.dll</HintPath>
+    </Reference>
     <Reference Include="MVC Foolproof Validation">
       <HintPath>..\packages\foolproof.0.9.4517\lib\MVC Foolproof Validation.dll</HintPath>
     </Reference>
@@ -151,6 +154,7 @@
     <Content Include="ui\scripts\client.navigation.js" />
     <Content Include="ui\scripts\client.userInterface.js" />
     <Content Include="ui\scripts\requireConfig.js" />
+    <Content Include="ui\scripts\riderLocation.js" />
     <Content Include="ui\scripts\snapToRoute.js" />
     <Content Include="ui\scripts\jquery.serializeObject.js" />
     <Content Include="ui\scripts\main.js" />
@@ -195,6 +199,7 @@
     <Compile Include="ApiModels\EventRiders\EventRider.cs" />
     <Compile Include="ApiModels\Events\Event.cs" />
     <Compile Include="ApiModels\Messages\DonationMessage.cs" />
+    <Compile Include="ApiModels\Routes\CurrentLocation.cs" />
     <Compile Include="ApiModels\Routes\EventRiderRoute.cs" />
     <Compile Include="ApiModels\Routes\RouteVertex.cs" />
     <Compile Include="ApiModels\Social\SocialFeedItem.cs" />
@@ -206,7 +211,7 @@
     <Compile Include="Controllers\API\EventDonationController.cs" />
     <Compile Include="Controllers\API\EventRiderController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
-    <Compile Include="Controllers\DTO\RecentMessage.cs" />
+    <Compile Include="ApiModels\Messages\RecentMessage.cs" />
     <Compile Include="Controllers\RiderDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MapController.cs" />
@@ -365,6 +370,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="ui\scripts\vendor\knockout-validation\" />
+    <Folder Include="Views\Location\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DonationPortal.Engine\DonationPortal.Engine.csproj">
