@@ -22,6 +22,7 @@ namespace DonationPortal.Engine
         public int EventID { get; set; }
         public string Name { get; set; }
         public string UrlSlug { get; set; }
+        public string NavigationName { get; set; }
     
         public virtual ICollection<EventRider> EventRiders { get; set; }
     }

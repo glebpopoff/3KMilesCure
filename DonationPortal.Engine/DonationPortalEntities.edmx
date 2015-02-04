@@ -26,8 +26,9 @@
             <PropertyRef Name="EventID" />
           </Key>
           <Property Name="EventID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="NavigationName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="UrlSlug" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="EventRider">
           <Key>
@@ -51,6 +52,12 @@
           <Property Name="DistanceGoal" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="PossessiveName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="DonationStart" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DetailHeroImage" Type="varchar" MaxLength="1024" />
+          <Property Name="DetailHeroText" Type="varchar" MaxLength="255" />
+          <Property Name="Pronoun" Type="varchar" MaxLength="255" />
+          <Property Name="RouteDescription" Type="nvarchar(max)" />
+          <Property Name="DonationDescription" Type="nvarchar(max)" />
+          <Property Name="ChooseLocationText" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="EventRiderRoute">
           <Key>
@@ -252,6 +259,7 @@
           <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="UrlSlug" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="EventRiders" Relationship="Self.FK_EventRider_Event" FromRole="Event" ToRole="EventRider" />
+          <Property Name="NavigationName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="EventRider">
           <Key>
@@ -279,6 +287,12 @@
           <Property Name="End" Type="DateTime" Precision="7" Nullable="false" />
           <Property Name="DonationStart" Type="DateTime" Nullable="false" Precision="7" />
           <NavigationProperty Name="LocationVisits" Relationship="DonationPortalModel.FK_RecentLocations_EventRider" FromRole="EventRider" ToRole="LocationVisit" />
+          <Property Name="DetailHeroImage" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+          <Property Name="DetailHeroText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Pronoun" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RouteDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DonationDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ChooseLocationText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -467,6 +481,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="DonationPortalModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="NavigationName" ColumnName="NavigationName" />
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="UrlSlug" ColumnName="UrlSlug" />
@@ -476,6 +491,12 @@
           <EntitySetMapping Name="EventRiders">
             <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
               <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="ChooseLocationText" ColumnName="ChooseLocationText" />
+                <ScalarProperty Name="DonationDescription" ColumnName="DonationDescription" />
+                <ScalarProperty Name="RouteDescription" ColumnName="RouteDescription" />
+                <ScalarProperty Name="Pronoun" ColumnName="Pronoun" />
+                <ScalarProperty Name="DetailHeroText" ColumnName="DetailHeroText" />
+                <ScalarProperty Name="DetailHeroImage" ColumnName="DetailHeroImage" />
                 <ScalarProperty Name="DonationStart" ColumnName="DonationStart" />
                 <ScalarProperty Name="End" ColumnName="End" />
                 <ScalarProperty Name="PossessiveName" ColumnName="PossessiveName" />
