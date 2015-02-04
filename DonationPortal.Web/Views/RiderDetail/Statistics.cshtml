@@ -1,0 +1,34 @@
+﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+
+@{
+    Layout = null;
+}
+
+<section class="stacked-container stats" role="region">
+    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6 col-sm-3">
+                <div class="circle-chart total-raised" data-dimension="250" data-text="@Model.DonationTotal.ToString("G")" data-info="Total Raised" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#4FD9D8" data-bgcolor="#eee" data-fill="#ddd" data-total="@Model.DonationGoal" data-part="@Model.DonationTotal">
+                    <div class="mobile-text">Total Raised</div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <div class="circle-chart days-left" data-dimension="250" data-text="@Model.DonationDaysPast" data-info="Days Left" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#4FD9D8" data-bgcolor="#eee" data-fill="#ddd" data-total="@Model.TotalDonationDays" data-part="@Model.DonationDaysPast">
+                    <div class="mobile-text">Days Left</div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <div class="circle-chart percent-goal" data-dimension="250" data-text="@Model.DonationGoalPercentage" data-info="Of Goal" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#4FD9D8" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="@Model.DonationGoalPercentage">
+                    <div class="mobile-text">Percent Achieved</div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-3">
+                <div class="circle-chart total" data-dimension="250" data-text="Help Us Raise" data-info="@Model.DonationGoal.ToString("G")" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#f67000" data-bgcolor="#eee" data-fill="#ddd" data-total="@Model.DonationGoal" data-part="@Model.DonationGoal" data-animationstep="0">
+                    <div class="mobile-text">Total Goal</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</section>

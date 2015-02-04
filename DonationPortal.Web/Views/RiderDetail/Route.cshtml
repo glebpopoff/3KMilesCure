@@ -1,0 +1,83 @@
+﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+@{
+    Layout = null;
+}
+
+<section class="stacked-container map-container event-detail" role="region">
+    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <div class="route-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="map-heading">@Model.PossessiveRiderName Route</div>
+                    <div class="event-specs">Event Begins - @Model.RiderStart.ToString("h:mmtt M/d/yyyy")</div>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                    <ul class="elapsed">
+                        <li class="title">Time Elapsed</li>
+                        @if (Model.IsMultipleDays)
+                        {
+                            <li class="days">
+                                <div class="counter-label">Days</div>
+                                <div class="counter">@String.Format("{0:00}", Model.TimeElapsed.TotalDays)</div>
+                            </li>
+                            <li class="divider">:</li>
+                        }
+                        <li class="hours">
+                            <div class="counter-label">Hours</div>
+                            <div class="counter">@String.Format("{0:00}", Model.TimeElapsed.Hours)</div>
+                        </li>
+                        <li class="divider">:</li>
+                        <li class="minutes">
+                            <div class="counter-label">Min</div>
+                            <div class="counter">@String.Format("{0:00}", @Model.TimeElapsed.Minutes)</div>
+                        </li>
+                        <li class="total">/ @Model.DurationGoal</li>
+                    </ul>
+                </div>
+                <div class="col-xs-6 col-sm-4">
+                    <ul class="travelled">
+                        <li class="title">Miles Travelled:</li>
+                        <li class="miles">
+                            <div class="counter-label">Miles</div>
+                            <div class="counter">@Model.MilesTravelled</div>
+                        </li>
+                        <li class="total">/ @Model.MilesGoal</li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p>this is hardcoded text.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="map"><img src="http://placehold.it/800x600&text=Map" style="width:100%;" alt="" /></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="module recent-messages">
+                    <h2>Recent Messages</h2>
+                    <!--ajax please <div class="message">
+                        <div class="post">Lorem ipsum dolor sit amet.</div>
+                        <div class="author">Anne</div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>
+                    <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-share" style="font-weight:bold"></i> Share this Event</a> &nbsp;
+                    <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-heart" style="font-weight:bold"></i> Make a Donation</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</section>

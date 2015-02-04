@@ -8,6 +8,6 @@ namespace DonationPortal.Engine.Messages
 {
 	public interface IMessageLocationFilter
 	{
-		bool IsMatch(RiderMessageDonation message, IEnumerable<Location> locations);
+		bool IsMatch(RiderMessageDonation message, IEnumerable<LocationVisit> locations);
 	}
 }

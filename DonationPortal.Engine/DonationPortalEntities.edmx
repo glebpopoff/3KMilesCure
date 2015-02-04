@@ -5,6 +5,22 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DonationPortalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StreetAddress1" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="StreetAddress2" Type="varchar" MaxLength="255" />
+          <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TransactionID" Type="varchar" MaxLength="255" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+        </EntityType>
         <EntityType Name="Event">
           <Key>
             <PropertyRef Name="EventID" />
@@ -26,6 +42,15 @@
           <Property Name="MapZoom" Type="tinyint" Nullable="false" />
           <Property Name="MarkerLatitude" Type="float" Nullable="false" />
           <Property Name="MarkerLongitude" Type="float" Nullable="false" />
+          <Property Name="DonationGoal" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Start" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="End" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="Story" Type="nvarchar(max)" />
+          <Property Name="Teaser" Type="nvarchar(max)" />
+          <Property Name="DurationGoal" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DistanceGoal" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="PossessiveName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="DonationStart" Type="datetime2" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="EventRiderRoute">
           <Key>
@@ -34,6 +59,24 @@
           </Key>
           <Property Name="EventRiderID" Type="int" Nullable="false" />
           <Property Name="RouteID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LocationVisit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventRiderID" Type="int" Nullable="false" />
+          <Property Name="Longtitude" Type="float" Nullable="false" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="DateVisited" Type="datetime2" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecentMessages">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DonationID" Type="int" Nullable="false" />
+          <Property Name="DateReceived" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="RiderMessageDonation">
           <Key>
@@ -46,13 +89,14 @@
           <Property Name="StreetAddress2" Type="varchar" MaxLength="255" />
           <Property Name="City" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="State" Type="char" MaxLength="2" Nullable="false" />
-          <Property Name="ZipCode" Type="int" Nullable="false" />
+          <Property Name="ZipCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="Email" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Message" Type="varchar" MaxLength="120" Nullable="false" />
           <Property Name="Latitude" Type="float" Nullable="false" />
           <Property Name="Longitude" Type="float" Nullable="false" />
           <Property Name="TransactionID" Type="varchar" MaxLength="255" />
           <Property Name="EventRiderID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="0" Nullable="false" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -109,6 +153,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RecentLocations_EventRider">
+          <End Role="EventRider" Type="Self.EventRider" Multiplicity="1" />
+          <End Role="LocationVisit" Type="Self.LocationVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventRider">
+              <PropertyRef Name="EventRiderID" />
+            </Principal>
+            <Dependent Role="LocationVisit">
+              <PropertyRef Name="EventRiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecentMessages_RiderMessageDonation">
+          <End Role="RiderMessageDonation" Type="Self.RiderMessageDonation" Multiplicity="1" />
+          <End Role="RecentMessages" Type="Self.RecentMessages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiderMessageDonation">
+              <PropertyRef Name="DonationID" />
+            </Principal>
+            <Dependent Role="RecentMessages">
+              <PropertyRef Name="DonationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_RiderMessageDonation_EventRider">
           <End Role="EventRider" Type="Self.EventRider" Multiplicity="1" />
           <End Role="RiderMessageDonation" Type="Self.RiderMessageDonation" Multiplicity="*" />
@@ -134,9 +202,12 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DonationPortalModelStoreContainer">
+          <EntitySet Name="Donation" EntityType="Self.Donation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventRider" EntityType="Self.EventRider" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventRiderRoute" EntityType="Self.EventRiderRoute" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LocationVisit" EntityType="Self.LocationVisit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecentMessages" EntityType="Self.RecentMessages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RiderMessageDonation" EntityType="Self.RiderMessageDonation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RouteVertex" EntityType="Self.RouteVertex" Schema="dbo" store:Type="Tables" />
@@ -151,6 +222,14 @@
           <AssociationSet Name="FK_EventRiderRoute_Route" Association="Self.FK_EventRiderRoute_Route">
             <End Role="Route" EntitySet="Route" />
             <End Role="EventRiderRoute" EntitySet="EventRiderRoute" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecentLocations_EventRider" Association="Self.FK_RecentLocations_EventRider">
+            <End Role="EventRider" EntitySet="EventRider" />
+            <End Role="LocationVisit" EntitySet="LocationVisit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecentMessages_RiderMessageDonation" Association="Self.FK_RecentMessages_RiderMessageDonation">
+            <End Role="RiderMessageDonation" EntitySet="RiderMessageDonation" />
+            <End Role="RecentMessages" EntitySet="RecentMessages" />
           </AssociationSet>
           <AssociationSet Name="FK_RiderMessageDonation_EventRider" Association="Self.FK_RiderMessageDonation_EventRider">
             <End Role="EventRider" EntitySet="EventRider" />
@@ -190,6 +269,16 @@
           <Property Name="MarkerLatitude" Type="Double" Nullable="false" />
           <Property Name="MarkerLongitude" Type="Double" Nullable="false" />
           <NavigationProperty Name="RiderMessageDonations" Relationship="DonationPortalModel.FK_RiderMessageDonation_EventRider" FromRole="EventRider" ToRole="RiderMessageDonation" />
+          <Property Name="DonationGoal" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+          <Property Name="Start" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="Story" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Teaser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DurationGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DistanceGoal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PossessiveName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="End" Type="DateTime" Precision="7" Nullable="false" />
+          <Property Name="DonationStart" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="LocationVisits" Relationship="DonationPortalModel.FK_RecentLocations_EventRider" FromRole="EventRider" ToRole="LocationVisit" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -263,7 +352,18 @@
             <End Role="EventRider" EntitySet="EventRiders" />
             <End Role="RiderMessageDonation" EntitySet="RiderMessageDonations" />
           </AssociationSet>
-        </EntityContainer>
+          <EntitySet Name="Donations" EntityType="DonationPortalModel.Donation" />
+          <EntitySet Name="RecentMessages" EntityType="DonationPortalModel.RecentMessage" />
+          <AssociationSet Name="FK_RecentMessages_RiderMessageDonation" Association="DonationPortalModel.FK_RecentMessages_RiderMessageDonation">
+            <End Role="RiderMessageDonation" EntitySet="RiderMessageDonations" />
+            <End Role="RecentMessage" EntitySet="RecentMessages" />
+          </AssociationSet>
+          <EntitySet Name="LocationVisits" EntityType="DonationPortalModel.LocationVisit" />
+          <AssociationSet Name="FK_RecentLocations_EventRider" Association="DonationPortalModel.FK_RecentLocations_EventRider">
+            <End Role="EventRider" EntitySet="EventRiders" />
+            <End Role="LocationVisit" EntitySet="LocationVisits" />
+          </AssociationSet>
+          </EntityContainer>
         <EntityType Name="RiderMessageDonation">
           <Key>
             <PropertyRef Name="DonationID" />
@@ -275,7 +375,7 @@
           <Property Name="StreetAddress2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="ZipCode" Type="Int32" Nullable="false" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="false" />
           <Property Name="Latitude" Type="Double" Nullable="false" />
@@ -283,7 +383,9 @@
           <Property Name="TransactionID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="EventRiderID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="EventRider" Relationship="DonationPortalModel.FK_RiderMessageDonation_EventRider" FromRole="RiderMessageDonation" ToRole="EventRider" />
-        </EntityType>
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <NavigationProperty Name="RecentMessages" Relationship="DonationPortalModel.FK_RecentMessages_RiderMessageDonation" FromRole="RiderMessageDonation" ToRole="RecentMessage" />
+          </EntityType>
         <Association Name="FK_RiderMessageDonation_EventRider">
           <End Type="DonationPortalModel.EventRider" Role="EventRider" Multiplicity="1" />
           <End Type="DonationPortalModel.RiderMessageDonation" Role="RiderMessageDonation" Multiplicity="*" />
@@ -296,7 +398,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <EntityType Name="Donation">
+          <Key>
+            <PropertyRef Name="DonationID" />
+          </Key>
+          <Property Name="DonationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress1" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StreetAddress2" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="State" Type="String" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
+        </EntityType>
+        <EntityType Name="RecentMessage">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DonationID" Type="Int32" Nullable="false" />
+          <Property Name="DateReceived" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="RiderMessageDonation" Relationship="DonationPortalModel.FK_RecentMessages_RiderMessageDonation" FromRole="RecentMessage" ToRole="RiderMessageDonation" />
+        </EntityType>
+        <Association Name="FK_RecentMessages_RiderMessageDonation">
+          <End Type="DonationPortalModel.RiderMessageDonation" Role="RiderMessageDonation" Multiplicity="1" />
+          <End Type="DonationPortalModel.RecentMessage" Role="RecentMessage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RiderMessageDonation">
+              <PropertyRef Name="DonationID" />
+            </Principal>
+            <Dependent Role="RecentMessage">
+              <PropertyRef Name="DonationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="LocationVisit">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventRiderID" Type="Int32" Nullable="false" />
+          <Property Name="Longtitude" Type="Double" Nullable="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="DateVisited" Type="DateTime" Nullable="false" Precision="7" />
+          <NavigationProperty Name="EventRider" Relationship="DonationPortalModel.FK_RecentLocations_EventRider" FromRole="LocationVisit" ToRole="EventRider" />
+        </EntityType>
+        <Association Name="FK_RecentLocations_EventRider">
+          <End Type="DonationPortalModel.EventRider" Role="EventRider" Multiplicity="1" />
+          <End Type="DonationPortalModel.LocationVisit" Role="LocationVisit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventRider">
+              <PropertyRef Name="EventRiderID" />
+            </Principal>
+            <Dependent Role="LocationVisit">
+              <PropertyRef Name="EventRiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -314,6 +476,15 @@
           <EntitySetMapping Name="EventRiders">
             <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
               <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="DonationStart" ColumnName="DonationStart" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="PossessiveName" ColumnName="PossessiveName" />
+                <ScalarProperty Name="DistanceGoal" ColumnName="DistanceGoal" />
+                <ScalarProperty Name="DurationGoal" ColumnName="DurationGoal" />
+                <ScalarProperty Name="Teaser" ColumnName="Teaser" />
+                <ScalarProperty Name="Story" ColumnName="Story" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="DonationGoal" ColumnName="DonationGoal" />
                 <ScalarProperty Name="MarkerLongitude" ColumnName="MarkerLongitude" />
                 <ScalarProperty Name="MarkerLatitude" ColumnName="MarkerLatitude" />
                 <ScalarProperty Name="MapZoom" ColumnName="MapZoom" />
@@ -358,6 +529,7 @@
           <EntitySetMapping Name="RiderMessageDonations">
             <EntityTypeMapping TypeName="DonationPortalModel.RiderMessageDonation">
               <MappingFragment StoreEntitySet="RiderMessageDonation">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
                 <ScalarProperty Name="EventRiderID" ColumnName="EventRiderID" />
                 <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
                 <ScalarProperty Name="Longitude" ColumnName="Longitude" />
@@ -372,6 +544,43 @@
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Donations">
+            <EntityTypeMapping TypeName="DonationPortalModel.Donation">
+              <MappingFragment StoreEntitySet="Donation">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="StreetAddress2" ColumnName="StreetAddress2" />
+                <ScalarProperty Name="StreetAddress1" ColumnName="StreetAddress1" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecentMessages">
+            <EntityTypeMapping TypeName="DonationPortalModel.RecentMessage">
+              <MappingFragment StoreEntitySet="RecentMessages">
+                <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
+                <ScalarProperty Name="DonationID" ColumnName="DonationID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LocationVisits">
+            <EntityTypeMapping TypeName="DonationPortalModel.LocationVisit">
+              <MappingFragment StoreEntitySet="LocationVisit">
+                <ScalarProperty Name="DateVisited" ColumnName="DateVisited" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
+                <ScalarProperty Name="EventRiderID" ColumnName="EventRiderID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

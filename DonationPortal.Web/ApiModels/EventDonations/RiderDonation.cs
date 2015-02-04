@@ -12,10 +12,11 @@
 		public string StreetAddress2 { get; set; }
 		public string City { get; set; }
 		public string State { get; set; }
-		public int ZipCode { get; set; }
+		public string ZipCode { get; set; }
 		public string Email { get; set; }
+		public string CreditCardNumber { get; set; }
 		public int ExpirationMonth { get; set; }
 		public int ExpirationYear { get; set; }
-		public int CvvNumber { get; set; }
+		public string CvvNumber { get; set; }
 	}
 }

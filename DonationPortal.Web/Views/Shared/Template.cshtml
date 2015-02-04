@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+<!doctype html>
+
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>3000 Miles to a Cure</title>
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="/ui/scripts/vendor/modernizr/modernizr-2.8.3.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/ui/css/main-styles.css">
+
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<!--[if lt IE 7]>      <body class="lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <body class="lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <body class="lt-ie9"> <![endif]-->
+<!--[if IE 9]>         <body class="ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->
+<body>
+    <!--<![endif]-->
+
+    <a class="skip-nav" href="#skipToContent" role="link" tabindex="0">Skip Navigation</a>
+
+    <div class="main-container">
+        <!-- main-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        @Html.Action("Header", "Template")
+
+        @RenderBody()
+
+        @Html.Action("Footer", "Template")
+        <!-- main-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </div>
+
+    <script src="/ui/scripts/requireConfig.js"></script>
+    <script data-main="/ui/scripts/main" src="/ui/scripts/vendor/require/require.js"></script>
+
+    @RenderSection("Scripts", false)
+
+</body>
+</html>

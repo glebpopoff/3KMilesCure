@@ -1,0 +1,86 @@
+﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+
+@{
+}
+<div id="main" role="main">
+    <!-- main starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+
+    <section class="stacked-container hero event-detail" id="skipToContent" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <figure class="hero-image"><img class="img-responsive" src="/ui/images/img-maria-event-details.jpg" alt="placeholder"></figure>
+        <div class="container">
+            <div class="hero-content">
+                <p class="lead">Join Maria Parker lorem ipsum dolor sit amet 12 Hours adipiscing elit.</p>
+                <div class="stat-content">
+                    <div class="row">
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart total-raised" data-dimension="250" data-text="@Model.DonationTotal.ToString("G")" data-info="Total Raised" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#4FD9D8" data-bgcolor="#eee" data-fill="#ddd" data-total="@Model.DonationGoal" data-part="@Model.DonationTotal">
+                                <div class="mobile-text">Total Raised</div>
+                            </div>
+                        </div>
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart days-left" data-dimension="250" data-text="@Model.DonationDaysPast" data-info="Days Left" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#4FD9D8" data-bgcolor="#eee" data-fill="#ddd" data-total="@Model.TotalDonationDays" data-part="@Model.DonationDaysPast">
+                                <div class="mobile-text">Days Left</div>
+                            </div>
+                        </div>
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart percent-goal" data-dimension="250" data-text="@Model.DonationGoalPercentage" data-info="Of Goal" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#4FD9D8" data-bgcolor="#eee" data-fill="#ddd" data-total="100" data-part="@Model.DonationGoalPercentage">
+                                <div class="mobile-text">Percent Achieved</div>
+                            </div>
+                        </div>
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart total" data-dimension="250" data-text="Help Us Raise" data-info="@Model.DonationGoal.ToString("G")" data-width="20" data-fontsize="40" data-percent="100" data-fgcolor="#f67000" data-bgcolor="#eee" data-fill="#ddd" data-total="@Model.DonationGoal" data-part="@Model.DonationGoal" data-animationstep="0">
+                                <div class="mobile-text">Total Goal</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+
+    <section class="stacked-container" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="module ride-details">
+                        <h2>@Model.EventName <span class="participant">/ @Model.RiderName</span></h2>
+                        <h3>@Model.DateRange</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab blanditiis, delectus eos harum hic illum laborum minima, necessitatibus officiis recusandae reiciendis reprehenderit veritatis voluptate? Asperiores corporis qui quisquam sint tenetur.</p>
+                        <br>
+                        <p>
+                            <a href="#" class="btn btn-primary btn-lg"><i class="fa fa-comment"></i> Send Maria a Message</a> &nbsp;
+                            <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-heart" style="font-weight:bold"></i> Make a Donation</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
+
+    @Html.Partial("Social")
+
+    @Html.Partial("Route")
+
+    @Html.Partial("Statistics")
+
+    @Html.Partial("Donate")
+
+    <!-- main ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</div>
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        require(['riderDonate'], function(riderDonate) {
+
+            riderDonate.setup();
+
+        });
+
+    </script>
+}
