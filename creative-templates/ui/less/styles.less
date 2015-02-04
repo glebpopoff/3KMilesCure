@@ -107,8 +107,18 @@ CUSTOM VARIABLES/OVERRIDES
   }
 }
 
-.btn {margin:10px 0;}
-.btn-lg {font-size:16px;}
+.btn {margin:10px 0; border-radius:0; text-transform:uppercase; font-weight:700; white-space: normal;}
+.btn-lg {font-size:16px; border-radius:0;}
+.btn-secondary {
+  background:@secondary-color;
+  color:@white;
+  &:hover {background:darken(@secondary-color, 5%); color:@white;}
+}
+.btn-tertiary {
+  background:@tertiary-color;
+  color:@white;
+  &:hover {background:darken(@tertiary-color, 5%); color:@white;}
+}
 .panel-title > a {
   display:block;
   position:relative;
@@ -138,7 +148,7 @@ UNIVERSAL STYLES
 
 body {
   font-family:@font-family-base;
-  color:#333;
+  color:#363636;
 }
 
 /* links */
@@ -148,7 +158,7 @@ a:focus {
 }
 
 /* typography */
-h1,h2,h3,h4,h5,h6 { color:#333; font-family: @font-family-base; }
+h1,h2,h3,h4,h5,h6 { color:#363636; font-family: @font-family-base; }
 
 h1 {
   text-transform:uppercase;
@@ -273,13 +283,13 @@ INTERFACE SHELL STYLES
   }
 
   .logo {
-	margin-top:20px;
+	margin-top:50px;
   }
 
   .navbar-toggle {
     position: absolute;
     right:15px;
-    top:20px;
+    top:5px;
     margin:0;
     padding: 20px;
     background:none;
@@ -287,6 +297,7 @@ INTERFACE SHELL STYLES
     border-radius:0;
     font-size:30px;
     color:@white;
+	@media (max-width: 550px) { top:0; }
   }
 
   /* Global Nav */
@@ -306,7 +317,7 @@ INTERFACE SHELL STYLES
 
       &:hover {
         text-decoration:none;
-        color:@secondary-color;
+		color:darken(@white,15%);
       }
     }
 
@@ -390,7 +401,7 @@ INTERFACE SHELL STYLES
           &:hover,
           &.hover {
             text-decoration:none;
-            color:@secondary-color;
+            color:darken(@white,15%);
           }
 
 
@@ -405,13 +416,11 @@ INTERFACE SHELL STYLES
 
         &.callout {
           background:@tertiary-color;
-          border-radius:5px;
           a {
             padding:10px 20px;
             &:hover {
-              background:@secondary-color;
-              color:@tertiary-color;
-              border-radius:5px;
+              background:darken(@tertiary-color, 5%);
+              color:@white;
             }
           }
         }
@@ -460,8 +469,8 @@ INTERFACE SHELL STYLES
       margin:0 -15px;
       padding:0;
       box-shadow:none;
-      background:@secondary-color;
-      .box-shadow(inset 0 10px 10px -5px #dda903);
+      background:#ffa333;
+      .box-shadow(inset 0 10px 10px -5px rgba(0,0,0,.15));
     }
     .global-nav-container{
       position:static;
@@ -479,17 +488,17 @@ INTERFACE SHELL STYLES
       margin:0 15px 10px 15px;
       .t1-nav {
         li {
-          background:#ccc;
-          border-radius:5px;
+          background:@primary-color;
+          border-radius:0;
           display:block;
           margin:10px 0;
           a {
             display:block;
             padding:10px 20px;
-            color:#333;
+            color:@white;
             &:hover {
-              background:#ccc;
-              color:#333;
+              background:darken(@primary-color, 5%);
+              color:@white;
             }
           }
           &.callout {
@@ -645,6 +654,11 @@ INTERFACE SHELL STYLES
       right:0;
       height:100%;
       width:100%;
+	  @media (max-width: @screen-xs-max){
+		/* Extra small devices (phones, less than 768px) */
+	  	position:static;
+	  }
+
       .hero-content{
         position: absolute;
         z-index:1;
@@ -660,11 +674,13 @@ INTERFACE SHELL STYLES
           text-transform:uppercase;
           margin:0;
           color:@white;
+		  text-shadow:0 0 10px rgba(0,0,0,.5);
         }
         .lead {
           font-size:26px;
           font-weight:300;
           color:@white;
+		  text-shadow:0 0 10px rgba(0,0,0,.5);
         }
 
         @media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
@@ -672,6 +688,7 @@ INTERFACE SHELL STYLES
           bottom:0;
           left:0;
           right:0;
+		  position:static;
           .translate(0, 0);
           background:rgba(0,0,0,.5);
           padding:10px;
@@ -857,7 +874,6 @@ INTERFACE SHELL STYLES
               line-height:30px;
               padding:5px;
               display:inline-block;
-			  font-family: 'Roboto Slab', serif;
 			  background: #ffffff; /* Old browsers */
 			  background: -moz-linear-gradient(top,  #ffffff 0%, #ffffff 50%, #c9c9c9 51%, #ffffff 100%); /* FF3.6+ */
 			  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(50%,#ffffff), color-stop(51%,#c9c9c9), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -893,7 +909,7 @@ INTERFACE SHELL STYLES
       }
     }
     &.event-detail {
-      background:#fdeedc;
+      background:#f1f1f1;
       >.container {padding-top:40px;}
       .route-details{
         .container{
@@ -987,7 +1003,7 @@ INTERFACE SHELL STYLES
   }
 
   &.stats {
-    background:#888;
+    background:#ffa333;
   }
 
 }
@@ -1226,34 +1242,37 @@ FOOTER STYLES
 	.clearfix();
   }
 
-  h1,h2,h3,h4,h5,h6 {color:@white;}
+  h1,h2,h3,h4,h5,h6 {color:#a3a3a3;}
   h2 {margin:0 0 5px 0;}
 
   .footer-links {
-    margin:20px 0 0 0;
-    padding-left:0;
-    list-style:none;
-    text-align:right;
+	float:right;
 
-    li {
-      display:inline-block;
-      vertical-align:middle;
-      padding:0;
-      margin:0 0 0 20px;
+	ul {
+	  margin:10px 0;
+	  padding-left:0;
+	  list-style:none;
+	  text-align:center;
+	  li {
+		display:inline-block;
+		vertical-align:middle;
+		padding:0;
+		margin:0 0 0 20px;
 
 
-      &:first-child {margin-left:0;}
+		&:first-child {margin-left:0;}
 
-      &.social-link {
-        font-size:20px;
-        a {color:@white;}
-      }
+		&.social-link {
+		  font-size:20px;
+		  a {color:@white;}
+		}
 
-      &.active {
-        a {color:#2e3340;}
-      }
-      &:first-child {border-left:none;}
-    }
+		&.active {
+		  a {color:#2e3340;}
+		}
+		&:first-child {border-left:none;}
+	  }
+	}
   }
 
   /* Media Queries and Conditionals */
@@ -1278,7 +1297,7 @@ LAYOUT ELEMENTS / MODULES
 .module {
 
   &.donation-block {
-    background:@secondary-color;
+    background:#F8A136;
     padding:20px;
     .heading {
       text-transform:uppercase;
@@ -1370,8 +1389,7 @@ LAYOUT ELEMENTS / MODULES
 
   &.ride-details {
     h2 {
-      margin:0;
-      .participant {color:#919191;font-weight:600;}
+      .participant {color:#919191;font-weight:600; text-transform:none;}
     }
     h3 {margin-top:5px;}
   }
@@ -1412,120 +1430,110 @@ LAYOUT ELEMENTS / MODULES
 	bottom: 4px;
 }
 
-.circle-chart {
-  margin:0 auto;
-  .mobile-text {display:none;}
-  .circle-text {
-	font-weight:900;
-	text-transform:uppercase;
-  }
-  &.total-raised {
-	  .circle-text {
-		&:before {
-		  content:"\f155";
-		  display: inline-block;
-		  font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
-		  font-size: inherit; // can't have font-size inherit on line above, so need to override
-		  text-rendering: auto; // optimizelegibility throws things off #1094
-		  -webkit-font-smoothing: antialiased;
-		  -moz-osx-font-smoothing: grayscale;
-		}
-	  }
-  }
-  &.days-left {
+.stat-content {
+
+  .circle-chart {
+	margin:0 auto 20px 0;
 	.circle-text {
-	  &:before {}
-	}
-  }
-  &.percent-goal {
-	.circle-text {
-	  &:after {
-		content:"%";
-		display: inline-block;
-		font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
-		font-size: inherit; // can't have font-size inherit on line above, so need to override
-		text-rendering: auto; // optimizelegibility throws things off #1094
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		font-weight:bold;
-	  }
-	}
-  }
-  &.total {
-	.circle-text {
-	  font-size:16px !important;
-	  color:#999;
-	  font-weight:normal;
-	  text-transform:none;
-	  line-height:200px !important;
-	}
-	.circle-info, .circle-info-half {
-	  color:#333;
-	  font-size:40px;
-	  font-weight:900;
+	  font-weight:400;
 	  text-transform:uppercase;
-	  line-height:265px !important;
-	  &:before {
-		content:"\f155";
-		display: inline-block;
-		font: normal normal normal 14px/1 FontAwesome; // shortening font declaration
-		font-size: inherit; // can't have font-size inherit on line above, so need to override
-		text-rendering: auto; // optimizelegibility throws things off #1094
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		margin-right:2px;
-	  }
-	}
-  }
-  @media (max-width: @screen-sm-max) { /* Extra small devices (phones, less than 768px) */
-  	width:100% !important;
-	max-width:100%;
-	margin-bottom:20px;
-	.mobile-text {
-	  display:block;
-	  text-align:center;
-	  font-size:16px;
-	  color:#fff;
-	  line-height:1;
-	}
-	.circle-text, .circle-info, .circle-text-half, .circle-info-half {
-	  top: 50%;
-	  left: 50%;
-	  .translate(-50%, -50%);
-	  line-height:1 !important;
-	}
-	canvas {
-	  width:100%;
-	  max-width:100%;
+	  color:@white;
+	  font-size:60px !important;
 	}
 	&.total-raised {
-	  .circle-text {
-		font-size:30px !important;
-	  }
-	  .circle-info, .circle-info-half {display:none;}
+	  .circle-text {}
 	}
 	&.days-left {
 	  .circle-text {
-		font-size:30px !important;
+		&:before {}
 	  }
-	  .circle-info, .circle-info-half {display:none;}
 	}
 	&.percent-goal {
-	  .circle-text {
-		font-size:30px !important;
-	  }
-	  .circle-info, .circle-info-half {display:none;}
+	  .circle-text {}
 	}
-	&.total {
-	  .circle-text {
-		display:none;
+	&.total {}
+	@media (max-width: @screen-sm-max) { /* Extra small devices (phones, less than 768px) */
+	  width:100% !important;
+	  max-width:100%;
+
+	  .circle-text, .circle-info, .circle-text-half, .circle-info-half {
+		top: 50%;
+		left: 50%;
+		.translate(-50%, -50%);
+		line-height:1 !important;
 	  }
-	  .circle-info, .circle-info-half {
-		font-size:30px !important;
+	  canvas {
+		width:100%;
+		max-width:100%;
+	  }
+	  &.total-raised {
+		.circle-text {
+		  font-size:40px !important;
+		}
+	  }
+	  &.days-left {
+		.circle-text {
+		  font-size:40px !important;
+		}
+	  }
+	  &.percent-goal {
+		.circle-text {
+		  font-size:40px !important;
+		}
+	  }
+	  &.total {
+		.circle-text {
+		  font-size:40px !important;
+		}
 	  }
 	}
+
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Extra small devices (phones, less than 768px) */
+	  &.total-raised {
+		.circle-text {
+		  font-size:45px !important;
+		}
+	  }
+	  &.days-left {
+		.circle-text {
+		  font-size:45px !important;
+		}
+	  }
+	  &.percent-goal {
+		.circle-text {
+		  font-size:45px !important;
+		}
+	  }
+	  &.total {
+		.circle-text {
+		  font-size:45px !important;
+		}
+	  }
+	}
+
+  }
+
+  .chart-text {
+	display:block;
+	text-align:center;
+	font-size:20px;
+	color:#fff;
+	line-height:1.2;
+	text-transform:uppercase;
+	font-weight:600;
+
+	@media (max-width: @screen-xs-max) { /* Extra small devices (phones, less than 768px) */
+		font-size:16px;
+	}
+	@media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) { /* Small devices (tablets, more than 768px, less than 992px) */
+		font-size:18px;
+	}
+	@media (min-width: @screen-lg-min) { /* Large devices (large desktops, 1200px and up) */ }
+
   }
 }
+
+
 
 
 /* Tabs Styles (jquery UI) http://jqueryui.com/tabs/
