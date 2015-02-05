@@ -284,6 +284,10 @@ INTERFACE SHELL STYLES
 
   .logo {
 	margin-top:50px;
+	.ie9 &,
+	.lt-ie9 & { /* list less than ie9 styles here */
+	  .img-responsive {width:auto;}
+	}
   }
 
   .navbar-toggle {
@@ -456,7 +460,13 @@ INTERFACE SHELL STYLES
       display:inline-block;
       font-size:30px;
       margin:20px 0;
-      .tagline {
+
+	  .ie9 &,
+	  .lt-ie9 & { /* list less than ie9 styles here */
+	  	.img-responsive {width:100%;}
+	  }
+
+	  .tagline {
         font-size:20px;
       }
     }
