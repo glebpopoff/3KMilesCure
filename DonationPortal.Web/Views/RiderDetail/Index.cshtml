@@ -50,7 +50,7 @@
                         @Model.Teaser
                         <br>
                         <p>
-                            <a href="#" class="btn btn-tertiary btn-lg"> Send Maria a Message</a> &nbsp;
+                            <a href="#" class="btn btn-tertiary btn-lg"> Send @Model.RiderName a Message</a> &nbsp;
                             <a href="#" class="btn btn-lg btn-tertiary"> Donate to help @Model.Pronoun reach @Model.Pronoun goal</a>
                         </p>
                     </div>
@@ -75,9 +75,10 @@
 {
     <script type="text/javascript">
 
-        require(['riderDonate'], function(riderDonate) {
+        require(['riderDonate', 'riderLocation'], function (riderDonate, riderLocation) {
 
             riderDonate.setup();
+            riderLocation.setup();
 
         });
 
