@@ -60,7 +60,8 @@ namespace DonationPortal.Web.Controllers
 							State = model.State,
 							StreetAddress1 = model.StreetAddress1,
 							StreetAddress2 = model.StreetAddress2,
-							ZipCode = model.ZipCode
+							ZipCode = model.ZipCode,
+							CreditCardNumber = model.CreditCardNumber
 						};
 
 						var result = _immediatePaymentProcessor.Process(request);

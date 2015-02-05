@@ -42,7 +42,8 @@ namespace DonationPortal.Web.Controllers.API
 				State = donation.State,
 				StreetAddress1 = donation.StreetAddress1,
 				StreetAddress2 = donation.StreetAddress2,
-				ZipCode = donation.ZipCode
+				ZipCode = donation.ZipCode,
+				CreditCardNumber = donation.CreditCardNumber
 			});
 
 			using (var entities = new DonationPortalEntities())
