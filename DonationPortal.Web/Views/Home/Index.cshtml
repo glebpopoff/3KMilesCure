@@ -5,7 +5,7 @@
 
     <section class="stacked-container hero" id="skipToContent" role="region">
         <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-        <figure class="hero-image"><img class="img-responsive" src="/ui/images/Hero-Rob-01.jpg" alt="Take Action"></figure>
+        <figure class="hero-image"><img class="img-responsive" src="/ui/images/Hero-Rob-01.jpg" alt="Hope Loves Action."></figure>
         <div class="container">
             <div class="hero-content">
                 <h1 role="heading">HOPE LOVES ACTION.</h1>
@@ -45,7 +45,7 @@
                                             <div class="amount">@rider.DonationGoal.ToString("C0")</div>
                                         </div>
                                     </div>
-                                    <div class="donate-callout"><a href="@rider.DetailUrl" class="btn btn-lg btn-primary btn-block"><i class="fa fa-heart" style="font-weight: bold"></i> Make a Donation</a></div>
+                                    <div class="donate-callout"><a href="@rider.DetailUrl" class="btn btn-lg btn-primary btn-block">Make a Donation</a></div>
                                 </div>
                             </div>
                         </div>
@@ -107,10 +107,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Lorem ipsum dolor</h2>
+                    <h2>Race With @Model.FeaturedRider.RiderName</h2>
                     @Model.FeaturedRider.RiderStory
                     <br>
-                    <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-primary btn-lg"><i class="fa fa-camera"></i> Experience @Model.FeaturedRider.PossessiveRiderName Race</a></p>
+                    <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-secondary btn-lg"><i class="fa fa-camera"></i> Experience @Model.FeaturedRider.PossessiveRiderName Race</a></p>
                 </div>
                 <div class="col-sm-6">
                     <div class="module recent-messages">
@@ -123,7 +123,7 @@
                             </div>
                         }
                         <br>
-                        <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-primary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
+                        <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-tertiary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
                     </div>
                 </div>
             </div>

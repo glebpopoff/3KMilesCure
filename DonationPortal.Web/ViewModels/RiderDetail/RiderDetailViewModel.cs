@@ -26,7 +26,7 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 
 		public int DonationDaysPast
 		{
-			get { return (int)(DonationStart.Date - RiderEnd.Date).TotalDays + 1; }
+			get { return (int)(DateTime.Now - DonationStart.Date).TotalDays + 1; }
 		}
 
 		/// <summary>
@@ -144,5 +144,6 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 		public IHtmlString RouteDescription { get; set; }
 		public IHtmlString DonationDescription { get; set; }
 		public IHtmlString ChooseLocationText { get; set; }
+		public string ShortEventName { get; set; }
 	}
 }

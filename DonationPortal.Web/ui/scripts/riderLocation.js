@@ -11,7 +11,8 @@
 			var mapOptions = {
 				center: { lat: rider.MapLatitude, lng: rider.MapLongitude },
 				zoom: rider.MapZoom,
-				mapTypeId: google.maps.MapTypeId.ROADMAP
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				scrollwheel: false
 			};
 
 			var map = new google.maps.Map(document.getElementById('map-canvas'),
