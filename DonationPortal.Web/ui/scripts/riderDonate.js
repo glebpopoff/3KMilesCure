@@ -2,9 +2,8 @@
     ['jquery', 'underscore', 'snapToRoute', 'async!http://maps.google.com/maps/api/js?sensor=false', 'jquery.serializeObject'],
     function ($, _, SnapToRoute, googleMaps, jquerySerializeObject) {
 
-    	// todo, determine these based on the event page we're showing
-    	var eventSlug = 'farmington';
-    	var riderSlug = 'kevin';
+	    var eventSlug = null;
+	    var riderSlug = null;
 
     	function initialize() {
 
@@ -92,7 +91,10 @@
 
 
     	return {
-    		setup: function () {
+    		setup: function (event, rider) {
+
+    			eventSlug = event;
+			    riderSlug = rider;
 
     			$(function () {
 

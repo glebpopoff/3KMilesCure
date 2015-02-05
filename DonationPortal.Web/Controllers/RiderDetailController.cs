@@ -49,7 +49,9 @@ namespace DonationPortal.Web.Controllers
 					RouteDescription = new HtmlString(riderEntity.RouteDescription),
 					DonationDescription = new HtmlString(riderEntity.DonationDescription),
 					ChooseLocationText = new HtmlString(riderEntity.ChooseLocationText),
-					ShortEventName = eventEntity.ShortName
+					ShortEventName = eventEntity.ShortName,
+					EventUrlSlug = eventUrlSlug,
+					RiderUrlSlug = riderUrlSlug
 		        };
 
 				return View("Index", model);

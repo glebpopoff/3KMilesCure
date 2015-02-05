@@ -12,8 +12,8 @@
             <div class="hero-content">
                 <h1>@Model.ShortEventName</h1>
                 <p class="lead">@Model.HeroImageText</p>
-                
-                
+
+
                 <div class="module stat-content">
                     <div class="row">
                         <div class="hidden-xs col-sm-3">
@@ -77,8 +77,8 @@
 
         require(['riderDonate', 'riderLocation'], function (riderDonate, riderLocation) {
 
-            riderDonate.setup();
-            riderLocation.setup();
+            riderDonate.setup('@Model.EventUrlSlug', '@Model.RiderUrlSlug');
+            riderLocation.setup('@Model.EventUrlSlug', '@Model.RiderUrlSlug');
 
         });
 

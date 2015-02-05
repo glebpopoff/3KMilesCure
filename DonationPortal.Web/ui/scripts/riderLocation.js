@@ -1,8 +1,7 @@
 ﻿define(['async!http://maps.google.com/maps/api/js?sensor=false', 'underscore', 'jquery'], function (googleMaps, _, $) {
 
-	// todo, determine these based on the event page we're showing
-	var eventSlug = 'farmington';
-	var riderSlug = 'kevin';
+	var eventSlug = null;
+	var riderSlug = null;
 
 	function initialize() {
 		// retrieve basic information about the event rider (map default location and zoom, and marker default location)
@@ -58,7 +57,10 @@
 	}
 
 	return {
-		setup: function () {
+		setup: function (event, rider) {
+
+			eventSlug = event;
+			riderSlug = rider;
 
 			$(function() {
 				initialize();

@@ -145,5 +145,7 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 		public IHtmlString DonationDescription { get; set; }
 		public IHtmlString ChooseLocationText { get; set; }
 		public string ShortEventName { get; set; }
+		public string EventUrlSlug { get; set; }
+		public string RiderUrlSlug { get; set; }
 	}
 }
