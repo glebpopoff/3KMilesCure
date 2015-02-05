@@ -39,6 +39,12 @@ namespace DonationPortal.Engine
         public string PossessiveName { get; set; }
         public System.DateTime End { get; set; }
         public System.DateTime DonationStart { get; set; }
+        public string DetailHeroImage { get; set; }
+        public string DetailHeroText { get; set; }
+        public string Pronoun { get; set; }
+        public string RouteDescription { get; set; }
+        public string DonationDescription { get; set; }
+        public string ChooseLocationText { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }

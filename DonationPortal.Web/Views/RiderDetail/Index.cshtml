@@ -7,10 +7,10 @@
 
     <section class="stacked-container hero event-detail" id="skipToContent" role="region">
         <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-        <figure class="hero-image"><img class="img-responsive" src="/ui/images/img-maria-event-details.jpg" alt="placeholder"></figure>
+        <figure class="hero-image"><img class="img-responsive" src="/ui/images/@Model.HeroImageUri" alt="placeholder"></figure>
         <div class="container">
             <div class="hero-content">
-                <p class="lead">Join Maria Parker lorem ipsum dolor sit amet 12 Hours adipiscing elit.</p>
+                <p class="lead">@Model.HeroImageText</p>
                 <div class="stat-content">
                     <div class="row">
                         <div class="hidden-xs col-sm-3">
@@ -46,13 +46,13 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div class="module ride-details">
-                        <h2>@Model.EventName <span class="participant">/ @Model.RiderName</span></h2>
+                        <h2>@Model.EventName <span class="participant">// @Model.RiderName</span></h2>
                         <h3>@Model.DateRange</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab blanditiis, delectus eos harum hic illum laborum minima, necessitatibus officiis recusandae reiciendis reprehenderit veritatis voluptate? Asperiores corporis qui quisquam sint tenetur.</p>
+                        @Model.Teaser
                         <br>
                         <p>
                             <a href="#" class="btn btn-primary btn-lg"><i class="fa fa-comment"></i> Send Maria a Message</a> &nbsp;
-                            <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-heart" style="font-weight:bold"></i> Make a Donation</a>
+                            <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-heart" style="font-weight:bold"></i> Donate to help @Model.Pronoun reach @Model.Pronoun goal</a>
                         </p>
                     </div>
                 </div>

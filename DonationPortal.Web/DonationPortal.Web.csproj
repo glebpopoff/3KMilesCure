@@ -133,6 +133,8 @@
     <Content Include="ui\images\glyphicons-halflings-white.png" />
     <Content Include="ui\images\glyphicons-halflings.png" />
     <Content Include="ui\images\hero-image-hp.png" />
+    <Content Include="ui\images\Hero-Maria-01.jpg" />
+    <Content Include="ui\images\Hero-Rob-01.jpg" />
     <Content Include="ui\images\icon-selectBox-arrow.png" />
     <Content Include="ui\images\img-homepage-hero.jpg" />
     <Content Include="ui\images\img-maria-event-details.jpg" />

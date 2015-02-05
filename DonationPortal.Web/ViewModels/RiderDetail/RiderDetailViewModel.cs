@@ -138,5 +138,11 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 		{
 			get { return EventDuration > new TimeSpan(1, 0, 0, 0); }
 		}
+
+		public IHtmlString Teaser { get; set; }
+		public string Pronoun { get; set; }
+		public IHtmlString RouteDescription { get; set; }
+		public IHtmlString DonationDescription { get; set; }
+		public IHtmlString ChooseLocationText { get; set; }
 	}
 }

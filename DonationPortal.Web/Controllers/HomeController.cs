@@ -29,7 +29,7 @@ namespace DonationPortal.Web.Controllers
 		        var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
 
 				// todo, flag someone as the featured one
-		        var featuredRider = entities.EventRiders.Include(r => r.Event).Single(r => r.EventRiderID == 3);
+		        var featuredRider = entities.EventRiders.Include(r => r.Event).Single(r => r.EventRiderID == 2); //rob
 
 		        var model = new HomeViewModel
 		        {

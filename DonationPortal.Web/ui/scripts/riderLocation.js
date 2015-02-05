@@ -19,8 +19,7 @@
 
 			var marker = new google.maps.Marker({
 				position: { lat: rider.MarkerLatitude, lng: rider.MarkerLongitude },
-				map: map,
-				draggable: true
+				map: map
 			});
 
 			// retrieve the routes associated with this rider

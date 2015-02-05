@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+@{
     Layout = null;
 }
 
@@ -8,8 +9,8 @@
         <form id="donation-form">
             <div class="row">
                 <div class="col-sm-12">
-                    <h2>Help us Reach our Goal. Donate Today</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequuntur culpa, doloribus ea eaque earum enim eum exercitationem expedita ipsum labore minima, molestiae nesciunt obcaecati, odio quaerat quam rerum unde.</p>
+                    <h2>Help @Model.RiderName Reach @Model.Pronoun Goal. Donate &amp; Send Encouragement.</h2>
+                    @Model.DonationDescription
                     <div class="panel-group" id="donate-form" role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="step-1-heading">
@@ -62,7 +63,7 @@
                             </div>
                             <div id="step-2-content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="step-2-heading">
                                 <div class="panel-body">
-                                    <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.</p>
+                                    @Model.ChooseLocationText
                                     <div class="alert alert-danger" style="display:none;">Please fill out the required fields below</div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-7">
