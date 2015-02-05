@@ -23,6 +23,7 @@ namespace DonationPortal.Engine
         public string Name { get; set; }
         public string UrlSlug { get; set; }
         public string NavigationName { get; set; }
+        public string ShortName { get; set; }
     
         public virtual ICollection<EventRider> EventRiders { get; set; }
     }

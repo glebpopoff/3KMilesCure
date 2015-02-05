@@ -29,6 +29,7 @@
           <Property Name="NavigationName" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="UrlSlug" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ShortName" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="EventRider">
           <Key>
@@ -260,6 +261,7 @@
           <Property Name="UrlSlug" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="EventRiders" Relationship="Self.FK_EventRider_Event" FromRole="Event" ToRole="EventRider" />
           <Property Name="NavigationName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ShortName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="EventRider">
           <Key>
@@ -481,6 +483,7 @@
           <EntitySetMapping Name="Events">
             <EntityTypeMapping TypeName="DonationPortalModel.Event">
               <MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="NavigationName" ColumnName="NavigationName" />
                 <ScalarProperty Name="EventID" ColumnName="EventID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
