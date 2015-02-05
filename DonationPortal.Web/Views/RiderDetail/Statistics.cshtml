@@ -15,8 +15,8 @@
                     <div class="chart-text">@Model.DonationTotal.ToString("C0")<br> Total Raised</div>
                 </div>
                 <div class="col-xs-6 col-sm-3">
-                    <div class="circle-chart days-left" data-dimension="200" data-text="@Model.DonationDaysPast" data-width="30" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.TotalDonationDays" data-part="@Model.DonationDaysPast"></div>
-                    <div class="chart-text">@Model.DonationDaysPast<br> Days Left</div>
+                    <div class="circle-chart days-left" data-dimension="200" data-text="@Model.DaysRemaining" data-width="30" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.TotalDonationDays" data-part="@Model.DonationDaysPast"></div>
+                    <div class="chart-text">@Model.DaysRemaining<br> Days Left</div>
                 </div>
                 <div class="col-xs-6 col-sm-3">
                     <div class="circle-chart percent-goal" data-dimension="200" data-text="%" data-width="30" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="100" data-part="@Model.DonationGoalPercentage"></div>
