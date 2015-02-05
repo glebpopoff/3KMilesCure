@@ -216,7 +216,6 @@
     <Compile Include="ApiModels\Messages\RecentMessage.cs" />
     <Compile Include="Controllers\RiderDetailController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\API\MessageController.cs" />
     <Compile Include="Controllers\API\RouteController.cs" />
     <Compile Include="Controllers\TemplateController.cs" />
@@ -238,7 +237,6 @@
   <ItemGroup>
     <Content Include="Views\web.config" />
     <Content Include="packages.config" />
-    <Content Include="Views\Map\Index.cshtml" />
     <Content Include="ui\scripts\vendor\underscore\underscore.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="ui\css\main-styles.css.map" />
