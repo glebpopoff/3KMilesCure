@@ -50,7 +50,7 @@
 			<preserveintarget>
 				<include name="creative-templates/"/>
 				<include name="connectionStrings.config"/>
-				<include name="appSettings.config"/>
+				<include name="paypal.config"/>
 				<!-- standard set of excludes below -->
 				<include name="bin/"/>
 				<include name="web.config"/>
