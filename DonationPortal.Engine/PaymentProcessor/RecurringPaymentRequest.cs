@@ -20,6 +20,7 @@ namespace DonationPortal.Engine.PaymentProcessor
 		public int ExpirationMonth { get; set; }
 		public int ExpirationYear { get; set; }
 		public string CvvNumber { get; set; }
+		public string CreditCardNumber { get; set; }
 		// recur type?
 		// start date?
 	}

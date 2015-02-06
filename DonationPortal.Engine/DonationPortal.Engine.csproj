@@ -102,6 +102,7 @@
     </Compile>
     <Compile Include="AppSettingFeaturedEventProvider.cs" />
     <Compile Include="PaymentProcessor\CreditCardIssuerDetector.cs" />
+    <Compile Include="PaymentProcessor\PaypalRecurringPaymentProcessor.cs" />
     <Compile Include="PaymentProcessor\PaypalImmediatePaymentProcessor.cs" />
     <Compile Include="Rider\EventRiderLocationProvider.cs" />
     <Compile Include="LocationVisit.cs">
