@@ -7,14 +7,21 @@ using DonationPortal.Engine;
 using DonationPortal.Engine.Messages;
 using DonationPortal.Engine.Rider;
 using DonationPortal.Web.ApiModels.Messages;
+using DonationPortal.Web.ApiModels.Routes;
+using DonationPortal.Web.Hubs;
 using DotSpatial.Positioning;
 using System;
+using log4net;
+using Microsoft.AspNet.SignalR;
 
 namespace DonationPortal.Web.Controllers.API
 {
 	[RoutePrefix("api/v1")]
 	public class MessageController : ApiController
 	{
+		private static readonly ILog _log = LogManager.GetLogger(typeof (MessageController));
+
+		private readonly EventRiderLocationProvider _eventRiderLocationProvider;
 		private readonly IMessageLocationFilter _messageLocationFilter;
 		private readonly EventRiderMessageProvider _messageProvider;
 
@@ -22,6 +29,7 @@ namespace DonationPortal.Web.Controllers.API
 		{
 			this._messageLocationFilter = new DistanceMessageLocationFilter(new Distance(50, DistanceUnit.Meters));
 			this._messageProvider = new EventRiderMessageProvider();
+			this._eventRiderLocationProvider = new EventRiderLocationProvider();
 		}
 
 		[Route("events/{eventSlug}/riders/{riderSlug}/messages")]
@@ -73,6 +81,8 @@ namespace DonationPortal.Web.Controllers.API
 		[HttpPost]
 		public HttpResponseMessage GetNearbyMessages(string eventSlug, string riderSlug, [FromBody]DonationPortal.Engine.Messages.LocationVisit[] locationVisits)
 		{
+			_log.DebugFormat("Request for messages near any of the following locations for {0} {1}.", eventSlug, riderSlug);
+
 			using (var entities = new DonationPortalEntities())
 			{
 				// grab the rider that we've been asked to retrieve messages for.
@@ -131,8 +141,31 @@ namespace DonationPortal.Web.Controllers.API
 
 				entities.SaveChanges();
 
+				NotifyCurrentLocation(rider);
+
 				return Request.CreateResponse(HttpStatusCode.OK, donationMessages);
 			}
+		}
+
+		private void NotifyCurrentLocation(EventRider rider)
+		{
+			var mostRecentLocation = _eventRiderLocationProvider.GetLocation(rider.EventRiderID);
+
+			if (!mostRecentLocation.HasValue)
+			{
+				return;
+			}
+
+			var totalDistance = _eventRiderLocationProvider.GetTotalDistance(rider.EventRiderID);
+
+			var context = GlobalHost.ConnectionManager.GetHubContext<EventRiderLocationHub>();
+
+			context.Clients.All.updateLocation(new CurrentLocation()
+			{
+				Latitude = mostRecentLocation.Value.Latitude.DecimalDegrees,
+				Longitude = mostRecentLocation.Value.Longitude.DecimalDegrees,
+				TotalMiles = totalDistance.ToStatuteMiles().Value
+			});
 		}
 	}
 }

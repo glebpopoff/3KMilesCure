@@ -1,4 +1,4 @@
-﻿define(['async!http://maps.google.com/maps/api/js?sensor=false', 'underscore', 'jquery'], function (googleMaps, _, $) {
+﻿define(['async!http://maps.google.com/maps/api/js?sensor=false', 'underscore', 'jquery', 'signalr.hubs'], function (googleMaps, _, $, hubs) {
 
 	var eventSlug = null;
 	var riderSlug = null;
@@ -50,9 +50,30 @@
 			// update the marker location with the rider's last known position.
 			$.getJSON('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/location').done(function (location) {
 
-				marker.setPosition({lat: location.Latitude, lng: location.Longitude});
+				if (!location) {
+					return;
+				}
 
+				marker.setPosition({ lat: location.Latitude, lng: location.Longitude });
+
+				$('.travelled .miles .counter').html(location.TotalMiles.toFixed(2));
 			});
+
+			// start listening for location updates
+			var locationHub = $.connection.eventRiderLocationHub;
+
+			$.connection.hub.logging = true;
+
+			locationHub.client.updateLocation = function (location) {
+				
+				marker.setPosition({ lat: location.Latitude, lng: location.Longitude });
+
+				$('.travelled .miles .counter').html(location.TotalMiles.toFixed(2));
+
+			};
+
+			$.connection.hub.start();
+			
 		});
 	}
 

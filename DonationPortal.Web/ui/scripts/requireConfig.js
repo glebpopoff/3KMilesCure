@@ -20,10 +20,13 @@
 		placeholder: 'vendor/jquery.placeholder/jquery.placeholder.min', // Adds placeholder support for non-modern browsers
 		shadowBox: 'vendor/shadowbox/shadowbox.min', // Adds overlay menu functionality
 		underscore: 'vendor/underscore/underscore.min',
-		async: 'vendor/require/async'
+		async: 'vendor/require/async',
+		signalr: 'vendor/signalr/jquery.signalR-2.2.0.min',
+		'signalr.hubs': '/signalr/hubs?'
 	},
 	//library dependencies
 	shim: {
+		'jquery': { exports: '$' },
 		'jqueryUI': ['jquery'],
 		'bootstrap': ['jquery'],
 		'imagesLoaded': ['jquery'],
@@ -34,6 +37,8 @@
 		'isotope': ['bridget', 'jquery'],
 		'bridget': ['jquery'],
 		'placeholder': ['jquery'],
-		'shadowBox': ['jquery']
+		'shadowBox': ['jquery'],
+		'signalr': ['jquery'],
+		'signalr.hubs': ['signalr']
 	}
 };
