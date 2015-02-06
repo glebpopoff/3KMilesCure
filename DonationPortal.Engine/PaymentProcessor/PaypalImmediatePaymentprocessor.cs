@@ -9,25 +9,30 @@ namespace DonationPortal.Engine.PaymentProcessor
 {
 	public class PaypalImmediatePaymentProcessor : IImmediatePaymentProcessor
 	{
-		private readonly string _clientId;
-		private readonly string _secret;
+		private readonly CreditCardIssuerDetector _issuerDetector;
 
-		public PaypalImmediatePaymentProcessor(string clientId, string secret)
+		public PaypalImmediatePaymentProcessor(CreditCardIssuerDetector issuerDetector)
 		{
-			_clientId = clientId;
-			_secret = secret;
+			_issuerDetector = issuerDetector;
 		}
 
 		public ImmediatePaymentResult Process(ImmediatePaymentRequest request)
 		{
-			var config = new Dictionary<string, string> { { "mode", "sandbox" } };
+			var config = ConfigManager.Instance.GetProperties();
 
-			var accessToken = new OAuthTokenCredential(_clientId, _secret, config).GetAccessToken();
+			var accessToken = new OAuthTokenCredential(config).GetAccessToken();
 
 			var apiContext = new APIContext(accessToken)
 			{
 				Config = config
 			};
+
+			var issuer = _issuerDetector.GetIssuer(request.CreditCardNumber);
+
+			if (!issuer.HasValue)
+			{
+				throw new Exception("invalid credit card issuer.");
+			}
 
 			var payer = new Payer
 			{
@@ -42,7 +47,8 @@ namespace DonationPortal.Engine.PaymentProcessor
 							expire_year = request.ExpirationYear,
 							first_name = request.FirstName,
 							last_name = request.LastName,
-							cvv2 = request.CvvNumber
+							cvv2 = request.CvvNumber,
+							type = issuer.ToString().ToLower()
 						}
 					}
 				},
@@ -61,13 +67,18 @@ namespace DonationPortal.Engine.PaymentProcessor
 						amount = new Amount
 						{
 							currency = "USD",
-							total = request.Amount.ToString()
+							total = request.Amount.ToString("N2")
 						}
 					}
 				}
 			};
 
 			var createdPayment = payment.Create(apiContext);
+
+			if (createdPayment.state != "approved")
+			{
+				throw new Exception("Transaction was not approved.");
+			}
 			
 			return new ImmediatePaymentResult
 			{

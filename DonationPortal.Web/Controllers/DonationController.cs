@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,7 +19,7 @@ namespace DonationPortal.Web.Controllers
 
 		public DonationController()
 		{
-			this._immediatePaymentProcessor = new MockImmediatePaymentProcessor();
+			this._immediatePaymentProcessor = new PaypalImmediatePaymentProcessor(new CreditCardIssuerDetector());
 			this._recurringPaymentProcessor = new MockRecurringPaymentProcessor();
 		}
 

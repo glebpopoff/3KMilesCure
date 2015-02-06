@@ -1,4 +1,6 @@
-﻿namespace DonationPortal.Web.ApiModels.EventDonations
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DonationPortal.Web.ApiModels.EventDonations
 {
 	public class RiderDonation
 	{
@@ -14,6 +16,7 @@
 		public string State { get; set; }
 		public string ZipCode { get; set; }
 		public string Email { get; set; }
+		[CreditCard]
 		public string CreditCardNumber { get; set; }
 		public int ExpirationMonth { get; set; }
 		public int ExpirationYear { get; set; }

@@ -71,5 +71,6 @@ packages
 #secrets
 DonationPortal.Web/connectionStrings.config
 DonationPortal.Web/appSettings.config
+DonationPortal.Web/paypal.config
 
 node_modules

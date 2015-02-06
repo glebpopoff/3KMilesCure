@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -15,7 +16,7 @@ namespace DonationPortal.Web.Controllers.API
 
 		public EventDonationController()
 		{
-			_immediatePaymentProcessor = new MockImmediatePaymentProcessor();
+			this._immediatePaymentProcessor = new PaypalImmediatePaymentProcessor(new CreditCardIssuerDetector());
 		}
 		
 		[Route("events/{eventSlug}/riders/{riderSlug}/donations")]

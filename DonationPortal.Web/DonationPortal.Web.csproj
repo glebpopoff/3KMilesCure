@@ -118,7 +118,7 @@
     <Content Include="apple-touch-icon.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="appSettings.config" />
+    <Content Include="paypal.config" />
     <None Include="connectionStrings.config" />
     <Content Include="Gruntfile.js" />
     <Content Include="robots.txt" />
