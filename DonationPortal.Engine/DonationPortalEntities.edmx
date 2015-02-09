@@ -59,6 +59,7 @@
           <Property Name="RouteDescription" Type="nvarchar(max)" />
           <Property Name="DonationDescription" Type="nvarchar(max)" />
           <Property Name="ChooseLocationText" Type="nvarchar(max)" />
+          <Property Name="DetailTeaser" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="EventRiderRoute">
           <Key>
@@ -295,6 +296,7 @@
           <Property Name="RouteDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DonationDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ChooseLocationText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DetailTeaser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -494,6 +496,7 @@
           <EntitySetMapping Name="EventRiders">
             <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
               <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="DetailTeaser" ColumnName="DetailTeaser" />
                 <ScalarProperty Name="ChooseLocationText" ColumnName="ChooseLocationText" />
                 <ScalarProperty Name="DonationDescription" ColumnName="DonationDescription" />
                 <ScalarProperty Name="RouteDescription" ColumnName="RouteDescription" />

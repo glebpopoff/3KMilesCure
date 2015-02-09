@@ -45,6 +45,7 @@ namespace DonationPortal.Engine
         public string RouteDescription { get; set; }
         public string DonationDescription { get; set; }
         public string ChooseLocationText { get; set; }
+        public string DetailTeaser { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }

@@ -42,7 +42,7 @@ namespace DonationPortal.Web.Controllers
 					MilesGoal = riderEntity.DistanceGoal,
 					MilesTravelled = 0, // todo: no clue how we're calculating this yet...
 					DonationStart = riderEntity.DonationStart,
-					Teaser = new HtmlString(riderEntity.Teaser),
+					Teaser = new HtmlString(riderEntity.DetailTeaser),
 					Pronoun = riderEntity.Pronoun,
 					HeroImageText = riderEntity.DetailHeroText,
 					HeroImageUri = riderEntity.DetailHeroImage,
