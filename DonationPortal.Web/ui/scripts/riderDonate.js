@@ -1,9 +1,9 @@
 ﻿define(
-    ['jquery', 'underscore', 'snapToRoute', 'async!http://maps.google.com/maps/api/js?sensor=false', 'jquery.serializeObject'],
-    function ($, _, SnapToRoute, googleMaps, jquerySerializeObject) {
+    ['jquery', 'underscore', 'snapToRoute', 'async!http://maps.google.com/maps/api/js?sensor=false', 'jquery.serializeObject', 'viewScroll'],
+    function ($, _, SnapToRoute, googleMaps, jquerySerializeObject, viewScroll) {
 
-	    var eventSlug = null;
-	    var riderSlug = null;
+    	var eventSlug = null;
+    	var riderSlug = null;
 
     	function initialize() {
 
@@ -94,7 +94,7 @@
     		setup: function (event, rider) {
 
     			eventSlug = event;
-			    riderSlug = rider;
+    			riderSlug = rider;
 
     			$(function () {
 
@@ -122,13 +122,75 @@
     					delete submission.DonationOption;
     					delete submission.OtherAmount;
 
+    					$('.dynamic-help').remove();
+    					$('.form-group').removeClass('has-error');
+    					$('#donation-form .alert').hide();
+					    $('#step-3-button').text('Processing ...');
+
     					$.post('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/donations', submission)
 							.done(function (response) {
-								alert('thanks for your donation!');
+								$('#success-alert').show();
+								viewScroll.scrollIntoView(document.getElementById('donation-form'));
+								$('#step-3-button').text('Donate Now');
 							})
-    						.fail(function (response) {
-						    alert('validation errors');
-					    });
+    						.fail(function (jqXHR) {
+
+    							if (jqXHR.status === 400) {
+
+    								var response = JSON.parse(jqXHR.responseText);
+
+    								var fields = response.ModelState;
+
+    								for (var i in fields) {
+    									if (fields.hasOwnProperty(i)) {
+    										var fieldName = i.substring(i.indexOf('.') + 1); // cut off before the first dot: e.g. "donation.FirstName".  We only want FirstName.
+
+    										var messages = fields[i];
+
+    										var formGroup;
+
+    										switch (fieldName) {
+    											case 'DonationAmount':
+    												{
+    													formGroup = $('.donate-options');
+    												}
+    												break;
+    											case 'Latitude':
+    											case 'Longitude':
+    												{
+    													formGroup = $('#map-form-group');
+    												}
+    												break;
+    											default:
+    												{
+    													formGroup = $('[name=' + fieldName + ']').closest('.form-group');
+    												}
+    										}
+
+    										for (var j in messages) {
+
+    											formGroup.append('<span class="dynamic-help help-block">' + messages[j] + '</span>');
+
+    											formGroup.addClass('has-error');
+    										}
+
+    									}
+    								}
+
+    								$('#validation-error-alert').show();
+
+    								// open the first pane that has errors on it.
+									// don't collapse the last panel if we're already on it (the check for not .in)
+    								$('#donation-form .form-group.has-error:first').closest('.panel-collapse').not('.in').closest('.panel').find('.panel-heading a').click();
+
+							    } else {
+    								$('#error-alert').show();
+    							}
+
+    							viewScroll.scrollIntoView(document.getElementById('donation-form'));
+    							$('#step-3-button').text('Donate Now');
+
+    						});
     				});
     			});
     		}

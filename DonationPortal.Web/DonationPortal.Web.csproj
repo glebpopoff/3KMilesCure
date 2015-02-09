@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DataAnnotationsExtensions">
+      <HintPath>..\packages\DataAnnotationsExtensions.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="DataAnnotationsExtensions.ClientValidation">
+      <HintPath>..\packages\DataAnnotationsExtensions.MVC3.1.1.0.0\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
+    </Reference>
     <Reference Include="DotSpatial.Positioning">
       <HintPath>..\packages\DotSpatial.Positioning.1.7\lib\net40-Client\DotSpatial.Positioning.dll</HintPath>
     </Reference>
@@ -47,7 +53,7 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="LinqToTwitter.AspNet">       
+    <Reference Include="LinqToTwitter.AspNet">
       <HintPath>..\packages\linqtotwitter.3.1.2\lib\net45\LinqToTwitter.AspNet.dll</HintPath>
     </Reference>
     <Reference Include="LinqToTwitterPcl">
@@ -125,6 +131,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebActivator">
+      <HintPath>..\packages\WebActivator.1.2.0.0\lib\NETFramework40\WebActivator.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Web.Razor">
@@ -241,6 +250,7 @@
     <Content Include="ui\scripts\vendor\shadowbox\shadowbox.min.js" />
     <Content Include="ui\scripts\vendor\underscore\underscore.js" />
     <Content Include="ui\scripts\vendor\underscore\underscore.min.js" />
+    <Content Include="ui\scripts\viewScroll.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -253,6 +263,7 @@
     <Compile Include="ApiModels\Routes\RouteVertex.cs" />
     <Compile Include="ApiModels\Social\SocialFeedItem.cs" />
     <Compile Include="App_Start\BrowserJsonFormatter.cs" />
+    <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -406,7 +417,7 @@
     <Content Include="Views\RiderDetail\Route.cshtml" />
     <Content Include="Views\RiderDetail\Statistics.cshtml" />
     <Content Include="Views\RiderDetail\Donate.cshtml" />
-    <Content Include="ui\scripts\vendor\knockout\knockout-3.2.0.min" /> 
+    <Content Include="ui\scripts\vendor\knockout\knockout-3.2.0.min" />
     <Content Include="Views\oAuth\Index.cshtml" />
     <Content Include="Views\Social\authorize.cshtml" />
     <None Include="Web.Debug.config">

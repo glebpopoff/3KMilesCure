@@ -11,6 +11,11 @@
                 <div class="col-sm-12">
                     <h2>Help @Model.RiderName Reach @Model.Pronoun Goal. Donate &amp; Send Encouragement.</h2>
                     @Model.DonationDescription
+
+                    <div class="alert alert-danger" id="validation-error-alert" style="display:none;">Please fill out the required fields below</div>
+                    <div class="alert alert-danger" id="error-alert" style="display:none;">An unexpected error occurred while processing your donation.</div>
+                    <div class="alert alert-success" id="success-alert" style="display:none;">Thanks for your donation!</div>
+
                     <div class="panel-group" id="donate-form" role="tablist" aria-multiselectable="true">
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="step-1-heading">
@@ -22,13 +27,11 @@
                             </div>
                             <div id="step-1-content" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="step-1-heading">
                                 <div class="panel-body">
-                                    <div class="alert alert-danger" style="display:none;">Please fill out the required fields below</div>
                                     @Model.ChooseLocationText
-                                    <div class="alert alert-danger" style="display:none;">Please fill out the required fields below</div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-7">
-                                            <div class="form-group required">
-                                                <label for="select-location" class="required">Select Location from Map:</label>
+                                            <div class="form-group required" id="map-form-group">
+                                                <label for="select-location" class="required control-label">Select Location from Map:</label>
                                                 <div style="margin-bottom:10px;">
                                                     <div id="donation-map" style="height:400px;"></div>
                                                     <input type="hidden" name="Latitude" />
@@ -38,7 +41,7 @@
                                         </div>
                                         <div class="col-sm-12 col-md-5">
                                             <div class="form-group">
-                                                <label for="write-message" class="required">Write Message:</label>
+                                                <label for="write-message" class="required control-label">Write Message:</label>
                                                 <textarea class="form-control required-field" name="Message" rows="6"></textarea>
                                             </div>
                                         </div>
@@ -58,7 +61,7 @@
                             <div id="step-2-content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="step-2-heading">
                                 <div class="panel-body">
                                     <div class="form-group donate-options">
-                                        <div><label class="required">Select donation amount:</label></div>
+                                        <div><label class="required control-label">Select donation amount:</label></div>
                                         <label class="radio-inline">
                                             <input type="radio" name="DonationOption" id="donation-option-1" value="1"> $1
                                         </label>
@@ -79,7 +82,7 @@
                                         </label>
                                     </div>
                                     <div class="form-group other-input">
-                                        <label for="other-amount">Other Amount:</label>
+                                        <label for="other-amount control-label">Other Amount:</label>
                                         <div class="input-group col-sm-4">
                                             <div class="input-group-addon">$</div>
                                             <input type="text" class="form-control" id="OtherAmount" placeholder="">
@@ -93,7 +96,7 @@
                         <div class="panel panel-default">
                             <div class="panel-heading" role="tab" id="step-3-heading">
                                 <h3 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#doante-form" href="#step-3-content" aria-expanded="false" aria-controls="step-3-content">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#donate-form" href="#step-3-content" aria-expanded="false" aria-controls="step-3-content">
                                         Step 3 - Billing & Payment Information
                                     </a>
                                 </h3>
@@ -104,37 +107,41 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="first-name" class="required">First Name:</label>
+                                                <label for="first-name" class="required control-label">First Name:</label>
                                                 <input type="text" class="form-control required-field" id="first-name" placeholder="" name="FirstName">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="last-name" class="required">Last Name:</label>
+                                                <label for="last-name" class="required control-label">Last Name:</label>
                                                 <input type="text" class="form-control required-field" id="last-name" placeholder="" name="LastName">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="street-address-1" class="required">Street Address 1:</label>
+                                                <label for="street-address-1" class="required control-label">Street Address 1:</label>
                                                 <input type="text" class="form-control required-field" id="street-address-1" placeholder="" name="StreetAddress1">
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="street-address-2">Street Address 2:</label>
+                                                <label for="street-address-2" class="control-label">Street Address 2:</label>
                                                 <input type="text" class="form-control" id="street-address-2" placeholder="" name="StreetAddress2">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="city" class="required">City:</label>
+                                                <label for="city" class="required control-label">City:</label>
                                                 <input type="text" class="form-control required-field" id="city" placeholder="" name="City">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="state" class="required">State:</label>
+                                                <label for="state" class="required control-label">State:</label>
                                                 <select class="form-control required-field" id="state" name="State">
                                                     <option value="AL">Alabama</option>
                                                     <option value="AK">Alaska</option>
@@ -192,13 +199,15 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="zip" class="required">Zip:</label>
+                                                <label for="zip" class="required control-label">Zip:</label>
                                                 <input type="text" class="form-control required-field" id="zip" placeholder="" name="ZipCode">
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="email" class="required">Email:</label>
+                                                <label for="email" class="required control-label">Email:</label>
                                                 <input type="text" class="form-control required-field" id="email" placeholder="" name="Email">
                                             </div>
                                         </div>
@@ -206,14 +215,14 @@
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label for="credit-card" class="required">Credit Card Number:</label>
+                                                <label for="credit-card" class="required control-label">Credit Card Number:</label>
                                                 <input type="text" class="form-control required-field" id="credit-card" placeholder="" name="CreditCardNumber">
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
                                             <div class="form-inline expiration-fields">
                                                 <div class="form-group">
-                                                    <div><label for="date" class="required">Expiration Date:</label></div>
+                                                    <div><label for="date" class="required control-label">Expiration Date:</label></div>
                                                     <select class="form-control required-field" id="date" name="ExpirationMonth">
                                                         <option value="01">01</option>
                                                         <option value="02">02</option>
@@ -228,7 +237,7 @@
                                                         <option value="11">11</option>
                                                         <option value="12">12</option>
                                                     </select>
-                                                    <label for="year" class="sr-only">Expiration Date:</label>
+                                                    <label for="year" class="sr-only control-label">Expiration Date:</label>
                                                     <select class="form-control required-field" id="year" name="ExpirationYear">
                                                         <option value="2015">2015</option>
                                                         <option value="2016">2016</option>
@@ -247,7 +256,7 @@
                                         </div>
                                         <div class="col-sm-4">
                                             <div class="form-group">
-                                                <label for="cvv" class="control-label required">CVV Number:</label>
+                                                <label for="cvv" class="control-label control-label required">CVV Number:</label>
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <input type="text" class="form-control required-field" id="cvv" placeholder="" name="CvvNumber">
