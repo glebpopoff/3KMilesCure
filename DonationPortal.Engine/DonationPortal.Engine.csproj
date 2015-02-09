@@ -101,6 +101,7 @@
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AppSettingFeaturedEventProvider.cs" />
+    <Compile Include="Helpers\DateTimeExtensions.cs" />
     <Compile Include="PaymentProcessor\CreditCardIssuerDetector.cs" />
     <Compile Include="PaymentProcessor\PaypalRecurringPaymentProcessor.cs" />
     <Compile Include="PaymentProcessor\PaypalImmediatePaymentProcessor.cs" />
