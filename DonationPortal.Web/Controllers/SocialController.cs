@@ -140,7 +140,27 @@ namespace DonationPortal.Web.Controllers
                 retweetItem.UserName = tweet.RetweetedStatus.User.ScreenNameResponse;
                 retweetItem.Name = tweet.RetweetedStatus.User.Name;
             }
-            _items.Add(new SocialFeedItem(tweet.StatusID, tweet.Text, tweet.User.ProfileImageUrl, tweet.Entities.MediaEntities, tweet.User.ScreenNameResponse, tweet.User.Name, tweet.CreatedAt.ToLocalTime(), retweetItem));
+            string plainText = tweet.Text;
+            //edit links
+            foreach(UrlEntity uEntity in tweet.Entities.UrlEntities){
+                string oldURLText = uEntity.Url;
+                string newURLText = String.Format("<a target='_blank' href='{0}'>{1}</a>", oldURLText, uEntity.DisplayUrl);
+                plainText = plainText.Replace(oldURLText, newURLText);
+
+                //let's also update the image url if applicable.
+                tweet.Entities.MediaEntities[0].MediaUrlHttps = oldURLText;
+            }
+            foreach (HashTagEntity htEntity in tweet.Entities.HashTagEntities)
+            {
+                string linkedHashTag = String.Format("<a target='_blank' href='https://twitter.com/hashtag/{0}?src=hash'>#{0}</a>", htEntity.Tag);
+                plainText = plainText.Replace("#" + htEntity.Tag, linkedHashTag);
+            }
+            foreach (UserMentionEntity user in tweet.Entities.UserMentionEntities)
+            {
+                string linkedUser = String.Format("<a target='_blank' href='https://twitter.com/{0}'>@{0}</a>", user.ScreenName);
+                plainText = plainText.Replace("@" + user.ScreenName, linkedUser);
+            }
+            _items.Add(new SocialFeedItem(tweet.StatusID, plainText, tweet.User.ProfileImageUrl, tweet.Entities.MediaEntities, tweet.User.ScreenNameResponse, tweet.User.Name, tweet.CreatedAt.ToLocalTime(), retweetItem));
         }
     }
 }
