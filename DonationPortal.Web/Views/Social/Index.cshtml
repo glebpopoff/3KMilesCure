@@ -29,29 +29,29 @@
                             @foreach (SocialFeedItem item in Model)
                             {
                                 <div class="social-block social-twitter">
-                                    @if (item.Photo != null)
+                                    @if (item.MediaPhoto != null)
                                     {
-                                        <a href="#" class="social-media" target="_blank"><img src="@item.Photo" alt="placeholder"></a>
+                                        <a href="@item.MediaPhoto.Href" class="social-media" target="_blank"><img src="@item.MediaPhoto.Src" alt="placeholder"></a>
                                     }
                                     <div class="inner">
                                         <div class="social-thumb">
                                             @if (item.ReTweetItem != null)
                                             {
-                                                <div class="social-user" style="margin:0">@item.Name retweeted</div>
-                                                <a href="https://twitter.com/@item.ReTweetItem.UserName" class="thumb"><img src="@item.ReTweetItem.ImageURL" alt=""></a>
+                                                <div class="social-user" style="margin:0;font-weight:bold;">@item.Name retweeted</div>
+                                                <a target="_blank" href="https://twitter.com/@item.ReTweetItem.UserName" class="thumb"><img src="@item.ReTweetItem.ImageURL" alt=""></a>
                                                 <div class="social-user">
-                                                    <a href="https://twitter.com/@item.ReTweetItem.UserName"><strong>@item.ReTweetItem.Name</strong><br>@@@item.ReTweetItem.UserName</a>
+                                                    <a target="_blank" href="https://twitter.com/@item.ReTweetItem.UserName"><strong>@item.ReTweetItem.Name</strong><br>@@@item.ReTweetItem.UserName</a>
                                                 </div>
                                             }
                                             else
                                             {
-                                                <a href="https://twitter.com/@item.UserName" class="thumb"><img src="@item.ImageURL" alt=""></a>
+                                                <a target="_blank" href="https://twitter.com/@item.UserName" class="thumb"><img src="@item.ImageURL" alt=""></a>
                                                 <div class="social-user">
-                                                    <a href="https://twitter.com/@item.UserName"><strong>@item.Name</strong><br>@@@item.UserName</a>
+                                                    <a target="_blank" href="https://twitter.com/@item.UserName"><strong>@item.Name</strong><br>@@@item.UserName</a>
                                                 </div>
                                             }
                                         </div>
-                                        <div class="social-text">@item.Text</div>
+                                        <div class="social-text">@MvcHtmlString.Create(HttpUtility.HtmlDecode(item.Text))</div>
                                         <div class="social-meta">
                                             <script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
                                             <ul>

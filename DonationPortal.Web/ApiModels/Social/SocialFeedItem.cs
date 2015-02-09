@@ -14,7 +14,7 @@ namespace DonationPortal.Web.ApiModels.Social
 		public ulong ItemID { get; set; }
         public SocialFeedItem ReTweetItem { get; set; }
         public string ImageURL { get; set; }
-        public string Photo { get; set; }
+        public Photo MediaPhoto { get; set; }
         public string ImageIcon { get; set; }
         public string UserName { get; set; }
         public string Name { get; set; }
@@ -34,7 +34,10 @@ namespace DonationPortal.Web.ApiModels.Social
             Text = text;
             ImageURL = url;
             if(media != null && media.Count > 0){
-                Photo = media[0].MediaUrl;
+                Photo mp = new Photo();
+                mp.Src = media[0].MediaUrl;
+                mp.Href = media[0].MediaUrlHttps;
+                MediaPhoto = mp;
             }
             UserName = username;
             Name = name;
@@ -48,4 +51,9 @@ namespace DonationPortal.Web.ApiModels.Social
             // TODO: Complete member initialization
         }
 	}
+    public class Photo
+    {
+        public String Src { get; set; }
+        public String Href { get; set; }
+    }
 }
