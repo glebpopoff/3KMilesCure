@@ -173,6 +173,8 @@
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
     <Content Include="robots.txt" />
+    <Content Include="ui\scripts\riderTime.js" />
+    <Content Include="ui\scripts\vendor\moment\moment.min.js" />
     <Content Include="ui\scripts\vendor\signalr\jquery.signalR-2.2.0.js" />
     <Content Include="ui\scripts\vendor\signalr\jquery.signalR-2.2.0.min.js" />
     <Content Include="ui\css\bootstrap-theme.css" />

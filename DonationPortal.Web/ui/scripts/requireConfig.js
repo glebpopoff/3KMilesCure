@@ -22,7 +22,8 @@
 		underscore: 'vendor/underscore/underscore.min',
 		async: 'vendor/require/async',
 		signalr: 'vendor/signalr/jquery.signalR-2.2.0.min',
-		'signalr.hubs': '/signalr/hubs?'
+		'signalr.hubs': '/signalr/hubs?',
+		moment: 'vendor/moment/moment.min'
 	},
 	//library dependencies
 	shim: {

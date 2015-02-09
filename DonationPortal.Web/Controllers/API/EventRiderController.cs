@@ -32,7 +32,9 @@ namespace DonationPortal.Web.Controllers.API
 					MapLongitude = (float) rider.MapLongitude,
 					MapZoom = rider.MapZoom,
 					MarkerLatitude = (float) rider.MarkerLatitude,
-					MarkerLongitude = (float) rider.MarkerLongitude
+					MarkerLongitude = (float) rider.MarkerLongitude,
+					Start = rider.Start,
+					End = rider.End
 				}).ToList();
 
 				return Request.CreateResponse(HttpStatusCode.OK, riders);
@@ -69,7 +71,9 @@ namespace DonationPortal.Web.Controllers.API
 					MapLongitude = (float)rider.MapLongitude,
 					MapZoom = rider.MapZoom,
 					MarkerLatitude = (float)rider.MarkerLatitude,
-					MarkerLongitude = (float)rider.MarkerLongitude
+					MarkerLongitude = (float)rider.MarkerLongitude,
+					Start = rider.Start,
+					End = rider.End
 			    });
 		    }
 	    }
