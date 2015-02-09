@@ -44,59 +44,59 @@ namespace DonationPortal.Web.Controllers
 
 			string transactionID;
 
-			switch (model.DonationType)
+			/*switch (model.DonationType)
 			{
 				case NonEventDonationType.OneTimeDonation:
+					{*/
+			var request = new ImmediatePaymentRequest
+			{
+				Amount = model.DonationAmount,
+				City = model.City,
+				CvvNumber = model.CvvNumber,
+				Email = model.Email,
+				ExpirationMonth = model.ExpirationMonth,
+				ExpirationYear = model.ExpirationYear,
+				FirstName = model.FirstName,
+				LastName = model.LastName,
+				State = model.State,
+				StreetAddress1 = model.StreetAddress1,
+				StreetAddress2 = model.StreetAddress2,
+				ZipCode = model.ZipCode,
+				CreditCardNumber = model.CreditCardNumber
+			};
+
+			var result = _immediatePaymentProcessor.Process(request);
+
+			transactionID = result.TransactionID;
+			/*	}
+				break;
+			case NonEventDonationType.MonthlyRecurringDonation:
+				{
+					var request = new RecurringPaymentRequest
 					{
-						var request = new ImmediatePaymentRequest
-						{
-							Amount = model.DonationAmount,
-							City = model.City,
-							CvvNumber = model.CvvNumber,
-							Email = model.Email,
-							ExpirationMonth = model.ExpirationMonth,
-							ExpirationYear = model.ExpirationYear,
-							FirstName = model.FirstName,
-							LastName = model.LastName,
-							State = model.State,
-							StreetAddress1 = model.StreetAddress1,
-							StreetAddress2 = model.StreetAddress2,
-							ZipCode = model.ZipCode,
-							CreditCardNumber = model.CreditCardNumber
-						};
+						Amount = model.DonationAmount,
+						City = model.City,
+						CvvNumber = model.CvvNumber,
+						Email = model.Email,
+						ExpirationMonth = model.ExpirationMonth,
+						ExpirationYear = model.ExpirationYear,
+						FirstName = model.FirstName,
+						LastName = model.LastName,
+						State = model.State,
+						StreetAddress1 = model.StreetAddress1,
+						StreetAddress2 = model.StreetAddress2,
+						ZipCode = model.ZipCode,
+						CreditCardNumber = model.CreditCardNumber
+					};
 
-						var result = _immediatePaymentProcessor.Process(request);
+					var result = _recurringPaymentProcessor.Process(request);
 
-						transactionID = result.TransactionID;
-					}
-					break;
-				case NonEventDonationType.MonthlyRecurringDonation:
-					{
-						var request = new RecurringPaymentRequest
-						{
-							Amount = model.DonationAmount,
-							City = model.City,
-							CvvNumber = model.CvvNumber,
-							Email = model.Email,
-							ExpirationMonth = model.ExpirationMonth,
-							ExpirationYear = model.ExpirationYear,
-							FirstName = model.FirstName,
-							LastName = model.LastName,
-							State = model.State,
-							StreetAddress1 = model.StreetAddress1,
-							StreetAddress2 = model.StreetAddress2,
-							ZipCode = model.ZipCode,
-							CreditCardNumber = model.CreditCardNumber
-						};
-
-						var result = _recurringPaymentProcessor.Process(request);
-
-						transactionID = result.TransactionID;
-					}
-					break;
-				default:
-					throw new InvalidOperationException("Unexpected donation type " + model.DonationType);
-			}
+					transactionID = result.TransactionID;
+				}
+				break;
+			default:
+				throw new InvalidOperationException("Unexpected donation type " + model.DonationType);
+			}*/
 
 			using (var entities = new DonationPortalEntities())
 			{

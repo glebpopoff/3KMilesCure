@@ -64,7 +64,7 @@
                             </div>
                             @Html.ValidationMessageFor(m => m.OtherDonationAmount, null, new { @class = "help-block" })
                         </div>
-                        <div class="form-group @(Html.HasError(m => m.DonationType) ? "has-error" : null)">
+                        @*<div class="form-group @(Html.HasError(m => m.DonationType) ? "has-error" : null)">
                             <div><label class="required control-label">Donation type:</label></div>
                             <label class="radio-inline">
                                 @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.OneTimeDonation.ToString()) One-time donation
@@ -73,7 +73,7 @@
                                 @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.MonthlyRecurringDonation.ToString()) Monthly recurring donation
                             </label>
                             @Html.ValidationMessageFor(m => m.DonationType, null, new { @class = "help-block" })
-                        </div>
+                        </div>*@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h2>Billing Information</h2>
