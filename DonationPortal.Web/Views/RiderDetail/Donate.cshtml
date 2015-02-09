@@ -16,13 +16,47 @@
                             <div class="panel-heading" role="tab" id="step-1-heading">
                                 <h3 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#donate-form" href="#step-1-content" aria-expanded="true" aria-controls="step-1-content">
-                                        Step 1 - Donation Information
+                                        Step 1 - Location & Message
                                     </a>
                                 </h3>
                             </div>
                             <div id="step-1-content" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="step-1-heading">
                                 <div class="panel-body">
                                     <div class="alert alert-danger" style="display:none;">Please fill out the required fields below</div>
+                                    @Model.ChooseLocationText
+                                    <div class="alert alert-danger" style="display:none;">Please fill out the required fields below</div>
+                                    <div class="row">
+                                        <div class="col-sm-12 col-md-7">
+                                            <div class="form-group required">
+                                                <label for="select-location" class="required">Select Location from Map:</label>
+                                                <div style="margin-bottom:10px;">
+                                                    <div id="donation-map" style="height:400px;"></div>
+                                                    <input type="hidden" name="Latitude" />
+                                                    <input type="hidden" name="Longitude" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-12 col-md-5">
+                                            <div class="form-group">
+                                                <label for="write-message" class="required">Write Message:</label>
+                                                <textarea class="form-control required-field" name="Message" rows="6"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p><button class="btn btn-tertiary btn-lg" data-toggle="collapse" data-parent="#donate-form" data-target="#step-2-content" aria-expanded="true" aria-controls="step-2-content" id="step-1-button">Next</button></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="step-2-heading">
+                                <h3 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#donate-form" href="#step-2-content" aria-expanded="false" aria-controls="step-2-content">
+                                        Step 2 -  Donation Information
+                                    </a>
+                                </h3>
+                            </div>
+                            <div id="step-2-content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="step-2-heading">
+                                <div class="panel-body">
                                     <div class="form-group donate-options">
                                         <div><label class="required">Select donation amount:</label></div>
                                         <label class="radio-inline">
@@ -50,40 +84,6 @@
                                             <div class="input-group-addon">$</div>
                                             <input type="text" class="form-control" id="OtherAmount" placeholder="">
                                             <div class="input-group-addon">.00</div>
-                                        </div>
-                                    </div>
-                                    <p><button class="btn btn-tertiary btn-lg" data-toggle="collapse" data-parent="#donate-form" data-target="#step-2-content" aria-expanded="true" aria-controls="step-2-content" id="step-1-button">Next</button></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="step-2-heading">
-                                <h3 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#donate-form" href="#step-2-content" aria-expanded="false" aria-controls="step-2-content">
-                                        Step 2 -  Location & Message
-                                    </a>
-                                </h3>
-                            </div>
-                            <div id="step-2-content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="step-2-heading">
-                                <div class="panel-body">
-                                    @Model.ChooseLocationText
-                                    <div class="alert alert-danger" style="display:none;">Please fill out the required fields below</div>
-                                    <div class="row">
-                                        <div class="col-sm-12 col-md-7">
-                                            <div class="form-group required">
-                                                <label for="select-location" class="required">Select Location from Map:</label>
-                                                <div style="margin-bottom:10px;">
-                                                    <div id="donation-map" style="height:400px;"></div>
-                                                    <input type="hidden" name="Latitude" />
-                                                    <input type="hidden" name="Longitude" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-12 col-md-5">
-                                            <div class="form-group">
-                                                <label for="write-message" class="required">Write Message:</label>
-                                                <textarea class="form-control required-field" name="Message" rows="6"></textarea>
-                                            </div>
                                         </div>
                                     </div>
                                     <p><button class="btn btn-tertiary btn-lg" data-toggle="collapse" data-parent="#donate-form" data-target="#step-3-content" aria-expanded="true" aria-controls="step-3-content" id="step-2-button">Next</button></p>
