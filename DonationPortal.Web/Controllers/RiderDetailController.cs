@@ -15,9 +15,9 @@ namespace DonationPortal.Web.Controllers
 
 		private readonly EventRiderLocationProvider _locationProvider;
 
-	    public RiderDetailController(EventRiderLocationProvider locationProvider)
+	    public RiderDetailController()
 	    {
-		    _locationProvider = locationProvider;
+		    _locationProvider = new EventRiderLocationProvider();
 	    }
 
 	    // GET: EventDetail
