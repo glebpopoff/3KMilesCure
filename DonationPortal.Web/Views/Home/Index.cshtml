@@ -45,7 +45,7 @@
                                             <div class="amount">@rider.DonationGoal.ToString("C0")</div>
                                         </div>
                                     </div>
-                                    <div class="donate-callout"><a href="@rider.DetailUrl" class="btn btn-lg btn-primary btn-block">Make a Donation</a></div>
+                                    <div class="donate-callout"><a href="@rider.DetailUrl#donate" class="btn btn-lg btn-primary btn-block">Make a Donation</a></div>
                                 </div>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
                             </div>
                         }
                         <br>
-                        <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-tertiary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
+                        <p><a href="@Model.FeaturedRider.DetailUrl#donate" class="btn btn-tertiary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
                     </div>
                 </div>
             </div>
