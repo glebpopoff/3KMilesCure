@@ -134,6 +134,12 @@
     <Compile Include="RouteVertex.cs">
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="SocialAccount.cs">
+      <DependentUpon>DonationPortalEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TwitterHashTag.cs">
+      <DependentUpon>DonationPortalEntities.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="DonationPortalEntities.edmx">

@@ -126,6 +126,35 @@
           <Property Name="RouteID" Type="int" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="SocialAccount">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EventRiderID" Type="int" Nullable="false" />
+          <Property Name="SocialType" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="TwitterHashTag">
+          <Key>
+            <PropertyRef Name="HashTagID" />
+          </Key>
+          <Property Name="HashTagID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="HashTag" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AccountID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Account_SocialAccount">
+          <End Role="SocialAccount" Type="Self.SocialAccount" Multiplicity="1" />
+          <End Role="TwitterHashTag" Type="Self.TwitterHashTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SocialAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="TwitterHashTag">
+              <PropertyRef Name="AccountID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_EventRider_Event">
           <End Role="Event" Type="Self.Event" Multiplicity="1" />
           <End Role="EventRider" Type="Self.EventRider" Multiplicity="*" />
@@ -210,6 +239,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_SocialAccount_EventRider">
+          <End Role="EventRider" Type="Self.EventRider" Multiplicity="1" />
+          <End Role="SocialAccount" Type="Self.SocialAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventRider">
+              <PropertyRef Name="EventRiderID" />
+            </Principal>
+            <Dependent Role="SocialAccount">
+              <PropertyRef Name="EventRiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="DonationPortalModelStoreContainer">
           <EntitySet Name="Donation" EntityType="Self.Donation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
@@ -220,6 +261,12 @@
           <EntitySet Name="RiderMessageDonation" EntityType="Self.RiderMessageDonation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Route" EntityType="Self.Route" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="RouteVertex" EntityType="Self.RouteVertex" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SocialAccount" EntityType="Self.SocialAccount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TwitterHashTag" EntityType="Self.TwitterHashTag" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Account_SocialAccount" Association="Self.FK_Account_SocialAccount">
+            <End Role="SocialAccount" EntitySet="SocialAccount" />
+            <End Role="TwitterHashTag" EntitySet="TwitterHashTag" />
+          </AssociationSet>
           <AssociationSet Name="FK_EventRider_Event" Association="Self.FK_EventRider_Event">
             <End Role="Event" EntitySet="Event" />
             <End Role="EventRider" EntitySet="EventRider" />
@@ -247,6 +294,10 @@
           <AssociationSet Name="FK_RouteVertex_Route" Association="Self.FK_RouteVertex_Route">
             <End Role="Route" EntitySet="Route" />
             <End Role="RouteVertex" EntitySet="RouteVertex" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SocialAccount_EventRider" Association="Self.FK_SocialAccount_EventRider">
+            <End Role="EventRider" EntitySet="EventRider" />
+            <End Role="SocialAccount" EntitySet="SocialAccount" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -297,6 +348,7 @@
           <Property Name="DonationDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ChooseLocationText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DetailTeaser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SocialAccounts" Relationship="DonationPortalModel.FK_SocialAccount_EventRider" FromRole="EventRider" ToRole="SocialAccount" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -380,6 +432,16 @@
           <AssociationSet Name="FK_RecentLocations_EventRider" Association="DonationPortalModel.FK_RecentLocations_EventRider">
             <End Role="EventRider" EntitySet="EventRiders" />
             <End Role="LocationVisit" EntitySet="LocationVisits" />
+          </AssociationSet>
+          <EntitySet Name="SocialAccounts" EntityType="DonationPortalModel.SocialAccount" />
+          <EntitySet Name="TwitterHashTags" EntityType="DonationPortalModel.TwitterHashTag" />
+          <AssociationSet Name="FK_SocialAccount_EventRider" Association="DonationPortalModel.FK_SocialAccount_EventRider">
+            <End Role="EventRider" EntitySet="EventRiders" />
+            <End Role="SocialAccount" EntitySet="SocialAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Account_SocialAccount" Association="DonationPortalModel.FK_Account_SocialAccount">
+            <End Role="SocialAccount" EntitySet="SocialAccounts" />
+            <End Role="TwitterHashTag" EntitySet="TwitterHashTags" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="RiderMessageDonation">
@@ -473,6 +535,50 @@
             </Principal>
             <Dependent Role="LocationVisit">
               <PropertyRef Name="EventRiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="SocialAccount">
+          <Key>
+            <PropertyRef Name="AccountID" />
+          </Key>
+          <Property Name="AccountID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EventRiderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="EventRider" Relationship="DonationPortalModel.FK_SocialAccount_EventRider" FromRole="SocialAccount" ToRole="EventRider" />
+          <NavigationProperty Name="TwitterHashTags" Relationship="DonationPortalModel.FK_Account_SocialAccount" FromRole="SocialAccount" ToRole="TwitterHashTag" />
+          <Property Name="SocialType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="TwitterHashTag">
+          <Key>
+            <PropertyRef Name="HashTagID" />
+          </Key>
+          <Property Name="HashTagID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="HashTag" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AccountID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="SocialAccount" Relationship="DonationPortalModel.FK_Account_SocialAccount" FromRole="TwitterHashTag" ToRole="SocialAccount" />
+        </EntityType>
+        <Association Name="FK_SocialAccount_EventRider">
+          <End Type="DonationPortalModel.EventRider" Role="EventRider" Multiplicity="1" />
+          <End Type="DonationPortalModel.SocialAccount" Role="SocialAccount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EventRider">
+              <PropertyRef Name="EventRiderID" />
+            </Principal>
+            <Dependent Role="SocialAccount">
+              <PropertyRef Name="EventRiderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Account_SocialAccount">
+          <End Type="DonationPortalModel.SocialAccount" Role="SocialAccount" Multiplicity="1" />
+          <End Type="DonationPortalModel.TwitterHashTag" Role="TwitterHashTag" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SocialAccount">
+              <PropertyRef Name="AccountID" />
+            </Principal>
+            <Dependent Role="TwitterHashTag">
+              <PropertyRef Name="AccountID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -608,6 +714,25 @@
                 <ScalarProperty Name="Longtitude" ColumnName="Longtitude" />
                 <ScalarProperty Name="EventRiderID" ColumnName="EventRiderID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocialAccounts">
+            <EntityTypeMapping TypeName="DonationPortalModel.SocialAccount">
+              <MappingFragment StoreEntitySet="SocialAccount">
+                <ScalarProperty Name="SocialType" ColumnName="SocialType" />
+                <ScalarProperty Name="EventRiderID" ColumnName="EventRiderID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TwitterHashTags">
+            <EntityTypeMapping TypeName="DonationPortalModel.TwitterHashTag">
+              <MappingFragment StoreEntitySet="TwitterHashTag">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="HashTag" ColumnName="HashTag" />
+                <ScalarProperty Name="HashTagID" ColumnName="HashTagID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

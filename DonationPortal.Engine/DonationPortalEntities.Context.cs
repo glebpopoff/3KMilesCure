@@ -33,5 +33,7 @@ namespace DonationPortal.Engine
         public virtual DbSet<Donation> Donations { get; set; }
         public virtual DbSet<RecentMessage> RecentMessages { get; set; }
         public virtual DbSet<LocationVisit> LocationVisits { get; set; }
+        public virtual DbSet<SocialAccount> SocialAccounts { get; set; }
+        public virtual DbSet<TwitterHashTag> TwitterHashTags { get; set; }
     }
 }

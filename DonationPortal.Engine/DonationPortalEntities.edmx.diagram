@@ -19,6 +19,10 @@
         <AssociationConnector Association="DonationPortalModel.FK_RecentMessages_RiderMessageDonation" />
         <EntityTypeShape EntityType="DonationPortalModel.LocationVisit" Width="1.5" PointX="5.25" PointY="5.375" />
         <AssociationConnector Association="DonationPortalModel.FK_RecentLocations_EventRider" />
+        <EntityTypeShape EntityType="DonationPortalModel.SocialAccount" Width="1.5" PointX="5.25" PointY="9.25" />
+        <EntityTypeShape EntityType="DonationPortalModel.TwitterHashTag" Width="1.5" PointX="7.5" PointY="9.375" />
+        <AssociationConnector Association="DonationPortalModel.FK_SocialAccount_EventRider" />
+        <AssociationConnector Association="DonationPortalModel.FK_Account_SocialAccount" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
