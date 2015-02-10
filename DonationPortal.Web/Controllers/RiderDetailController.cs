@@ -14,9 +14,11 @@ namespace DonationPortal.Web.Controllers
     {
 
 		private readonly EventRiderLocationProvider _locationProvider;
+	    private readonly EventRiderMessageProvider _messageProvider;
 
 	    public RiderDetailController()
 	    {
+		    _messageProvider = new EventRiderMessageProvider();
 		    _locationProvider = new EventRiderLocationProvider();
 	    }
 
@@ -62,7 +64,8 @@ namespace DonationPortal.Web.Controllers
 					ShortEventName = eventEntity.ShortName,
 					EventUrlSlug = eventUrlSlug,
 					RiderUrlSlug = riderUrlSlug,
-					Timer = new TimerViewModel(riderEntity.DurationGoal, riderEntity.End, riderEntity.Start)
+					Timer = new TimerViewModel(riderEntity.DurationGoal, riderEntity.End, riderEntity.Start),
+					RecentMessages = _messageProvider.GetMessages(riderEntity.EventRiderID, 5)
 		        };
 
 				return View("Index", model);

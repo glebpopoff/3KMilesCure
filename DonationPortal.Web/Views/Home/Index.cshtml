@@ -101,12 +101,19 @@
                 <div class="col-sm-6">
                     <div class="module recent-messages">
                         <h2>Recent Messages</h2>
-                        @foreach (var message in Model.FeaturedRider.RecentMessages)
+                        @if (Model.FeaturedRider.HasRecentMessages)
                         {
-                            <div class="message">
-                                <div class="post">@message.RiderMessageDonation.Message</div>
-                                <div class="author">@(message.RiderMessageDonation.FirstName + " " + message.RiderMessageDonation.LastName)</div>
-                            </div>
+                            foreach (var message in Model.FeaturedRider.RecentMessages)
+                            {
+                                <div class="message">
+                                    <div class="post">@message.RiderMessageDonation.Message</div>
+                                    <div class="author">@(message.RiderMessageDonation.FirstName + " " + message.RiderMessageDonation.LastName)</div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            @Model.FeaturedRider.RiderName <text>will start receiving messages when the race begins.</text>
                         }
                         <br>
                         <p><a href="@Model.FeaturedRider.DetailUrl#donate" class="btn btn-tertiary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>

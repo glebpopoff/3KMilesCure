@@ -41,10 +41,20 @@
             <div class="col-sm-6">
                 <div class="module recent-messages">
                     <h2>Recent Messages</h2>
-                    <!--ajax please <div class="message">
-                        <div class="post">Lorem ipsum dolor sit amet.</div>
-                        <div class="author">Anne</div>
-                    </div>-->
+                    @if (Model.HasRecentMessages)
+                    { 
+                        foreach (var message in Model.RecentMessages)
+                        {
+                            <div class="message">
+                                <div class="post">@message.RiderMessageDonation.Message</div>
+                                <div class="author">@(message.RiderMessageDonation.FirstName + " " + message.RiderMessageDonation.LastName)</div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        @Model.RiderName <text>will start receiving messages when the race begins.</text>
+                    }
                 </div>
             </div>
         </div>

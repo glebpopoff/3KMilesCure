@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DonationPortal.Engine;
+
 
 namespace DonationPortal.Web.ViewModels.RiderDetail
 {
@@ -114,5 +116,13 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 		public string RiderUrlSlug { get; set; }
 
 		public TimerViewModel Timer { get; set; }
+
+
+		public bool HasRecentMessages
+		{
+			get { return RecentMessages.Any(); }
+		}
+
+		public IEnumerable<RecentMessage> RecentMessages { get; set; }
 	}
 }

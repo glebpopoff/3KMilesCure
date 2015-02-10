@@ -24,6 +24,12 @@ namespace DonationPortal.Web.ViewModels.Home
 		public double TotalMiles { get; set; }
 		
 		public DateTime RiderEnd { get; set; }
+
+		public bool HasRecentMessages
+		{
+			get { return RecentMessages.Any(); }
+		}
+
 		public IEnumerable<RecentMessage> RecentMessages { get; set; }
 
 		public TimerViewModel Timer { get; set; }
