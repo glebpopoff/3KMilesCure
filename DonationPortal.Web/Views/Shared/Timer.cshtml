@@ -1,0 +1,25 @@
+﻿@model DonationPortal.Web.ViewModels.TimerViewModel
+
+<div class="col-xs-6 col-sm-4">
+    <ul class="elapsed">
+        <li class="title">Time Elapsed</li>
+        @if (Model.IsMultipleDays)
+        {
+            <li class="days">
+                <div class="counter-label">Days</div>
+                <div class="counter">@Model.ElapsedDays</div>
+            </li>
+            <li class="divider">:</li>
+        }
+        <li class="hours">
+            <div class="counter-label">Hours</div>
+            <div class="counter">@Model.ElapsedHours</div>
+        </li>
+        <li class="divider">:</li>
+        <li class="minutes">
+            <div class="counter-label">Min</div>
+            <div class="counter">@Model.ElapsedMinutes</div>
+        </li>
+        <li class="total">@(Model.HasDurationGoal ? "/ " + Model.DurationGoal : null)</li>
+    </ul>
+</div>

@@ -69,21 +69,7 @@
                         <div class="map-heading">@Model.FeaturedRider.PossessiveRiderName Route</div>
                         <div class="event-specs">Event Begins - @Model.FeaturedRider.RiderStart.ToString("h:mmtt M/d/yyyy")</div>
                     </div>
-                    <div class="col-xs-6 col-sm-4">
-                        <ul class="elapsed">
-                            <li class="title">Time Elapsed</li>
-                            <li class="hours">
-                                <div class="counter-label">Hours</div>
-                                <div class="counter">@String.Format("{0:00}", Model.FeaturedRider.ElapsedTime.Hours)</div>
-                            </li>
-                            <li class="divider">:</li>
-                            <li class="minutes">
-                                <div class="counter-label">Min</div>
-                                <div class="counter">@String.Format("{0:00}", Model.FeaturedRider.ElapsedTime.Minutes)</div>
-                            </li>
-                            <li class="total">@(Model.FeaturedRider.HasDurationGoal ? "/ " + Model.FeaturedRider.DurationGoal : null)</li>
-                        </ul>
-                    </div>
+                    @Html.Partial("Timer", Model.FeaturedRider.Timer)
                     <div class="col-xs-6 col-sm-4">
                         <ul class="travelled">
                             <li class="title">Miles Travelled:</li>

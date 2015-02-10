@@ -173,6 +173,7 @@
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
     <Content Include="robots.txt" />
+    <Content Include="ui\scripts\number.js" />
     <Content Include="ui\scripts\riderTime.js" />
     <Content Include="ui\scripts\vendor\moment\moment.min.js" />
     <Content Include="ui\scripts\vendor\signalr\jquery.signalR-2.2.0.js" />
@@ -296,6 +297,7 @@
     <Compile Include="ViewModels\Home\RiderViewModel.cs" />
     <Compile Include="ViewModels\RiderDetail\RiderDetailViewModel.cs" />
     <Compile Include="ViewModels\Template\HeaderViewModel.cs" />
+    <Compile Include="ViewModels\TimerViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -422,6 +424,7 @@
     <Content Include="ui\scripts\vendor\knockout\knockout-3.2.0.min" />
     <Content Include="Views\oAuth\Index.cshtml" />
     <Content Include="Views\Social\authorize.cshtml" />
+    <Content Include="Views\Shared\Timer.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -7,6 +7,7 @@ using DonationPortal.Engine;
 using DonationPortal.Engine.Rider;
 using DonationPortal.Web.ViewModels.Home;
 using System.Data.Entity;
+using DonationPortal.Web.ViewModels;
 
 namespace DonationPortal.Web.Controllers
 {
@@ -28,7 +29,6 @@ namespace DonationPortal.Web.Controllers
 	        {
 		        var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
 
-				// todo, flag someone as the featured one
 		        var featuredRider = entities.EventRiders.Include(r => r.Event).Single(r => r.EventRiderID == 2); //rob
 
 		        var model = new HomeViewModel
@@ -42,12 +42,12 @@ namespace DonationPortal.Web.Controllers
 						RiderEnd = featuredRider.End,
 						RiderUrlSlug = featuredRider.UrlSlug,
 						RiderStory = new HtmlString(featuredRider.Story),
-						DurationGoal = featuredRider.DurationGoal,
 						DistanceGoal = featuredRider.DistanceGoal,
 						DetailUrl = urlHelper.Action("Index", "RiderDetail", new { EventUrlSlug = featuredRider.Event.UrlSlug, RiderUrlSlug = featuredRider.UrlSlug }),
 						PossessiveRiderName = featuredRider.PossessiveName,
 						TotalMiles = _locationProvider.GetTotalDistance(featuredRider.EventRiderID).ToStatuteMiles().Value,
-						RecentMessages = _messageProvider.GetMessages(featuredRider.EventRiderID, 5)
+						RecentMessages = _messageProvider.GetMessages(featuredRider.EventRiderID, 5),
+						Timer = new TimerViewModel(featuredRider.DurationGoal, featuredRider.End, featuredRider.Start)
 					},
 					Riders = entities.EventRiders.Include(r => r.Event).Include(r => r.RiderMessageDonations).ToList().Select(rider => new RiderViewModel
 					{

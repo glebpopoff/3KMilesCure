@@ -4,13 +4,23 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DonationPortal.Engine;
+using DonationPortal.Engine.Rider;
+using DonationPortal.Web.ViewModels;
 using DonationPortal.Web.ViewModels.RiderDetail;
 
 namespace DonationPortal.Web.Controllers
 {
     public class RiderDetailController : Controller
     {
-        // GET: EventDetail
+
+		private readonly EventRiderLocationProvider _locationProvider;
+
+	    public RiderDetailController(EventRiderLocationProvider locationProvider)
+	    {
+		    _locationProvider = locationProvider;
+	    }
+
+	    // GET: EventDetail
         public ActionResult Index(string eventUrlSlug, string riderUrlSlug)
         {
 	        using (var entities = new DonationPortalEntities())
@@ -40,7 +50,7 @@ namespace DonationPortal.Web.Controllers
 					RiderEnd = riderEntity.End,
 					DurationGoal = riderEntity.DurationGoal,
 					MilesGoal = riderEntity.DistanceGoal,
-					MilesTravelled = 0, // todo: no clue how we're calculating this yet...
+					MilesTravelled = (int)_locationProvider.GetTotalDistance(riderEntity.EventRiderID).ToStatuteMiles().Value,
 					DonationStart = riderEntity.DonationStart,
 					Teaser = new HtmlString(riderEntity.DetailTeaser),
 					Pronoun = riderEntity.Pronoun,
@@ -51,7 +61,8 @@ namespace DonationPortal.Web.Controllers
 					ChooseLocationText = new HtmlString(riderEntity.ChooseLocationText),
 					ShortEventName = eventEntity.ShortName,
 					EventUrlSlug = eventUrlSlug,
-					RiderUrlSlug = riderUrlSlug
+					RiderUrlSlug = riderUrlSlug,
+					Timer = new TimerViewModel(riderEntity.DurationGoal, riderEntity.End, riderEntity.Start)
 		        };
 
 				return View("Index", model);

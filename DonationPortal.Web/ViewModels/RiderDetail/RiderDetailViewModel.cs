@@ -102,42 +102,7 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 			}
 		}
 
-		/// <summary>
-		/// Calculates the elapsed time for the event.
-		/// If the event has yet to start, this is zero.
-		/// If the event is currently underway, this is the time since the event start.
-		/// If the event is over, this is the duration of the event.
-		/// </summary>
-		public TimeSpan TimeElapsed
-		{
-			get
-			{
-				// if the event has yet to begin, show all zeros
-				if (DateTime.Now < RiderStart)
-				{
-					return new TimeSpan(0);
-				}
-
-				// if the event is over, show the duration of the event
-				if (DateTime.Now > RiderEnd)
-				{
-					return RiderEnd - RiderStart;
-				}
-
-				// if the event is currently running, show the difference between now and the start
-				return DateTime.Now - RiderStart;
-			}
-		}
-
-		public TimeSpan EventDuration
-		{
-			get { return RiderEnd - RiderStart; }
-		}
-
-		public bool IsMultipleDays
-		{
-			get { return EventDuration > new TimeSpan(1, 0, 0, 0); }
-		}
+		
 
 		public IHtmlString Teaser { get; set; }
 		public string Pronoun { get; set; }
@@ -147,5 +112,7 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 		public string ShortEventName { get; set; }
 		public string EventUrlSlug { get; set; }
 		public string RiderUrlSlug { get; set; }
+
+		public TimerViewModel Timer { get; set; }
 	}
 }

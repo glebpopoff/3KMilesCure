@@ -12,29 +12,7 @@
                     <div class="map-heading">@Model.PossessiveRiderName Route</div>
                     <div class="event-specs">Event Begins - @Model.RiderStart.ToString("h:mmtt M/d/yyyy")</div>
                 </div>
-                <div class="col-xs-6 col-sm-4">
-                    <ul class="elapsed">
-                        <li class="title">Time Elapsed</li>
-                        @if (Model.IsMultipleDays)
-                        {
-                            <li class="days">
-                                <div class="counter-label">Days</div>
-                                <div class="counter">@String.Format("{0:00}", Model.TimeElapsed.TotalDays)</div>
-                            </li>
-                            <li class="divider">:</li>
-                        }
-                        <li class="hours">
-                            <div class="counter-label">Hours</div>
-                            <div class="counter">@String.Format("{0:00}", Model.TimeElapsed.Hours)</div>
-                        </li>
-                        <li class="divider">:</li>
-                        <li class="minutes">
-                            <div class="counter-label">Min</div>
-                            <div class="counter">@String.Format("{0:00}", @Model.TimeElapsed.Minutes)</div>
-                        </li>
-                        <li class="total">/ @Model.DurationGoal</li>
-                    </ul>
-                </div>
+                @Html.Partial("Timer", Model.Timer)
                 <div class="col-xs-6 col-sm-4">
                     <ul class="travelled">
                         <li class="title">Miles Travelled:</li>
