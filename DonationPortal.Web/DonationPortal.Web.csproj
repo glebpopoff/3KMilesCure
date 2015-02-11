@@ -173,6 +173,12 @@
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
     <Content Include="robots.txt" />
+    <Content Include="ui\less\main-styles.css">
+      <DependentUpon>main-styles.less</DependentUpon>
+    </Content>
+    <Content Include="ui\less\main-styles.min.css">
+      <DependentUpon>main-styles.css</DependentUpon>
+    </Content>
     <Content Include="ui\scripts\number.js" />
     <Content Include="ui\scripts\riderTime.js" />
     <Content Include="ui\scripts\vendor\moment\moment.min.js" />
@@ -427,6 +433,9 @@
     <Content Include="Views\Social\authorize.cshtml" />
     <Content Include="Views\Shared\Timer.cshtml" />
     <Content Include="Views\Shared\SocialItem.cshtml" />
+    <Content Include="ui\less\main-styles.css.map">
+      <DependentUpon>main-styles.css</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
