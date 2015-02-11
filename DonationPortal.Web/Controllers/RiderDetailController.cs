@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DonationPortal.Engine;
 using DonationPortal.Engine.Rider;
+using DonationPortal.Engine.Social;
 using DonationPortal.Web.ViewModels;
 using DonationPortal.Web.ViewModels.RiderDetail;
+using LinqToTwitter;
 
 namespace DonationPortal.Web.Controllers
 {
@@ -15,15 +19,23 @@ namespace DonationPortal.Web.Controllers
 
 		private readonly EventRiderLocationProvider _locationProvider;
 	    private readonly EventRiderMessageProvider _messageProvider;
+	    private readonly FeedProvider _feedProvider;
 
 	    public RiderDetailController()
 	    {
 		    _messageProvider = new EventRiderMessageProvider();
 		    _locationProvider = new EventRiderLocationProvider();
+			_feedProvider = new FeedProvider(new SingleUserInMemoryCredentialStore
+			{
+				ConsumerKey = ConfigurationManager.AppSettings["TwitterconsumerKey"],
+				ConsumerSecret = ConfigurationManager.AppSettings["TwitterconsumerSecret"],
+				OAuthToken = ConfigurationManager.AppSettings["TwitterOAuthToken"],
+				OAuthTokenSecret = ConfigurationManager.AppSettings["TwitterOAuthTokenSecret"]
+			});
 	    }
 
 	    // GET: EventDetail
-        public ActionResult Index(string eventUrlSlug, string riderUrlSlug)
+        public async Task<ActionResult> Index(string eventUrlSlug, string riderUrlSlug)
         {
 	        using (var entities = new DonationPortalEntities())
 	        {
@@ -40,6 +52,8 @@ namespace DonationPortal.Web.Controllers
 		        {
 			        return HttpNotFound();
 		        }
+
+		        var socialItems = await _feedProvider.GetItems(riderEntity.EventRiderID, 10);
 
 		        var model = new RiderDetailViewModel
 		        {
@@ -65,7 +79,8 @@ namespace DonationPortal.Web.Controllers
 					EventUrlSlug = eventUrlSlug,
 					RiderUrlSlug = riderUrlSlug,
 					Timer = new TimerViewModel(riderEntity.DurationGoal, riderEntity.End, riderEntity.Start),
-					RecentMessages = _messageProvider.GetMessages(riderEntity.EventRiderID, 5)
+					RecentMessages = _messageProvider.GetMessages(riderEntity.EventRiderID, 5),
+					SocialFeedItems = socialItems
 		        };
 
 				return View("Index", model);

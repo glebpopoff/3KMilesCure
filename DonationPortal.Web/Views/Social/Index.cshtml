@@ -1,6 +1,6 @@
-﻿@model List<SocialFeedItem>
-@using DonationPortal.Web.ApiModels.Social;
+﻿@model IEnumerable<DonationPortal.Engine.Social.SocialFeedItem>
 @using DonationPortal.Engine.Helpers;
+@using DonationPortal.Engine.Social
 
         <div id="main" role="main">
             <!-- main starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -28,44 +28,7 @@
                             <div class="grid-sizer"></div>
                             @foreach (SocialFeedItem item in Model)
                             {
-                                <div class="social-block social-twitter">
-                                    @if (item.MediaPhoto != null)
-                                    {
-                                        <a href="@item.MediaPhoto.Href" class="social-media" target="_blank"><img src="@item.MediaPhoto.Src" alt="placeholder"></a>
-                                    }
-                                    <div class="inner">
-                                        <div class="social-thumb">
-                                            @if (item.ReTweetItem != null)
-                                            {
-                                                <div class="social-user" style="margin:0;font-weight:bold;">@item.Name retweeted</div>
-                                                <a target="_blank" href="https://twitter.com/@item.ReTweetItem.UserName" class="thumb"><img src="@item.ReTweetItem.ImageURL" alt=""></a>
-                                                <div class="social-user">
-                                                    <a target="_blank" href="https://twitter.com/@item.ReTweetItem.UserName"><strong>@item.ReTweetItem.Name</strong><br>@@@item.ReTweetItem.UserName</a>
-                                                </div>
-                                            }
-                                            else
-                                            {
-                                                <a target="_blank" href="https://twitter.com/@item.UserName" class="thumb"><img src="@item.ImageURL" alt=""></a>
-                                                <div class="social-user">
-                                                    <a target="_blank" href="https://twitter.com/@item.UserName"><strong>@item.Name</strong><br>@@@item.UserName</a>
-                                                </div>
-                                            }
-                                        </div>
-                                        <div class="social-text">@MvcHtmlString.Create(HttpUtility.HtmlDecode(item.Text))</div>
-                                        <div class="social-meta">
-                                            <script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
-                                            <ul>
-                                                <li><a href="https://twitter.com/intent/tweet?in_reply_to=@item.ItemID.ToString()"><i class="fa fa-reply"></i>Reply</a></li>
-                                                <li><a href="https://twitter.com/intent/retweet?tweet_id=@item.ItemID.ToString()"><i class="fa fa-retweet"></i>Retweet</a></li>
-                                                <li><a href="https://twitter.com/intent/favorite?tweet_id=@item.ItemID.ToString()"><i class="fa fa-star"></i>Favorite</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="social-details">
-                                            <a href="https://twiter.com/@item.UserName">Tweeted</a> <span>@item.Posted.ToAgo() ago</span>
-                                        </div>
-                                        <a href="https://twitter.com" class="social-icon" title="twitter"><span class="icon-font"></span></a>
-                                    </div>
-                                </div>
+                                Html.Partial("SocialItem", item);
                             }
 
                         </section>
