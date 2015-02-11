@@ -277,6 +277,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\AllowedValuesAttribute.cs" />
     <Compile Include="Attributes\ConditionalRequireHttpsAttribute.cs" />
+    <Compile Include="Attributes\ExceptionResponseAttribute.cs" />
     <Compile Include="Controllers\API\EventController.cs" />
     <Compile Include="Controllers\API\EventDonationController.cs" />
     <Compile Include="Controllers\API\EventRiderController.cs" />
