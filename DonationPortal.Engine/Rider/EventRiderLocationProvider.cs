@@ -29,7 +29,10 @@ namespace DonationPortal.Engine.Rider
 			// sort by date visited, then calculate the distance between every pair sequentially.  sum it up.
 			using (var entities = new DonationPortalEntities())
 			{
-				var visits = entities.LocationVisits.Where(v => v.EventRiderID == eventRiderID).OrderBy(v => v.DateVisited).ToList();
+				// only look at locations visited during the race.  not before or after.
+				var visits = entities.LocationVisits
+					.Where(v => v.EventRiderID == eventRiderID && v.DateVisited > v.EventRider.Start && v.DateVisited < v.EventRider.End)
+					.OrderBy(v => v.DateVisited).ToList();
 
 				if (visits.Count < 2)
 				{
