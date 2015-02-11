@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using DonationPortal.Engine;
+using DonationPortal.Engine.Social;
 
 
 namespace DonationPortal.Web.ViewModels.RiderDetail
@@ -124,5 +125,6 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 		}
 
 		public IEnumerable<RecentMessage> RecentMessages { get; set; }
+		public IEnumerable<SocialFeedItem> SocialFeedItems { get; set; } 
 	}
 }

@@ -1,0 +1,40 @@
+﻿@using DonationPortal.Engine.Helpers
+@model DonationPortal.Engine.Social.SocialFeedItem
+<div class="social-block social-twitter">
+    @if (Model.MediaPhoto != null)
+    {
+        <a href="@Model.MediaPhoto.Href" class="social-media" target="_blank"><img src="@Model.MediaPhoto.Src" alt="placeholder"></a>
+    }
+    <div class="inner">
+        <div class="social-thumb">
+            @if (Model.ReTweetItem != null)
+            {
+                <div class="social-user" style="margin:0;font-weight:bold;">@Model.Name retweeted</div>
+                <a target="_blank" href="https://twitter.com/@Model.ReTweetItem.UserName" class="thumb"><img src="@Model.ReTweetItem.ImageURL" alt=""></a>
+                <div class="social-user">
+                    <a target="_blank" href="https://twitter.com/@Model.ReTweetItem.UserName"><strong>@Model.ReTweetItem.Name</strong><br>@@@Model.ReTweetItem.UserName</a>
+                </div>
+            }
+            else
+            {
+                <a target="_blank" href="https://twitter.com/@Model.UserName" class="thumb"><img src="@Model.ImageURL" alt=""></a>
+                <div class="social-user">
+                    <a target="_blank" href="https://twitter.com/@Model.UserName"><strong>@Model.Name</strong><br>@@@Model.UserName</a>
+                </div>
+            }
+        </div>
+        <div class="social-text">@MvcHtmlString.Create(HttpUtility.HtmlDecode(Model.Text))</div>
+        <div class="social-meta">
+            <script type="text/javascript" async src="//platform.twitter.com/widgets.js"></script>
+            <ul>
+                <li><a href="https://twitter.com/intent/tweet?in_reply_to=@Model.ItemID"><i class="fa fa-reply"></i>Reply</a></li>
+                <li><a href="https://twitter.com/intent/retweet?tweet_id=@Model.ItemID"><i class="fa fa-retweet"></i>Retweet</a></li>
+                <li><a href="https://twitter.com/intent/favorite?tweet_id=@Model.ItemID"><i class="fa fa-star"></i>Favorite</a></li>
+            </ul>
+        </div>
+        <div class="social-details">
+            <a href="https://twiter.com/@Model.UserName">Tweeted</a> <span>@Model.Posted.ToAgo() ago</span>
+        </div>
+        <a href="https://twitter.com" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+    </div>
+</div>

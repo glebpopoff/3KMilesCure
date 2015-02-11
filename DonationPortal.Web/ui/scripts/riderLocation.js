@@ -1,4 +1,4 @@
-﻿define(['async!http://maps.google.com/maps/api/js?sensor=false', 'underscore', 'jquery', 'signalr.hubs', 'riderTime'], function (googleMaps, _, $, hubs, RiderTime) {
+﻿define(['async!//maps.google.com/maps/api/js?sensor=false', 'underscore', 'jquery', 'signalr.hubs', 'riderTime'], function (googleMaps, _, $, hubs, RiderTime) {
 
 	var eventSlug = null;
 	var riderSlug = null;

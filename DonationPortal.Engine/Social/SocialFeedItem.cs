@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace DonationPortal.Web.ApiModels.Social
+
+namespace DonationPortal.Engine.Social
 {
     public class SocialFeedItem
 	{

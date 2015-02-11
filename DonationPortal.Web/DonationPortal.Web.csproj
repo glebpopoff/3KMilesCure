@@ -264,13 +264,13 @@
     <Compile Include="ApiModels\Routes\CurrentLocation.cs" />
     <Compile Include="ApiModels\Routes\EventRiderRoute.cs" />
     <Compile Include="ApiModels\Routes\RouteVertex.cs" />
-    <Compile Include="ApiModels\Social\SocialFeedItem.cs" />
     <Compile Include="App_Start\BrowserJsonFormatter.cs" />
     <Compile Include="App_Start\RegisterClientValidationExtensions.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Attributes\AllowedValuesAttribute.cs" />
+    <Compile Include="Attributes\ConditionalRequireHttpsAttribute.cs" />
     <Compile Include="Controllers\API\EventController.cs" />
     <Compile Include="Controllers\API\EventDonationController.cs" />
     <Compile Include="Controllers\API\EventRiderController.cs" />
@@ -425,6 +425,7 @@
     <Content Include="Views\oAuth\Index.cshtml" />
     <Content Include="Views\Social\authorize.cshtml" />
     <Content Include="Views\Shared\Timer.cshtml" />
+    <Content Include="Views\Shared\SocialItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

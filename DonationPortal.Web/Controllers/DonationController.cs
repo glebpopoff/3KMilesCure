@@ -6,10 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using DonationPortal.Engine;
 using DonationPortal.Engine.PaymentProcessor;
+using DonationPortal.Web.Attributes;
 using DonationPortal.Web.ViewModels.Donation;
 
 namespace DonationPortal.Web.Controllers
 {
+	[ConditionalRequireHttps]
 	public class DonationController : Controller
 	{
 		private const string SuccessfulDonationKey = "successful_donation";
