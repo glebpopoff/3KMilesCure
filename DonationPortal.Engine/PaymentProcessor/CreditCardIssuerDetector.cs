@@ -10,14 +10,15 @@ namespace DonationPortal.Engine.PaymentProcessor
 	public class CreditCardIssuerDetector
 	{
 		private static readonly Regex _cardRegex = new Regex("^(?:(?<Visa>4\\d{3})|(?<MasterCard>5[1-5]\\d{2})|(?<Discover>6011)|(?<DinersClub>(?:3[68]\\d{2})|(?:30[0-5]\\d))|(?<Amex>3[47]\\d{2}))([ -]?)(?(DinersClub)(?:\\d{6}\\1\\d{4})|(?(Amex)(?:\\d{6}\\1\\d{5})|(?:\\d{4}\\1\\d{4}\\1\\d{4})))$");
-
-		private static readonly Regex _nonDigitRegex = new Regex(@"[^\d]");
-
+		
+		/// <summary>
+		/// Returns the issuer for the provided credit card number, or null if it cannot be determined.
+		/// </summary>
+		/// <param name="creditCardNumber">Digits of the credit card number, not separated by spaces, dashes, etc.</param>
+		/// <returns></returns>
 		public CreditCardIssuer? GetIssuer(string creditCardNumber)
 		{
-			var digitsOnly = _nonDigitRegex.Replace(creditCardNumber, string.Empty);
-
-			var groups = _cardRegex.Match(digitsOnly).Groups;
+			var groups = _cardRegex.Match(creditCardNumber).Groups;
 
 			return Enum.GetValues(typeof(CreditCardIssuer))
 				.Cast<CreditCardIssuer?>()

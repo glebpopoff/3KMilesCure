@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using PayPal.Api;
 
@@ -9,6 +10,8 @@ namespace DonationPortal.Engine.PaymentProcessor
 {
 	public class PaypalImmediatePaymentProcessor : IImmediatePaymentProcessor
 	{
+		private static readonly Regex _nonDigitRegex = new Regex(@"[^\d]");
+
 		private readonly CreditCardIssuerDetector _issuerDetector;
 
 		public PaypalImmediatePaymentProcessor(CreditCardIssuerDetector issuerDetector)
@@ -27,13 +30,14 @@ namespace DonationPortal.Engine.PaymentProcessor
 				Config = config
 			};
 
-			var issuer = _issuerDetector.GetIssuer(request.CreditCardNumber);
+			var creditCardNumberDigitsOnly = _nonDigitRegex.Replace(request.CreditCardNumber, string.Empty);
+
+			var issuer = _issuerDetector.GetIssuer(creditCardNumberDigitsOnly);
 
 			if (!issuer.HasValue)
 			{
 				throw new Exception("invalid credit card issuer.");
 			}
-
 			var payer = new Payer
 			{
 				funding_instruments = new List<FundingInstrument>
@@ -42,7 +46,7 @@ namespace DonationPortal.Engine.PaymentProcessor
 					{
 						credit_card = new CreditCard
 						{
-							number = request.CreditCardNumber,
+							number = creditCardNumberDigitsOnly,
 							expire_month = request.ExpirationMonth,
 							expire_year = request.ExpirationYear,
 							first_name = request.FirstName,
