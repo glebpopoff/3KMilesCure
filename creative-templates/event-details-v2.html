@@ -12,9 +12,9 @@
 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-		<script src="ui/scripts/vendor/modernizr/modernizr-2.8.3.min.js"></script>
+		<script src="../DonationPortal.Web/ui/scripts/vendor/modernizr/modernizr-2.8.3.min.js"></script>
 
-		<link rel="stylesheet" type="text/css" href="ui/css/main-styles.css">
+		<link rel="stylesheet" type="text/css" href="../DonationPortal.Web/ui/css/main-styles.css">
 
 		<link rel="apple-touch-icon" href="apple-touch-icon.png">
 		<link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -42,7 +42,7 @@
 			<div class="row">
 				<div class="col-xs-8 col-sm-5 col-md-5">
 					<figure class="logo">
-						<img class="img-responsive" src="ui/images/logo-3kforcure.png" alt="3000 Miles For A Cure"/>
+						<img class="img-responsive" src="../DonationPortal.Web/ui/images/logo-3kforcure.png" alt="3000 Miles For A Cure"/>
 					</figure>
 				</div>
 			</div>
@@ -77,7 +77,7 @@
 
 	<section class="stacked-container hero event-detail" id="skipToContent" role="region">
 	<!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-		<figure class="hero-image"><img class="img-responsive" src="ui/images/img-maria-event-details.jpg" alt="placeholder"></figure>
+		<figure class="hero-image"><img class="img-responsive" src="../DonationPortal.Web/ui/images/img-maria-event-details.jpg" alt="placeholder"></figure>
 		<div class="container">
 			<div class="hero-content">
 				<h1>BIKE SEBRING</h1>
@@ -299,7 +299,11 @@
 					</div>
 					<div class="col-xs-6 col-sm-4">
 						<ul class="elapsed">
-							<li class="title">Time Elapsed</li>
+							<li class="title">Time<br class="visible-md-block"> Elapsed</li>
+							<li class="days">
+								<div class="counter-label">Days</div>
+								<div class="counter">99</div>
+							</li>
 							<li class="hours">
 								<div class="counter-label">Hours</div>
 								<div class="counter">06</div>
@@ -314,7 +318,7 @@
 					</div>
 					<div class="col-xs-6 col-sm-4">
 						<ul class="travelled">
-							<li class="title">Miles Travelled:</li>
+							<li class="title">Miles<br class="visible-md-block"> Travelled:</li>
 							<li class="miles">
 								<div class="counter-label">Miles</div>
 								<div class="counter">56</div>
@@ -684,7 +688,8 @@
 <!-- main-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 </div>
 
-<script data-main="ui/scripts/main" src="ui/scripts/vendor/require/require.js"></script>
+<script src="../DonationPortal.Web/ui/scripts/requireConfig.js"></script>
+<script data-main="../DonationPortal.Web/ui/scripts/main" src="../DonationPortal.Web/ui/scripts/vendor/require/require.js"></script>
 
 </body>
 </html>
