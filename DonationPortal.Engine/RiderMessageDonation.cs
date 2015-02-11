@@ -34,6 +34,8 @@ namespace DonationPortal.Engine
         public string TransactionID { get; set; }
         public int EventRiderID { get; set; }
         public decimal Amount { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string PaymentResource { get; set; }
     
         public virtual EventRider EventRider { get; set; }
         public virtual ICollection<RecentMessage> RecentMessages { get; set; }

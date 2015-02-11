@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -64,9 +65,11 @@ namespace DonationPortal.Web.Controllers.API
 					StreetAddress1 = donation.StreetAddress1,
 					StreetAddress2 = donation.StreetAddress2,
 					TransactionID = paymentResult.TransactionID,
+					PaymentResource = paymentResult.PaymentResource,
 					ZipCode = donation.ZipCode,
 					EventRider = entities.Events.Single(e => e.UrlSlug.Equals(eventSlug)).EventRiders.Single(r => r.UrlSlug.Equals(riderSlug)),
-					Amount = donation.DonationAmount
+					Amount = donation.DonationAmount,
+					Date = DateTime.Now
 				});
 
 				entities.SaveChanges();

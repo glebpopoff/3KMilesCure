@@ -45,6 +45,7 @@ namespace DonationPortal.Web.Controllers
 			}
 
 			string transactionID;
+			string paymentResource;
 
 			/*switch (model.DonationType)
 			{
@@ -70,6 +71,7 @@ namespace DonationPortal.Web.Controllers
 			var result = _immediatePaymentProcessor.Process(request);
 
 			transactionID = result.TransactionID;
+			paymentResource = result.PaymentResource;
 			/*	}
 				break;
 			case NonEventDonationType.MonthlyRecurringDonation:
@@ -113,7 +115,9 @@ namespace DonationPortal.Web.Controllers
 					ZipCode = model.ZipCode,
 					State = model.State,
 					Email = model.Email,
-					TransactionID = transactionID
+					TransactionID = transactionID,
+					PaymentResource = paymentResource,
+					Date = DateTime.Now
 				});
 
 				entities.SaveChanges();

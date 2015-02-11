@@ -25,5 +25,7 @@ namespace DonationPortal.Engine
         public string Email { get; set; }
         public string TransactionID { get; set; }
         public decimal Amount { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string PaymentResource { get; set; }
     }
 }

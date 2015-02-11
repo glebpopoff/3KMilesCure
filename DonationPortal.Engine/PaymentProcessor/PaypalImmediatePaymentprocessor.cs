@@ -97,10 +97,22 @@ namespace DonationPortal.Engine.PaymentProcessor
 			{
 				throw new Exception("Transaction was not approved.");
 			}
-			
+
+			string transactionID;
+
+			if (createdPayment.transactions.Any() && createdPayment.transactions[0].related_resources.Any())
+			{
+				transactionID = createdPayment.transactions[0].related_resources[0].sale.id;
+			}
+			else
+			{
+				transactionID = null;
+			}
+
 			return new ImmediatePaymentResult
 			{
-				TransactionID = createdPayment.id
+				PaymentResource = createdPayment.id,
+				TransactionID = transactionID
 			};
 		}
 	}

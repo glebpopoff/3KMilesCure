@@ -172,7 +172,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Gruntfile.js" />
-    <Content Include="robots.txt" />
     <Content Include="ui\less\main-styles.css">
       <DependentUpon>main-styles.less</DependentUpon>
     </Content>
