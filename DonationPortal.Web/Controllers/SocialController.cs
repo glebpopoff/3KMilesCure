@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Configuration;
 using DonationPortal.Engine;
 using DonationPortal.Engine.Social;
+using DonationPortal.Web.ViewModels.Social;
 
 namespace DonationPortal.Web.Controllers
 {
@@ -47,7 +48,14 @@ namespace DonationPortal.Web.Controllers
 
 		        var items = await _feedProvider.GetItems(rider.EventRiderID);
 
-                return View(items);
+		        var model = new SocialViewModel
+		        {
+					EventName = @event.Name,
+					RiderName = rider.Name,
+					Items = items
+		        };
+
+                return View("Index", model);
             }
         }
     }

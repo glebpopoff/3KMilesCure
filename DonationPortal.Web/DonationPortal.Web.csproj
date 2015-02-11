@@ -296,6 +296,7 @@
     <Compile Include="ViewModels\Home\HomeViewModel.cs" />
     <Compile Include="ViewModels\Home\RiderViewModel.cs" />
     <Compile Include="ViewModels\RiderDetail\RiderDetailViewModel.cs" />
+    <Compile Include="ViewModels\Social\SocialViewModel.cs" />
     <Compile Include="ViewModels\Template\HeaderViewModel.cs" />
     <Compile Include="ViewModels\TimerViewModel.cs" />
   </ItemGroup>

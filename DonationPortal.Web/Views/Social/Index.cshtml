@@ -1,7 +1,9 @@
-﻿@model IEnumerable<DonationPortal.Engine.Social.SocialFeedItem>
+﻿@model DonationPortal.Web.ViewModels.Social.SocialViewModel
 @using DonationPortal.Engine.Helpers;
 @using DonationPortal.Engine.Social
-
+@{
+    ViewBag.Title = string.Format("Social Dashboard {0} {1}", Model.EventName, Model.RiderName);
+}
         <div id="main" role="main">
             <!-- main starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
@@ -26,7 +28,7 @@
                         <section class="stream">
 
                             <div class="grid-sizer"></div>
-                            @foreach (SocialFeedItem item in Model)
+                            @foreach (SocialFeedItem item in Model.Items)
                             {
                                 Html.Partial("SocialItem", item);
                             }
