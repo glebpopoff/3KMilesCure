@@ -3,7 +3,7 @@
 	//enforceDefine: true,
 	paths: {
 		jquery: [
-            'http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min',
+            '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min',
             //If the CDN location fails, load from this location
             'vendor/jquery/jquery-1.9.1.min'
 		],

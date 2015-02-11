@@ -8,12 +8,14 @@ using System.Web.Mvc;
 using DonationPortal.Engine;
 using DonationPortal.Engine.Rider;
 using DonationPortal.Engine.Social;
+using DonationPortal.Web.Attributes;
 using DonationPortal.Web.ViewModels;
 using DonationPortal.Web.ViewModels.RiderDetail;
 using LinqToTwitter;
 
 namespace DonationPortal.Web.Controllers
 {
+	[ConditionalRequireHttps]
     public class RiderDetailController : Controller
     {
 

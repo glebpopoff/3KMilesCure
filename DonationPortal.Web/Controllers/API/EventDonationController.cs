@@ -6,9 +6,11 @@ using System.Web.Http;
 using DonationPortal.Engine;
 using DonationPortal.Engine.PaymentProcessor;
 using DonationPortal.Web.ApiModels.EventDonations;
+using DonationPortal.Web.Attributes;
 
 namespace DonationPortal.Web.Controllers.API
 {
+	[ConditionalRequireHttps]
 	[RoutePrefix("api/v1")]
     public class EventDonationController : ApiController
     {

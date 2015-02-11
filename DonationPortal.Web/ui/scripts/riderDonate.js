@@ -1,5 +1,5 @@
 ﻿define(
-    ['jquery', 'underscore', 'snapToRoute', 'async!http://maps.google.com/maps/api/js?sensor=false', 'jquery.serializeObject', 'viewScroll'],
+    ['jquery', 'underscore', 'snapToRoute', 'async!//maps.google.com/maps/api/js?sensor=false', 'jquery.serializeObject', 'viewScroll'],
     function ($, _, SnapToRoute, googleMaps, jquerySerializeObject, viewScroll) {
 
     	var eventSlug = null;
