@@ -65,10 +65,17 @@ namespace DonationPortal.Engine.Social
 						}
 					}
 
+					var query = String.Format("{0} {1}", strHashTags, strUsers);
+
+					if (string.IsNullOrWhiteSpace(query))
+					{
+						return new SocialFeedItem[0];
+					}
+
 					var searchResponse = await
 						(from search in twitterCtx.Search
 						 where search.Type == SearchType.Search &&
-							   search.Query == String.Format("{0} {1}", strHashTags, strUsers) &&
+							   search.Query == query &&
 							   search.IncludeEntities == true &&
 							   search.ResultType == ResultType.Recent &&
 							   search.Count == count
