@@ -23,7 +23,7 @@
 
                         @foreach (var item in Model.SocialFeedItems)
                         {
-                            Html.Partial("SocialItem", item);
+                            Html.RenderPartial("SocialItem", item);
                         }
 
                     </section>

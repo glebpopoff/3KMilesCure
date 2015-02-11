@@ -30,7 +30,7 @@
                             <div class="grid-sizer"></div>
                             @foreach (SocialFeedItem item in Model.Items)
                             {
-                                Html.Partial("SocialItem", item);
+                                Html.RenderPartial("SocialItem", item);
                             }
 
                         </section>
