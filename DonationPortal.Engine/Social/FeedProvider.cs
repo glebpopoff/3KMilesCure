@@ -112,7 +112,10 @@ namespace DonationPortal.Engine.Social
 				plainText = plainText.Replace(oldURLText, newURLText);
 
 				//let's also update the image url if applicable.
-				tweet.Entities.MediaEntities[0].MediaUrlHttps = oldURLText;
+				if (tweet.Entities.MediaEntities.Any())
+				{
+					tweet.Entities.MediaEntities[0].MediaUrlHttps = oldURLText;
+				}
 			}
 			foreach (HashTagEntity htEntity in tweet.Entities.HashTagEntities)
 			{
