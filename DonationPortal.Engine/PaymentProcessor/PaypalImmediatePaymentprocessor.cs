@@ -52,7 +52,21 @@ namespace DonationPortal.Engine.PaymentProcessor
 						}
 					}
 				},
-				payment_method = "credit_card"
+				payment_method = "credit_card",
+				payer_info = new PayerInfo()
+				{
+					email = request.Email,
+					first_name = request.FirstName,
+					last_name = request.LastName,
+					billing_address = new Address
+					{
+						city = request.City,
+						line1 = request.StreetAddress1,
+						line2 = request.StreetAddress2,
+						postal_code = request.ZipCode,
+						state = request.State
+					}
+				}
 			};
 			
 			var payment = new Payment
@@ -63,7 +77,7 @@ namespace DonationPortal.Engine.PaymentProcessor
 				{
 					new Transaction
 					{
-						description = "3000 Miles to a Cure Donation",
+						description = "3000events.com Donation",
 						amount = new Amount
 						{
 							currency = "USD",
