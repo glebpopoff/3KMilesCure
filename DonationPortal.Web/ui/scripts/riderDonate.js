@@ -111,7 +111,9 @@
 
     					e.preventDefault();
 
-    					var submission = $(this).closest('form').serializeObject();
+					    var form = $(this).closest('form');
+
+    					var submission = form.serializeObject();
 
     					if (submission.DonationOption === 'other') {
     						submission.DonationAmount = submission.OtherAmount;
@@ -132,7 +134,15 @@
 								$('#success-alert').show();
 								viewScroll.scrollIntoView(document.getElementById('donation-form'));
 								$('#step-3-button').text('Donate Now');
-							})
+
+								// clear the form
+								form.trigger('reset');
+
+								// set the lat/lng hidden fields to the marker's position
+								document.getElementsByName('Latitude')[0].value = marker.position.lat();
+								document.getElementsByName('Longitude')[0].value = marker.position.lng();
+
+						    })
     						.fail(function (jqXHR) {
 
     							if (jqXHR.status === 400) {
