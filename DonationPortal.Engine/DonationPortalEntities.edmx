@@ -62,6 +62,7 @@
           <Property Name="DonationDescription" Type="nvarchar(max)" />
           <Property Name="ChooseLocationText" Type="nvarchar(max)" />
           <Property Name="DetailTeaser" Type="nvarchar(max)" />
+          <Property Name="DonateButtonText" Type="varchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="EventRiderRoute">
           <Key>
@@ -353,6 +354,7 @@
           <Property Name="ChooseLocationText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DetailTeaser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SocialAccounts" Relationship="DonationPortalModel.FK_SocialAccount_EventRider" FromRole="EventRider" ToRole="SocialAccount" />
+          <Property Name="DonateButtonText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Route">
           <Key>
@@ -610,6 +612,7 @@
           <EntitySetMapping Name="EventRiders">
             <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
               <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="DonateButtonText" ColumnName="DonateButtonText" />
                 <ScalarProperty Name="DetailTeaser" ColumnName="DetailTeaser" />
                 <ScalarProperty Name="ChooseLocationText" ColumnName="ChooseLocationText" />
                 <ScalarProperty Name="DonationDescription" ColumnName="DonationDescription" />
