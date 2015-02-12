@@ -82,7 +82,8 @@ namespace DonationPortal.Web.Controllers
 					RiderUrlSlug = riderUrlSlug,
 					Timer = new TimerViewModel(riderEntity.DurationGoal, riderEntity.End, riderEntity.Start),
 					RecentMessages = _messageProvider.GetMessages(riderEntity.EventRiderID, 5),
-					SocialFeedItems = socialItems
+					SocialFeedItems = socialItems,
+					DonateButtonText = riderEntity.DonateButtonText
 		        };
 
 				return View("Index", model);

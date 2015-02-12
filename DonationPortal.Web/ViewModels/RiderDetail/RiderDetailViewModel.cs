@@ -125,6 +125,7 @@ namespace DonationPortal.Web.ViewModels.RiderDetail
 		}
 
 		public IEnumerable<RecentMessage> RecentMessages { get; set; }
-		public IEnumerable<SocialFeedItem> SocialFeedItems { get; set; } 
+		public IEnumerable<SocialFeedItem> SocialFeedItems { get; set; }
+		public string DonateButtonText { get; set; }
 	}
 }
