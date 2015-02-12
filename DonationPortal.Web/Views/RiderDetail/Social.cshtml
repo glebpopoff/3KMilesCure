@@ -32,7 +32,7 @@
 
             </div>
             <div class="col-sm-12 visible-xs">
-                <a href="#" class="btn btn-lg btn-primary">View All <i class="fa fa-chevron-right"></i></a>
+                <a href="@Url.Action("Index", "Social", new { eventUrlSlug = Model.EventUrlSlug, riderUrlSlug = Model.RiderUrlSlug })" class="btn btn-lg btn-primary">View All <i class="fa fa-chevron-right"></i></a>
             </div>
         </div>
     </div>
