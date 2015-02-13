@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using log4net;
+using PayPal;
 using PayPal.Api;
 
 namespace DonationPortal.Engine.PaymentProcessor
@@ -11,6 +13,7 @@ namespace DonationPortal.Engine.PaymentProcessor
 	public class PaypalImmediatePaymentProcessor : IImmediatePaymentProcessor
 	{
 		private static readonly Regex _nonDigitRegex = new Regex(@"[^\d]");
+		private static readonly ILog _log = LogManager.GetLogger(typeof (PaypalImmediatePaymentProcessor));
 
 		private readonly CreditCardIssuerDetector _issuerDetector;
 
@@ -21,6 +24,8 @@ namespace DonationPortal.Engine.PaymentProcessor
 
 		public ImmediatePaymentResult Process(ImmediatePaymentRequest request)
 		{
+			_log.DebugFormat("Processing payment request for {0} from {1} {2} - {3}.", request.Amount, request.FirstName, request.LastName, request.Email);
+			
 			var config = ConfigManager.Instance.GetProperties();
 
 			var accessToken = new OAuthTokenCredential(config).GetAccessToken();
@@ -36,7 +41,7 @@ namespace DonationPortal.Engine.PaymentProcessor
 
 			if (!issuer.HasValue)
 			{
-				throw new Exception("invalid credit card issuer.");
+				throw new Exception("Invalid credit card issuer.");
 			}
 			var payer = new Payer
 			{
@@ -95,7 +100,7 @@ namespace DonationPortal.Engine.PaymentProcessor
 
 			if (createdPayment.state != "approved")
 			{
-				throw new Exception("Transaction was not approved.");
+				throw new Exception(string.Format("Transaction was not approved for {0} {1} - {2} for {3}.", request.FirstName, request.LastName, request.Email, request.Amount));
 			}
 
 			string transactionID;
@@ -106,9 +111,12 @@ namespace DonationPortal.Engine.PaymentProcessor
 			}
 			else
 			{
+				_log.ErrorFormat("Could not determine Transaction ID for transaction for {0} {1} - {2} with Payment Resource {3}.", request.FirstName, request.LastName, request.Email, createdPayment.id);
 				transactionID = null;
 			}
 
+			_log.InfoFormat("Processed payment request for {0} from {1} {2} - {3}.  Transaction ID: {4}", request.Amount, request.FirstName, request.LastName, request.Email, transactionID);
+			
 			return new ImmediatePaymentResult
 			{
 				PaymentResource = createdPayment.id,
