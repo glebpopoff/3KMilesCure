@@ -60,7 +60,7 @@ namespace DonationPortal.Web.Controllers
 						TotalRaised = rider.RiderMessageDonations.Sum(d => d.Amount),
 						PossessiveRiderName = rider.PossessiveName,
 						DetailUrl = urlHelper.Action("Index", "RiderDetail", new { EventUrlSlug = rider.Event.UrlSlug, RiderUrlSlug = rider.UrlSlug })
-					})
+					}).OrderBy(r => Guid.NewGuid())
 				};
 
 				return View("Index", model);
