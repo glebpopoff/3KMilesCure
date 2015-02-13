@@ -4,7 +4,7 @@
 	var riderSlug = null;
 
 	function initialize() {
-		
+
 		// retrieve basic information about the event rider (map default location and zoom, and marker default location)
 		$.getJSON('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/').done(function (rider) {
 
@@ -64,19 +64,40 @@
 
 			// start listening for location updates
 			var locationHub = $.connection.eventRiderLocationHub;
+			var messageHub = $.connection.eventRiderMessageHub;
 
 			$.connection.hub.logging = true;
 
 			locationHub.client.updateLocation = function (location) {
-				
+
 				marker.setPosition({ lat: location.Latitude, lng: location.Longitude });
 
 				$('.travelled .miles .counter').html(location.TotalMiles.toFixed(2));
 
 			};
 
+			messageHub.client.addRecentMessage = function (message) {
+
+				if (message.EventRiderID !== rider.EventRiderID) {
+					return;
+				}
+
+				var recentMessages = $('.recent-messages');
+
+				recentMessages.find('.no-messages').remove();
+
+				var existingMessages = recentMessages.find('.messages .message');
+
+				if (existingMessages.length === 5) {
+
+					existingMessages.last().remove();
+				}
+
+				$('.recent-messages .messages').prepend('<div class="message"><div class="post">' + message.Text + '</div><div class="author">' + message.Sender + '</div></div>');
+			};
+
 			$.connection.hub.start();
-			
+
 		});
 	}
 
@@ -86,7 +107,7 @@
 			eventSlug = event;
 			riderSlug = rider;
 
-			$(function() {
+			$(function () {
 				initialize();
 			});
 

@@ -64,7 +64,7 @@
     <section class="stacked-container map-container" role="region">
         <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
         <div class="embed-responsive embed-responsive-16by9">
-          <div class="map embed-responsive-item" id="map-canvas"></div>
+            <div class="map embed-responsive-item" id="map-canvas"></div>
         </div>
         <div class="route-details">
             <div class="container">
@@ -76,13 +76,13 @@
                     @Html.Partial("Timer", Model.FeaturedRider.Timer)
                     <div class="col-xs-6 col-sm-4">
                         @*<ul class="travelled">
-                            <li class="title">Miles Travelled:</li>
-                            <li class="miles">
-                                <div class="counter-label">Miles</div>
-                                <div class="counter">@Model.FeaturedRider.TotalMiles.ToString("N")</div>
-                            </li>
-                            <li class="total">@(Model.FeaturedRider.HasDistanceGoal ? "/ " + Model.FeaturedRider.DistanceGoal : null)</li>
-                        </ul>*@
+                                <li class="title">Miles Travelled:</li>
+                                <li class="miles">
+                                    <div class="counter-label">Miles</div>
+                                    <div class="counter">@Model.FeaturedRider.TotalMiles.ToString("N")</div>
+                                </li>
+                                <li class="total">@(Model.FeaturedRider.HasDistanceGoal ? "/ " + Model.FeaturedRider.DistanceGoal : null)</li>
+                            </ul>*@
                     </div>
                 </div>
             </div>
@@ -104,20 +104,24 @@
                 <div class="col-sm-6">
                     <div class="module recent-messages">
                         <h2>Recent Messages</h2>
-                        @if (Model.FeaturedRider.HasRecentMessages)
-                        {
-                            foreach (var message in Model.FeaturedRider.RecentMessages)
+                        <div class="messages">
+                            @if (Model.FeaturedRider.HasRecentMessages)
                             {
-                                <div class="message">
-                                    <div class="post">@message.RiderMessageDonation.Message</div>
-                                    <div class="author">@(message.RiderMessageDonation.FirstName + " " + message.RiderMessageDonation.LastName)</div>
+                                foreach (var message in Model.FeaturedRider.RecentMessages)
+                                {
+                                    <div class="message">
+                                        <div class="post">@message.RiderMessageDonation.Message</div>
+                                        <div class="author">@message.RiderMessageDonation.FirstName</div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="no-messages">
+                                    @Model.FeaturedRider.RiderName will start receiving messages when the race begins.
                                 </div>
                             }
-                        }
-                        else
-                        {
-                            @Model.FeaturedRider.RiderName <text>will start receiving messages when the race begins.</text>
-                        }
+                        </div>
                         <br>
                         <p><a href="@Model.FeaturedRider.DetailUrl#donate" class="btn btn-tertiary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
                     </div>
@@ -133,7 +137,7 @@
 {
     <script type="text/javascript">
 
-        require(['riderLocation'], function(riderLocation) {
+        require(['riderLocation'], function (riderLocation) {
 
             riderLocation.setup('@Model.FeaturedRider.EventUrlSlug', '@Model.FeaturedRider.RiderUrlSlug');
 

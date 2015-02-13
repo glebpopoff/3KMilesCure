@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DonationPortal.Engine;
+using DonationPortal.Engine.Rider;
 using DonationPortal.Web.ApiModels.Routes;
 using Microsoft.AspNet.SignalR;
 
 namespace DonationPortal.Web.Hubs
 {
-	public class EventRiderLocationHub : Hub
+	public class EventRiderMessageHub : Hub
 	{
-		public void UpdateLocation(CurrentLocation location)
+		public void AddRecentMessage(EventRiderRecentMessage message)
 		{
-			Clients.All.updateLocation(location);
+			Clients.All.addMessage(message);
 		}
 	}
 }

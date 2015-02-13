@@ -13,6 +13,7 @@ using DotSpatial.Positioning;
 using System;
 using log4net;
 using Microsoft.AspNet.SignalR;
+using RecentMessage = DonationPortal.Engine.RecentMessage;
 
 namespace DonationPortal.Web.Controllers.API
 {
@@ -64,7 +65,7 @@ namespace DonationPortal.Web.Controllers.API
 				var rider = entities.EventRiders.SingleOrDefault(r => Equals(r.UrlSlug, riderSlug) && Equals(r.Event.UrlSlug, eventSlug));
 
 				var messages = _messageProvider.GetMessages(rider.EventRiderID, messageCount)
-					.Select(d => new DonationPortal.Web.ApiModels.Messages.RecentMessage()
+					.Select(d => new ApiModels.Messages.RecentMessage()
 					{
 						DateReceived = d.DateReceived,
 						Username = d.RiderMessageDonation.FirstName + " " + d.RiderMessageDonation.LastName,
@@ -130,13 +131,18 @@ namespace DonationPortal.Web.Controllers.API
 					{
 						continue;
 					}
+
+					var message = new RecentMessage
+					{
+						DateReceived = DateTime.Now,
+						DonationID = donationMessage.ID
+					};
 					
 					// otherwise, store that we sent the message to the rider.
-					entities.RecentMessages.Add(new DonationPortal.Engine.RecentMessage
-					{
-						DateReceived = DateTime.Now, 
-						DonationID = donationMessage.ID
-					});
+					entities.RecentMessages.Add(message);
+
+					// push the message to all listening clients
+					NotifyRecentMessage(rider, message);
 				}
 
 				entities.SaveChanges();
@@ -145,6 +151,19 @@ namespace DonationPortal.Web.Controllers.API
 
 				return Request.CreateResponse(HttpStatusCode.OK, donationMessages);
 			}
+		}
+
+		private static void NotifyRecentMessage(EventRider rider, RecentMessage message)
+		{
+			var context = GlobalHost.ConnectionManager.GetHubContext<EventRiderMessageHub>();
+
+			context.Clients.All.addRecentMessage(new EventRiderRecentMessage()
+			{
+				DateReceived = message.DateReceived,
+				EventRiderID = rider.EventRiderID,
+				Sender = message.RiderMessageDonation.FirstName,
+				Text = message.RiderMessageDonation.Message
+			});
 		}
 
 		private void NotifyCurrentLocation(EventRider rider)

@@ -15,13 +15,13 @@
                 @Html.Partial("Timer", Model.Timer)
                 <div class="col-xs-6 col-sm-4">
                     @*<ul class="travelled">
-                        <li class="title">Miles<br class="visible-md-block"> Travelled:</li>
-                        <li class="miles">
-                            <div class="counter-label">Miles</div>
-                            <div class="counter">@Model.MilesTravelled</div>
-                        </li>
-                        <li class="total">/ @Model.MilesGoal</li>
-                    </ul>*@
+                            <li class="title">Miles<br class="visible-md-block"> Travelled:</li>
+                            <li class="miles">
+                                <div class="counter-label">Miles</div>
+                                <div class="counter">@Model.MilesTravelled</div>
+                            </li>
+                            <li class="total">/ @Model.MilesGoal</li>
+                        </ul>*@
                 </div>
             </div>
         </div>
@@ -35,26 +35,30 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="embed-responsive embed-responsive-4by3">
-					  <div class="map embed-responsive-item" id="map-canvas"></div>
+                    <div class="map embed-responsive-item" id="map-canvas"></div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="module recent-messages">
                     <h2>Recent Messages</h2>
-                    @if (Model.HasRecentMessages)
-                    { 
-                        foreach (var message in Model.RecentMessages)
+                    <div class="messages">
+                        @if (Model.HasRecentMessages)
                         {
-                            <div class="message">
-                                <div class="post">@message.RiderMessageDonation.Message</div>
-                                <div class="author">@(message.RiderMessageDonation.FirstName + " " + message.RiderMessageDonation.LastName)</div>
+                            foreach (var message in Model.RecentMessages)
+                            {
+                                <div class="message">
+                                    <div class="post">@message.RiderMessageDonation.Message</div>
+                                    <div class="author">@message.RiderMessageDonation.FirstName</div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-messages">
+                                @Model.RiderName will start receiving messages when the race begins.
                             </div>
                         }
-                    }
-                    else
-                    {
-                        @Model.RiderName <text>will start receiving messages when the race begins.</text>
-                    }
+                    </div>
                 </div>
             </div>
         </div>

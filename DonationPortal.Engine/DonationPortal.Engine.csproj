@@ -161,6 +161,7 @@
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Rider\EventRiderMessageProvider.cs" />
+    <Compile Include="Rider\EventRiderRecentMessage.cs" />
     <Compile Include="Route.cs">
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
