@@ -14,20 +14,20 @@ namespace DonationPortal.Web.Controllers
 {
     public class SocialController : Controller
     {
-	    private readonly FeedProvider _feedProvider;
+	    private readonly ISocialFeedProvider _twitterFeedProvider;
 
 	    public SocialController()
 	    {
-		    _feedProvider = new FeedProvider(new SingleUserInMemoryCredentialStore
+		    _twitterFeedProvider = new ErrorHandlingSocialFeedProvider(new TwitterFeedProvider(new SingleUserInMemoryCredentialStore
 			{
 				ConsumerKey = ConfigurationManager.AppSettings["TwitterconsumerKey"],
 				ConsumerSecret = ConfigurationManager.AppSettings["TwitterconsumerSecret"],
 				OAuthToken = ConfigurationManager.AppSettings["TwitterOAuthToken"],
 				OAuthTokenSecret = ConfigurationManager.AppSettings["TwitterOAuthTokenSecret"]
-		    });
+		    }));
 	    }
 		
-        public async Task<ActionResult> Index(string eventUrlSlug, string riderUrlSlug)
+        public ActionResult Index(string eventUrlSlug, string riderUrlSlug)
         {
 
 	        using (var entities = new DonationPortalEntities())
@@ -46,7 +46,7 @@ namespace DonationPortal.Web.Controllers
 					return HttpNotFound();
 				}
 
-		        var items = await _feedProvider.GetItems(rider.EventRiderID);
+		        var items = _twitterFeedProvider.GetItems(rider.EventRiderID);
 
 		        var model = new SocialViewModel
 		        {

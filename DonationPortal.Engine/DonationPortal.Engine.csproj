@@ -63,6 +63,9 @@
     <Reference Include="LinqToTwitterPcl">
       <HintPath>..\packages\LinqToTwitter.3.1.2\lib\net45\LinqToTwitterPcl.dll</HintPath>
     </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Monads">
       <HintPath>..\packages\Monads.1.1.5.0\lib\net40\Monads.dll</HintPath>
     </Reference>
@@ -167,7 +170,9 @@
     <Compile Include="SocialAccount.cs">
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Social\FeedProvider.cs" />
+    <Compile Include="Social\ErrorHandlingSocialFeedProvider.cs" />
+    <Compile Include="Social\TwitterFeedProvider.cs" />
+    <Compile Include="Social\ISocialFeedProvider.cs" />
     <Compile Include="Social\SocialFeedItem.cs" />
     <Compile Include="TwitterHashTag.cs">
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>

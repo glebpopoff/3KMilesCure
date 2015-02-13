@@ -4,20 +4,22 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using log4net;
 using LinqToTwitter;
 
 namespace DonationPortal.Engine.Social
 {
-	public class FeedProvider
+	public class TwitterFeedProvider : ISocialFeedProvider
 	{
+		private static readonly ILog _log = LogManager.GetLogger(typeof (TwitterFeedProvider));
 		private readonly ICredentialStore _credentialStore;
 
-		public FeedProvider(ICredentialStore credentialStore)
+		public TwitterFeedProvider(ICredentialStore credentialStore)
 		{
 			_credentialStore = credentialStore;
 		}
 
-		public async Task<IEnumerable<SocialFeedItem>> GetItems(int eventRiderID, int count = 100)
+		public IEnumerable<SocialFeedItem> GetItems(int eventRiderID, int count = 100)
 		{
 			using (var entities = new DonationPortalEntities())
 			{
@@ -48,7 +50,6 @@ namespace DonationPortal.Engine.Social
 						}
 					}
 
-					// for now we are not limiting results to hashtags for specific users.  search for all hashtags for all users.
 					foreach (
 						var hashtag in
 							rider.SocialAccounts.Where(a => a.SocialType == "Twitter")
@@ -67,12 +68,14 @@ namespace DonationPortal.Engine.Social
 
 					var query = String.Format("{0} {1}", strHashTags, strUsers);
 
+					_log.DebugFormat("Search string for Twitter for rider {0} is: {1}.", eventRiderID, query);
+
 					if (string.IsNullOrWhiteSpace(query))
 					{
 						return new SocialFeedItem[0];
 					}
 
-					var searchResponse = await
+					var searchResponse =
 						(from search in twitterCtx.Search
 						 where search.Type == SearchType.Search &&
 							   search.Query == query &&
@@ -80,7 +83,7 @@ namespace DonationPortal.Engine.Social
 							   search.ResultType == ResultType.Recent &&
 							   search.Count == count
 						 select search)
-							.SingleOrDefaultAsync();
+							.SingleOrDefaultAsync().Result;
 
 					if (searchResponse != null && searchResponse.Statuses != null)
 					{
