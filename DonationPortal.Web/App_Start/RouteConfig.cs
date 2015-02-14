@@ -19,11 +19,11 @@ namespace DonationPortal.Web
 				defaults: new { controller = "RiderDetail", action = "Index" }
 			);
 
-            routes.MapRoute(
-                name: "Social",
-                url: "social/{action}",
-                defaults: new { controller = "Social", action = "Index" }
-             );
+			routes.MapRoute(
+				name: "Social",
+				url: "rider-detail/{eventUrlSlug}/{riderUrlSlug}/social",
+				defaults: new { controller = "Social", action = "Index" }
+			);
 
             routes.MapRoute(
                 name: "Default",

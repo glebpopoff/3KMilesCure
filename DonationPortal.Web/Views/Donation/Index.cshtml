@@ -3,6 +3,7 @@
 @model DonationPortal.Web.ViewModels.Donation.DonationViewModel
 
 @{
+    ViewBag.Title = "Donate";
 }
 
 <div id="main" role="main">
@@ -64,7 +65,7 @@
                             </div>
                             @Html.ValidationMessageFor(m => m.OtherDonationAmount, null, new { @class = "help-block" })
                         </div>
-                        <div class="form-group @(Html.HasError(m => m.DonationType) ? "has-error" : null)">
+                        @*<div class="form-group @(Html.HasError(m => m.DonationType) ? "has-error" : null)">
                             <div><label class="required control-label">Donation type:</label></div>
                             <label class="radio-inline">
                                 @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.OneTimeDonation.ToString()) One-time donation
@@ -73,7 +74,7 @@
                                 @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.MonthlyRecurringDonation.ToString()) Monthly recurring donation
                             </label>
                             @Html.ValidationMessageFor(m => m.DonationType, null, new { @class = "help-block" })
-                        </div>
+                        </div>*@
                         <div class="row">
                             <div class="col-sm-12">
                                 <h2>Billing Information</h2>
@@ -172,22 +173,19 @@
                             <div class="col-sm-4">
                                 <div class="form-group @(Html.HasError(m => m.CvvNumber) ? "has-error" : null)">
                                     <div></div>
-                                    <label for="cvv" class="control-label">CVV Number:</label>
+                                    <label for="cvv" class="control-label required">CVV Number:</label>
                                     <div class="row">
                                         <div class="col-sm-6">
                                             @Html.TextBoxFor(m => m.CvvNumber, new { @class = "form-control required-field", id = "cvv" })
                                         </div>
                                         <div class="col-sm-6">
-                                            <a href="#" style="margin-left: 5px;" data-toggle="tooltip" title="Lorem ipsum dolor tooltip">What's This?</a>
+                                            <a href="#" style="margin-left: 5px;" data-toggle="tooltip" title="For MasterCard, Visa or Discover, it's the last three digits in the signature area on the back of your card. For American Express, it's the four digits on the front of the card.">What's This?</a>
                                         </div>
                                     </div>
                                     @Html.ValidationMessageFor(m => m.CvvNumber, null, new { @class = "help-block" })
                                 </div>
                             </div>
                             <div class="clearfix"></div>
-                            <div class="col-sm-12">
-                                <div class="help-block"><i class="fa fa-paypal"></i> Paypal integration disclaimer...Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean euismod bibendum laoreet.</div>
-                            </div>
                         </div>
                         <p><button class="btn btn-primary btn-lg" id="step-3-button">Donate Now</button></p>
                     }
@@ -200,23 +198,19 @@
                     <div class="module callout-promo">
                         <h2>Other Ways to Give</h2>
                         <h3>Donate by mail.</h3>
-                        <p>Mail your donations and completed form to:</p>
+                        <p>Mail your donations and <a target="_blank" href="http://www.3000milestoacure.com/OfflineDonationForm.pdf?attredirects=0&d=1">completed form</a> to</p>
                         <address>
                             3000 Miles to a Cure<br>
                             104 Red Oak Ct.<br>
                             Lumberton, NC 28358
                         </address>
                         <h3>Become a partner.</h3>
-                        <p>To invest in our mission as an operational partner, email Charlie Mulligan at <a href="#">charlie@3000milestoacure.com.</a></p>
+                        <p>To invest in our mission as an operational partner, email Maria Parker at <a href="mailto:maria@3000milestoacure.com">maria@3000milestoacure.com</a>.</p>
                     </div>
                     <div class="module callout-promo">
                         <h2>Our Events</h2>
                         <p>Find out more about the current events for 3000 Miles to a Cure and learn how your donation can make a difference.</p>
-                        <p>
-                            <a href="#">Race Sebring / Feb 2015</a><br>
-                            <a href="#">Race Across America / June 2015</a>
-                        </p>
-                        <p><a href="#" class="btn btn-primary btn-lg">View All Events</a></p>
+                        <p><a href="http://www.3000milestoacure.com/events" class="btn btn-primary btn-lg">View All Events</a></p>
                     </div>
                 </div>
             </div>

@@ -1,16 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using DonationPortal.Engine;
+using DonationPortal.Engine.Rider;
+using DonationPortal.Engine.Social;
+using DonationPortal.Web.Attributes;
+using DonationPortal.Web.ViewModels;
 using DonationPortal.Web.ViewModels.RiderDetail;
+using LinqToTwitter;
 
 namespace DonationPortal.Web.Controllers
 {
+	[ConditionalRequireHttps]
     public class RiderDetailController : Controller
     {
-        // GET: EventDetail
+
+		private readonly EventRiderLocationProvider _locationProvider;
+	    private readonly EventRiderMessageProvider _messageProvider;
+	    private readonly ISocialFeedProvider _twitterFeedProvider;
+
+	    public RiderDetailController()
+	    {
+		    _messageProvider = new EventRiderMessageProvider();
+		    _locationProvider = new EventRiderLocationProvider();
+			_twitterFeedProvider = new ErrorHandlingSocialFeedProvider(new TwitterFeedProvider(new SingleUserInMemoryCredentialStore
+			{
+				ConsumerKey = ConfigurationManager.AppSettings["TwitterconsumerKey"],
+				ConsumerSecret = ConfigurationManager.AppSettings["TwitterconsumerSecret"],
+				OAuthToken = ConfigurationManager.AppSettings["TwitterOAuthToken"],
+				OAuthTokenSecret = ConfigurationManager.AppSettings["TwitterOAuthTokenSecret"]
+			}));
+	    }
+
+	    // GET: EventDetail
         public ActionResult Index(string eventUrlSlug, string riderUrlSlug)
         {
 	        using (var entities = new DonationPortalEntities())
@@ -29,12 +55,35 @@ namespace DonationPortal.Web.Controllers
 			        return HttpNotFound();
 		        }
 
+		        var socialItems = _twitterFeedProvider.GetItems(riderEntity.EventRiderID, 10);
+
 		        var model = new RiderDetailViewModel
 		        {
 			        EventName = eventEntity.Name,
 					PossessiveRiderName = riderEntity.PossessiveName,
 					RiderName = riderEntity.Name,
-					RiderStart = riderEntity.Start
+					RiderStart = riderEntity.Start,
+					DonationGoal = riderEntity.DonationGoal,
+					DonationTotal = riderEntity.RiderMessageDonations.Sum(r => r.Amount),
+					RiderEnd = riderEntity.End,
+					DurationGoal = riderEntity.DurationGoal,
+					MilesGoal = riderEntity.DistanceGoal,
+					MilesTravelled = (int)_locationProvider.GetTotalDistance(riderEntity.EventRiderID).ToStatuteMiles().Value,
+					DonationStart = riderEntity.DonationStart,
+					Teaser = new HtmlString(riderEntity.DetailTeaser),
+					Pronoun = riderEntity.Pronoun,
+					HeroImageText = riderEntity.DetailHeroText,
+					HeroImageUri = riderEntity.DetailHeroImage,
+					RouteDescription = new HtmlString(riderEntity.RouteDescription),
+					DonationDescription = new HtmlString(riderEntity.DonationDescription),
+					ChooseLocationText = new HtmlString(riderEntity.ChooseLocationText),
+					ShortEventName = eventEntity.ShortName,
+					EventUrlSlug = eventUrlSlug,
+					RiderUrlSlug = riderUrlSlug,
+					Timer = new TimerViewModel(riderEntity.DurationGoal, riderEntity.End, riderEntity.Start),
+					RecentMessages = _messageProvider.GetMessages(riderEntity.EventRiderID, 5),
+					SocialFeedItems = socialItems,
+					DonateButtonText = riderEntity.DonateButtonText
 		        };
 
 				return View("Index", model);

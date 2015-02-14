@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DonationPortal.Engine;
 using DonationPortal.Engine.PaymentProcessor;
+using DonationPortal.Web.Attributes;
 using DonationPortal.Web.ViewModels.Donation;
 
 namespace DonationPortal.Web.Controllers
 {
+	[ConditionalRequireHttps]
 	public class DonationController : Controller
 	{
 		private const string SuccessfulDonationKey = "successful_donation";
@@ -18,7 +21,7 @@ namespace DonationPortal.Web.Controllers
 
 		public DonationController()
 		{
-			this._immediatePaymentProcessor = new MockImmediatePaymentProcessor();
+			this._immediatePaymentProcessor = new PaypalImmediatePaymentProcessor(new CreditCardIssuerDetector());
 			this._recurringPaymentProcessor = new MockRecurringPaymentProcessor();
 		}
 
@@ -42,58 +45,62 @@ namespace DonationPortal.Web.Controllers
 			}
 
 			string transactionID;
+			string paymentResource;
 
-			switch (model.DonationType)
+			/*switch (model.DonationType)
 			{
 				case NonEventDonationType.OneTimeDonation:
+					{*/
+			var request = new ImmediatePaymentRequest
+			{
+				Amount = model.DonationAmount,
+				City = model.City,
+				CvvNumber = model.CvvNumber,
+				Email = model.Email,
+				ExpirationMonth = model.ExpirationMonth,
+				ExpirationYear = model.ExpirationYear,
+				FirstName = model.FirstName,
+				LastName = model.LastName,
+				State = model.State,
+				StreetAddress1 = model.StreetAddress1,
+				StreetAddress2 = model.StreetAddress2,
+				ZipCode = model.ZipCode,
+				CreditCardNumber = model.CreditCardNumber
+			};
+
+			var result = _immediatePaymentProcessor.Process(request);
+
+			transactionID = result.TransactionID;
+			paymentResource = result.PaymentResource;
+			/*	}
+				break;
+			case NonEventDonationType.MonthlyRecurringDonation:
+				{
+					var request = new RecurringPaymentRequest
 					{
-						var request = new ImmediatePaymentRequest
-						{
-							Amount = model.DonationAmount,
-							City = model.City,
-							CvvNumber = model.CvvNumber,
-							Email = model.Email,
-							ExpirationMonth = model.ExpirationMonth,
-							ExpirationYear = model.ExpirationYear,
-							FirstName = model.FirstName,
-							LastName = model.LastName,
-							State = model.State,
-							StreetAddress1 = model.StreetAddress1,
-							StreetAddress2 = model.StreetAddress2,
-							ZipCode = model.ZipCode
-						};
+						Amount = model.DonationAmount,
+						City = model.City,
+						CvvNumber = model.CvvNumber,
+						Email = model.Email,
+						ExpirationMonth = model.ExpirationMonth,
+						ExpirationYear = model.ExpirationYear,
+						FirstName = model.FirstName,
+						LastName = model.LastName,
+						State = model.State,
+						StreetAddress1 = model.StreetAddress1,
+						StreetAddress2 = model.StreetAddress2,
+						ZipCode = model.ZipCode,
+						CreditCardNumber = model.CreditCardNumber
+					};
 
-						var result = _immediatePaymentProcessor.Process(request);
+					var result = _recurringPaymentProcessor.Process(request);
 
-						transactionID = result.TransactionID;
-					}
-					break;
-				case NonEventDonationType.MonthlyRecurringDonation:
-					{
-						var request = new RecurringPaymentRequest
-						{
-							Amount = model.DonationAmount,
-							City = model.City,
-							CvvNumber = model.CvvNumber,
-							Email = model.Email,
-							ExpirationMonth = model.ExpirationMonth,
-							ExpirationYear = model.ExpirationYear,
-							FirstName = model.FirstName,
-							LastName = model.LastName,
-							State = model.State,
-							StreetAddress1 = model.StreetAddress1,
-							StreetAddress2 = model.StreetAddress2,
-							ZipCode = model.ZipCode
-						};
-
-						var result = _recurringPaymentProcessor.Process(request);
-
-						transactionID = result.TransactionID;
-					}
-					break;
-				default:
-					throw new InvalidOperationException("Unexpected donation type " + model.DonationType);
-			}
+					transactionID = result.TransactionID;
+				}
+				break;
+			default:
+				throw new InvalidOperationException("Unexpected donation type " + model.DonationType);
+			}*/
 
 			using (var entities = new DonationPortalEntities())
 			{
@@ -108,7 +115,9 @@ namespace DonationPortal.Web.Controllers
 					ZipCode = model.ZipCode,
 					State = model.State,
 					Email = model.Email,
-					TransactionID = transactionID
+					TransactionID = transactionID,
+					PaymentResource = paymentResource,
+					Date = DateTime.Now
 				});
 
 				entities.SaveChanges();

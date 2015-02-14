@@ -1,0 +1,33 @@
+﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+
+@{
+    Layout = null;
+}
+
+<section class="stacked-container stats" role="region">
+    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <div class="container">
+        <div class="row">
+            
+            <div class="module stat-content">
+                <div class="col-xs-6 col-sm-3">
+                    <div class="circle-chart total-raised" data-dimension="200" data-text="$" data-width="30" data-fontsize="60" data-percent="100" data-fgcolor="#f93550" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.DonationGoal" data-part="@Model.DonationTotal"></div>
+                    <div class="chart-text">@Model.DonationTotal.ToString("C0")<br> Total Raised</div>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="circle-chart days-left" data-dimension="200" data-text="@Model.DaysRemaining" data-width="30" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.TotalDonationDays" data-part="@Model.DonationDaysPast"></div>
+                    <div class="chart-text">@Model.DaysRemaining<br> Days Left</div>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="circle-chart percent-goal" data-dimension="200" data-text="%" data-width="30" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="100" data-part="@Model.DonationGoalPercentage"></div>
+                    <div class="chart-text">@Model.DonationGoalPercentage%<br> Of Goal</div>
+                </div>
+                <div class="col-xs-6 col-sm-3">
+                    <div class="circle-chart total" data-dimension="200" data-text="$" data-width="30" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.DonationGoal" data-part="@Model.DonationGoal" data-animationstep="0"></div>
+                    <div class="chart-text">Help Us Raise<br> @Model.DonationGoal.ToString("C0")</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</section>

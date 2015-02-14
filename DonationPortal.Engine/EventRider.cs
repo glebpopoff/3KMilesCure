@@ -18,6 +18,8 @@ namespace DonationPortal.Engine
         {
             this.Routes = new HashSet<Route>();
             this.RiderMessageDonations = new HashSet<RiderMessageDonation>();
+            this.LocationVisits = new HashSet<LocationVisit>();
+            this.SocialAccounts = new HashSet<SocialAccount>();
         }
     
         public int EventRiderID { get; set; }
@@ -36,10 +38,21 @@ namespace DonationPortal.Engine
         public string DurationGoal { get; set; }
         public string DistanceGoal { get; set; }
         public string PossessiveName { get; set; }
-        public Nullable<System.DateTime> End { get; set; }
+        public System.DateTime End { get; set; }
+        public System.DateTime DonationStart { get; set; }
+        public string DetailHeroImage { get; set; }
+        public string DetailHeroText { get; set; }
+        public string Pronoun { get; set; }
+        public string RouteDescription { get; set; }
+        public string DonationDescription { get; set; }
+        public string ChooseLocationText { get; set; }
+        public string DetailTeaser { get; set; }
+        public string DonateButtonText { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }
         public virtual ICollection<RiderMessageDonation> RiderMessageDonations { get; set; }
+        public virtual ICollection<LocationVisit> LocationVisits { get; set; }
+        public virtual ICollection<SocialAccount> SocialAccounts { get; set; }
     }
 }

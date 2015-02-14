@@ -4,13 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DonationPortal.Engine;
+using DonationPortal.Engine.Rider;
 using DonationPortal.Web.ViewModels.Home;
 using System.Data.Entity;
+using DonationPortal.Web.ViewModels;
 
 namespace DonationPortal.Web.Controllers
 {
     public class HomeController : Controller
     {
+		private readonly EventRiderLocationProvider _locationProvider;
+	    private readonly EventRiderMessageProvider _messageProvider;
+
+		public HomeController()
+		{
+			_locationProvider = new EventRiderLocationProvider();
+			_messageProvider = new EventRiderMessageProvider();
+		}
+
         // GET: Home
         public ActionResult Index()
         {
@@ -18,8 +29,7 @@ namespace DonationPortal.Web.Controllers
 	        {
 		        var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
 
-				// todo, flag someone as the featured one
-		        var featuredRider = entities.EventRiders.Include(r => r.Event).First();
+		        var featuredRider = entities.EventRiders.Include(r => r.Event).Single(r => r.EventRiderID == 2); //rob
 
 		        var model = new HomeViewModel
 		        {
@@ -29,12 +39,15 @@ namespace DonationPortal.Web.Controllers
 						EventUrlSlug = featuredRider.Event.UrlSlug,
 						RiderName = featuredRider.Name,
 						RiderStart = featuredRider.Start,
+						RiderEnd = featuredRider.End,
 						RiderUrlSlug = featuredRider.UrlSlug,
 						RiderStory = new HtmlString(featuredRider.Story),
-						DurationGoal = featuredRider.DurationGoal,
 						DistanceGoal = featuredRider.DistanceGoal,
 						DetailUrl = urlHelper.Action("Index", "RiderDetail", new { EventUrlSlug = featuredRider.Event.UrlSlug, RiderUrlSlug = featuredRider.UrlSlug }),
-						PossessiveRiderName = featuredRider.PossessiveName
+						PossessiveRiderName = featuredRider.PossessiveName,
+						TotalMiles = _locationProvider.GetTotalDistance(featuredRider.EventRiderID).ToStatuteMiles().Value,
+						RecentMessages = _messageProvider.GetMessages(featuredRider.EventRiderID, 5),
+						Timer = new TimerViewModel(featuredRider.DurationGoal, featuredRider.End, featuredRider.Start)
 					},
 					Riders = entities.EventRiders.Include(r => r.Event).Include(r => r.RiderMessageDonations).ToList().Select(rider => new RiderViewModel
 					{
@@ -47,7 +60,7 @@ namespace DonationPortal.Web.Controllers
 						TotalRaised = rider.RiderMessageDonations.Sum(d => d.Amount),
 						PossessiveRiderName = rider.PossessiveName,
 						DetailUrl = urlHelper.Action("Index", "RiderDetail", new { EventUrlSlug = rider.Event.UrlSlug, RiderUrlSlug = rider.UrlSlug })
-					})
+					}).OrderBy(r => Guid.NewGuid())
 				};
 
 				return View("Index", model);

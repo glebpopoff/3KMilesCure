@@ -1,4 +1,6 @@
-﻿namespace DonationPortal.Web.ApiModels.EventRiders
+﻿using System;
+
+namespace DonationPortal.Web.ApiModels.EventRiders
 {
 	public class EventRider
 	{
@@ -10,5 +12,7 @@
 		public int MapZoom { get; set; }
 		public float MarkerLatitude { get; set; }
 		public float MarkerLongitude { get; set; }
+		public DateTime Start { get; set; }
+		public DateTime End { get; set; }
 	}
 }

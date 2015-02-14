@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <title>3000 Miles to a Cure</title>
+    <title>@ViewBag.Title | 3000 Miles to a Cure</title>
     <meta name="description" content="" />
     <meta name="author" content="" />
 
@@ -52,6 +52,24 @@
     <script data-main="/ui/scripts/main" src="/ui/scripts/vendor/require/require.js"></script>
 
     @RenderSection("Scripts", false)
+
+    <!-- Google Tag Manager -->
+    <noscript>
+        <iframe src="//www.googletagmanager.com/ns.html?id=GTM-W54P85"
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-W54P85');</script>
+    <!-- End Google Tag Manager -->
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-54dbb40d5572764b" async="async"></script>
 
 </body>
 </html>

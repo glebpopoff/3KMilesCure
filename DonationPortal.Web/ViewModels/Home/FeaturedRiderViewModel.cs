@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using DonationPortal.Engine;
 
 namespace DonationPortal.Web.ViewModels.Home
 {
@@ -14,16 +15,23 @@ namespace DonationPortal.Web.ViewModels.Home
 		public string RiderName { get; set; }
 		public DateTime RiderStart { get; set; }
 		public IHtmlString RiderStory { get; set; }
-		public string DurationGoal { get; set; }
-		public bool HasDurationGoal
-		{
-			get { return !string.IsNullOrWhiteSpace(DurationGoal); }
-		}
 		public string DistanceGoal { get; set; }
 		public bool HasDistanceGoal
 		{
 			get { return !string.IsNullOrWhiteSpace(DistanceGoal); }
 		}
 		public string PossessiveRiderName { get; set; }
+		public double TotalMiles { get; set; }
+		
+		public DateTime RiderEnd { get; set; }
+
+		public bool HasRecentMessages
+		{
+			get { return RecentMessages.Any(); }
+		}
+
+		public IEnumerable<RecentMessage> RecentMessages { get; set; }
+
+		public TimerViewModel Timer { get; set; }
 	}
 }

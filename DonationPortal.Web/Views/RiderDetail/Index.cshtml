@@ -1,334 +1,85 @@
 ﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
 
 @{
+    ViewBag.Title = string.Format("{0} {1}", Model.EventName, Model.RiderName);
 }
 <div id="main" role="main">
-<!-- main starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- main starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
-<section class="stacked-container hero event-detail" id="skipToContent" role="region">
-    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <figure class="hero-image"><img class="img-responsive" src="http://placehold.it/1170x500" alt="placeholder"></figure>
-    <div class="container">
-        <div class="event-header">
-            <div class="title">Bike Sebring</div>
-            <h1>@Model.RiderName</h1>
-        </div>
-        <div class="hero-content">
-            <p class="lead">Join Maria Parker lorem ipsum dolor sit amet 12 Hours adipiscing elit.</p>
-        </div>
-    </div>
-    <!-- stacked-container ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-</section>
+    <section class="stacked-container hero event-detail" id="skipToContent" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+        <figure class="hero-image"><img class="img-responsive" src="/ui/images/@Model.HeroImageUri" alt="placeholder"></figure>
+        <div class="container">
+            <div class="hero-content">
+                <h1>@Model.ShortEventName</h1>
+                <p class="lead">@Model.HeroImageText</p>
 
-<section class="stacked-container" role="region">
-    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="module ride-details">
-                    <h2>12 Hour Ride <span class="participant">/ @Model.RiderName</span></h2>
-                    <h3> Feb 14-15, 2015</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab blanditiis, delectus eos harum hic illum laborum minima, necessitatibus officiis recusandae reiciendis reprehenderit veritatis voluptate? Asperiores corporis qui quisquam sint tenetur.</p>
-                    <br>
-                    <p>
-                        <a href="#" class="btn btn-primary btn-lg"><i class="fa fa-comment"></i> Send Maria a Message</a> &nbsp;
-                        <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-heart" style="font-weight: bold"></i> Make a Donation</a>
-                    </p>
+
+                <div class="module stat-content">
+                    <div class="row">
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart total-raised" data-dimension="175" data-text="$" data-width="20" data-fontsize="60" data-percent="100" data-fgcolor="#f93550" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.DonationGoal" data-part="@Model.DonationTotal"></div>
+                            <div class="chart-text">@Model.DonationTotal.ToString("C0")<br> Total Raised</div>
+                        </div>
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart days-left" data-dimension="175" data-text="@Model.DaysRemaining" data-width="20" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.TotalDonationDays" data-part="@Model.DonationDaysPast"></div>
+                            <div class="chart-text">@Model.DaysRemaining<br> Days Left</div>
+                        </div>
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart percent-goal" data-dimension="175" data-text="%" data-width="20" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="100" data-part="@Model.DonationGoalPercentage"></div>
+                            <div class="chart-text">@Model.DonationGoalPercentage%<br> Of Goal</div>
+                        </div>
+                        <div class="hidden-xs col-sm-3">
+                            <div class="circle-chart total" data-dimension="175" data-text="$" data-width="20" data-fontsize="60" data-percent="100" data-fgcolor="#285d7c" data-bgcolor="#ffffff" data-fill="#ff8b00" data-total="@Model.DonationGoal" data-part="@Model.DonationGoal" data-animationstep="0"></div>
+                            <div class="chart-text">Help Us Raise<br> @Model.DonationGoal.ToString("C0")</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- stacked-container ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-</section>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
 
-<section class="stacked-container image-gallery" role="region">
-    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Maria's Journey</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon twitter"></div>
-                    <a href="ui/images/600x450&text=image.gif" rel="shadowbox;" title="Lorem ipsum dolor sit amet, consectetur.">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon youtube"></div>
-                    <a href="https://www.youtube.com/v/ScMzIvxBSi4" rel="shadowbox;" class="video" title="Lorem ipsum dolor sit amet, consectetur.">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon twitter"></div>
-                    <a href="ui/images/600x450&text=image.gif" rel="shadowbox;" title="Lorem ipsum dolor sit amet, consectetur.">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                        <span class="fig-caption">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon facebook"></div>
-                    <a href="ui/images/600x450&text=image.gif" rel="shadowbox;" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum, harum">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon youtube"></div>
-                    <a href="https://www.youtube.com/v/ScMzIvxBSi4" rel="shadowbox;" class="video" title="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Necessitatibus, sint">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon twitter"></div>
-                    <a href="ui/images/600x450&text=image.gif" rel="shadowbox;" title="Lorem ipsum dolor sit amet, consectetur.">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                        <span class="fig-caption">Lorem ipsum dolor sit amet, consectetur adipisicing</span>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon twitter"></div>
-                    <a href="ui/images/600x450&text=image.gif" rel="shadowbox;" title="Lorem ipsum dolor sit amet, consectetur">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                    </a>
-                </figure>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3">
-                <figure class="gallery-item">
-                    <div class="social-icon facebook"></div>
-                    <a href="ui/images/600x450&text=image.gif" rel="shadowbox;" title="Lorem ipsum dolor sit amet, consectetur">
-                        <img class="" src="http://placehold.it/350x250&text=Image" alt="placeholder"/>
-                    </a>
-                </figure>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <p><a href="#" class="btn btn-lg btn-primary">View All <i class="fa fa-chevron-right"></i></a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <!-- stacked-container ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-</section>
-
-<section class="stacked-container map-container event-detail" role="region">
-    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <div class="route-details">
+    <section class="stacked-container" role="region">
+        <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-4">
-                    <div class="map-heading">Maria's Route</div>
-                    <div class="event-specs">Event Begins - 6:30AM 2/14/2015</div>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <ul class="elapsed">
-                        <li class="title">Time Elapsed</li>
-                        <li class="hours">
-                            <div class="counter-label">Hours</div>
-                            <div class="counter">06</div>
-                        </li>
-                        <li class="divider">:</li>
-                        <li class="minutes">
-                            <div class="counter-label">Min</div>
-                            <div class="counter">52</div>
-                        </li>
-                        <li class="total">/ 24</li>
-                    </ul>
-                </div>
-                <div class="col-xs-6 col-sm-4">
-                    <ul class="travelled">
-                        <li class="title">Miles Travelled:</li>
-                        <li class="miles">
-                            <div class="counter-label">Miles</div>
-                            <div class="counter">56</div>
-                        </li>
-                        <li class="total">/ 400</li>
-                    </ul>
-
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias blanditiis cupiditate impedit non veritatis voluptas? Accusantium aliquid consectetur cupiditate debitis delectus distinctio eligendi, harum laboriosam nam quas quia repudiandae sed.</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="map"><img src="http://placehold.it/800x600&text=Map" style="width: 100%;" alt=""/>
-                </div>
-            </div>
-            <div class="col-sm-6">
-                <div class="module recent-messages">
-                    <h2>Recent Messages</h2>
-                    <div class="message">
-                        <div class="post">Lorem ipsum dolor sit amet.</div>
-                        <div class="author">Anne</div>
-                    </div>
-                    <div class="message">
-                        <div class="post">Lorem ipsum dolor sit amet, consectetur.</div>
-                        <div class="author">Doug</div>
-                    </div>
-                    <div class="message">
-                        <div class="post">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem.</div>
-                        <div class="author">Brandon</div>
-                    </div>
-                    <div class="message">
-                        <div class="post">Lorem ipsum dolor sit amet, consectetur.</div>
-                        <div class="author">Chad</div>
+                <div class="col-sm-12">
+                    <div class="module ride-details">
+                        <h2>@Model.EventName <span class="participant">// @Model.RiderName</span></h2>
+                        <h3>@Model.DateRange</h3>
+                        @Model.Teaser
+                        <br>
+                        <p>
+                            <a href="#donate" class="btn btn-tertiary btn-lg"> Send @Model.RiderName a Message</a> &nbsp;
+                            <a href="#donate" class="btn btn-lg btn-tertiary"> @Model.DonateButtonText</a>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <p>
-                    <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-share" style="font-weight: bold"></i> Share this Event</a> &nbsp;
-                    <a href="#" class="btn btn-lg btn-primary"><i class="fa fa-heart" style="font-weight: bold"></i> Make a Donation</a>
-                </p>
-            </div>
-        </div>
-    </div>
+        <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    </section>
 
-    <!-- stacked-container ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-</section>
+    @Html.Partial("Social")
 
-<section class="stacked-container stats" role="region">
-    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Stats Widget</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequuntur culpa, doloribus ea eaque earum enim eum exercitationem expedita ipsum labore minima, molestiae nesciunt obcaecati, odio quaerat quam rerum unde.</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequuntur culpa, doloribus ea eaque earum enim eum exercitationem expedita ipsum labore minima, molestiae nesciunt obcaecati, odio quaerat quam rerum unde.</p>
-            </div>
-        </div>
-    </div>
-    <!-- stacked-container ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-</section>
+    @Html.Partial("Route")
 
-<section class="stacked-container" role="region">
-    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <h2>Help us Reach our Goal. Donate Today</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores consequuntur culpa, doloribus ea eaque earum enim eum exercitationem expedita ipsum labore minima, molestiae nesciunt obcaecati, odio quaerat quam rerum unde.</p>
-                <form>
-                    <div class="panel-group" id="donate-form" role="tablist" aria-multiselectable="true">
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="step-1-heading">
-                                <h3 class="panel-title">
-                                    <a data-toggle="collapse" data-parent="#donate-form" href="#step-1-content" aria-expanded="true" aria-controls="step-1-content">
-                                        Step 1 - Donation Information
-                                    </a>
-                                </h3>
-                            </div>
-                            <div id="step-1-content" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="step-1-heading">
-                                <div class="panel-body">
-                                    <div class="form-group donate-options">
-                                        <p>* Select donation amount:</p>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="donationOption" id="donation-option-1" value="25"> $25
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="donationOption" id="donation-option-2" value="50"> $50
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="donationOption" id="donation-option-3" value="75"> $75
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" name="donationOption" id="donation-option-4" value="100"> $100
-                                        </label>
-                                        <label class="radio-inline">
-                                            <input type="radio" class="other-radio" name="donationOption" id="donation-option-5" value="other"> Other
-                                        </label>
-                                    </div>
-                                    <div class="form-group other-input">
-                                        <label for="other-amount">Other Amount:</label>
-                                        <div class="input-group col-sm-4">
-                                            <div class="input-group-addon">$</div>
-                                            <input type="text" class="form-control" id="otherAmount" placeholder="">
-                                            <div class="input-group-addon">.00</div>
-                                        </div>
-                                    </div>
+    @Html.Partial("Statistics")
 
-                                    <p>
-                                        <a class="btn btn-primary btn-lg" data-toggle="collapse" data-parent="#donate-form" href="#step-2-content" aria-expanded="true" aria-controls="step-2-content">Next</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="step-2-heading">
-                                <h3 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#donate-form" href="#step-2-content" aria-expanded="false" aria-controls="step-2-content">
-                                        Step 2 - Location & Message
-                                    </a>
-                                </h3>
-                            </div>
-                            <div id="step-2-content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="step-2-heading">
-                                <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    <p>
-                                        <a class="btn btn-primary btn-lg" data-toggle="collapse" data-parent="#donate-form" href="#step-3-content" aria-expanded="true" aria-controls="step-3-content">Next</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading" role="tab" id="step-3-heading">
-                                <h3 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#doante-form" href="#step-3-content" aria-expanded="false" aria-controls="step-3-content">
-                                        Step 3 - Billing & Payment Information
-                                    </a>
-                                </h3>
-                            </div>
-                            <div id="step-3-content" class="panel-collapse collapse" role="tabpanel" aria-labelledby="step-3-heading">
-                                <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                    <p>
-                                        <a class="btn btn-primary btn-lg">Donate Now</a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <!-- stacked-container ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-</section>
+    @Html.Partial("Donate")
 
-<!-- main ends ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <!-- main ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 </div>
 
 @section Scripts
 {
     <script type="text/javascript">
 
-        require(['riderDonate'], function(riderDonate) {
+        require(['riderDonate', 'riderLocation'], function (riderDonate, riderLocation) {
 
-            riderDonate.setup();
+            riderDonate.setup('@Model.EventUrlSlug', '@Model.RiderUrlSlug');
+            riderLocation.setup('@Model.EventUrlSlug', '@Model.RiderUrlSlug');
 
         });
 

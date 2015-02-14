@@ -1,15 +1,21 @@
 ﻿@model DonationPortal.Web.ViewModels.Home.HomeViewModel
-
+@{
+    ViewBag.Title = "Home";
+}
 <div class="home-container" id="main" role="main">
     <!-- home-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 
     <section class="stacked-container hero" id="skipToContent" role="region">
         <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-        <figure class="hero-image"><img class="img-responsive" src="ui/images/img-homepage-hero.jpg" alt="Take Action"></figure>
+        <figure class="hero-image"><img class="img-responsive" src="/ui/images/Hero-Rob-01.jpg" alt="Hope Loves Action."></figure>
         <div class="container">
             <div class="hero-content">
-                <h1 role="heading">Take Action.</h1>
-                <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad aperiam atque corporis dolore dolorem doloribus enim expedita ipsa laudantium minus nobis odio perferendis, provident quae quibusdam quisquam sed sit voluptatibus.</p>
+                <h1 role="heading">HOPE LOVES ACTION.</h1>
+                <p class="lead">
+                    Especially on Valentine’s day. Take action with Maria and Rob as they pedal
+                    through grueling 12 and 24 hour races in Sebring, Florida to raise money to end brain cancer. Share
+                    encouragement and donate in real time along each route.
+                </p>
             </div>
         </div>
         <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
@@ -24,7 +30,7 @@
                     <div class="slide">
                         <div class="row">
                             <div class="col-sm-8 col-md-7">
-                                <h2>@rider.EventName <span class="participant">/ @rider.RiderName</span></h2>
+                                <h2>@rider.EventName <span class="participant">// @rider.RiderName</span></h2>
                                 @rider.RiderDescription
                                 <br>
                                 <p><a href="@rider.DetailUrl" class="btn btn-lg btn-primary">Learn More</a></p>
@@ -41,7 +47,7 @@
                                             <div class="amount">@rider.DonationGoal.ToString("C0")</div>
                                         </div>
                                     </div>
-                                    <div class="donate-callout"><a href="@rider.DetailUrl" class="btn btn-lg btn-primary btn-block"><i class="fa fa-heart" style="font-weight: bold"></i> Make a Donation</a></div>
+                                    <div class="donate-callout"><a href="@rider.DetailUrl#donate" class="btn btn-lg btn-primary btn-block">Make a Donation</a></div>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +63,9 @@
 
     <section class="stacked-container map-container" role="region">
         <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-        <div class="map"><img src="http://placehold.it/1170x500&text=Map" style="width:100%;" alt="" /></div>
+        <div class="embed-responsive embed-responsive-16by9">
+            <div class="map embed-responsive-item" id="map-canvas"></div>
+        </div>
         <div class="route-details">
             <div class="container">
                 <div class="row">
@@ -65,31 +73,16 @@
                         <div class="map-heading">@Model.FeaturedRider.PossessiveRiderName Route</div>
                         <div class="event-specs">Event Begins - @Model.FeaturedRider.RiderStart.ToString("h:mmtt M/d/yyyy")</div>
                     </div>
+                    @Html.Partial("Timer", Model.FeaturedRider.Timer)
                     <div class="col-xs-6 col-sm-4">
-                        <ul class="elapsed">
-                            <li class="title">Time Elapsed</li>
-                            <li class="hours">
-                                <div class="counter-label">Hours</div>
-                                <div class="counter">00</div>
-                            </li>
-                            <li class="divider">:</li>
-                            <li class="minutes">
-                                <div class="counter-label">Min</div>
-                                <div class="counter">00</div>
-                            </li>
-                            <li class="total">@(Model.FeaturedRider.HasDurationGoal ? "/ " + Model.FeaturedRider.DurationGoal : null)</li>
-                        </ul>
-                    </div>
-                    <div class="col-xs-6 col-sm-4">
-                        <ul class="travelled">
-                            <li class="title">Miles Travelled:</li>
-                            <li class="miles">
-                                <div class="counter-label">Miles</div>
-                                <div class="counter">00</div>
-                            </li>
-                            <li class="total">@(Model.FeaturedRider.HasDistanceGoal ? "/ " + Model.FeaturedRider.DistanceGoal : null)</li>
-                        </ul>
-
+                        @*<ul class="travelled">
+                                <li class="title">Miles Travelled:</li>
+                                <li class="miles">
+                                    <div class="counter-label">Miles</div>
+                                    <div class="counter">@Model.FeaturedRider.TotalMiles.ToString("N")</div>
+                                </li>
+                                <li class="total">@(Model.FeaturedRider.HasDistanceGoal ? "/ " + Model.FeaturedRider.DistanceGoal : null)</li>
+                            </ul>*@
                     </div>
                 </div>
             </div>
@@ -103,22 +96,34 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <h2>Lorem ipsum dolor</h2>
+                    <h2>Race With @Model.FeaturedRider.RiderName</h2>
                     @Model.FeaturedRider.RiderStory
                     <br>
-                    <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-primary btn-lg"><i class="fa fa-camera"></i> View @Model.FeaturedRider.PossessiveRiderName Journey</a></p>
+                    <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-secondary btn-lg"><i class="fa fa-camera"></i> Experience @Model.FeaturedRider.PossessiveRiderName Race</a></p>
                 </div>
                 <div class="col-sm-6">
                     <div class="module recent-messages">
                         <h2>Recent Messages</h2>
-                        <!-- todo w/ ajax
-                            <div class="message">
-                                <div class="post">Lorem ipsum dolor sit amet.</div>
-                                <div class="author">Anne</div>
-                            </div>
-                            -->
+                        <div class="messages">
+                            @if (Model.FeaturedRider.HasRecentMessages)
+                            {
+                                foreach (var message in Model.FeaturedRider.RecentMessages)
+                                {
+                                    <div class="message">
+                                        <div class="post">@message.RiderMessageDonation.Message</div>
+                                        <div class="author">@message.RiderMessageDonation.FirstName</div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                <div class="no-messages">
+                                    @Model.FeaturedRider.RiderName will start receiving messages when the race begins.
+                                </div>
+                            }
+                        </div>
                         <br>
-                        <p><a href="@Model.FeaturedRider.DetailUrl" class="btn btn-primary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
+                        <p><a href="@Model.FeaturedRider.DetailUrl#donate" class="btn btn-tertiary btn-lg"><i class="fa fa-comment"></i> Send @Model.FeaturedRider.RiderName a Message</a></p>
                     </div>
                 </div>
             </div>
@@ -128,3 +133,15 @@
 
     <!-- home-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 </div>
+@section Scripts
+{
+    <script type="text/javascript">
+
+        require(['riderLocation'], function (riderLocation) {
+
+            riderLocation.setup('@Model.FeaturedRider.EventUrlSlug', '@Model.FeaturedRider.RiderUrlSlug');
+
+        });
+
+    </script>
+}

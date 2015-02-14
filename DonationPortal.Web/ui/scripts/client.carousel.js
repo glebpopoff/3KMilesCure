@@ -25,7 +25,7 @@ define(function (require) {
 				width: '100%',
 				height: 'variable',
 				responsive: false,
-				circular: false,
+				circular: true,
 				infinite: false,
 				align: "center",
 				items: {

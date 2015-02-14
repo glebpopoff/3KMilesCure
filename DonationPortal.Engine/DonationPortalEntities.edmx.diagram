@@ -14,8 +14,16 @@
         <AssociationConnector Association="DonationPortalModel.EventRiderRoute" ManuallyRouted="false" />
         <EntityTypeShape EntityType="DonationPortalModel.RiderMessageDonation" Width="1.5" PointX="0.75" PointY="5.75" />
         <AssociationConnector Association="DonationPortalModel.FK_RiderMessageDonation_EventRider" />
-        <EntityTypeShape EntityType="DonationPortalModel.Donation" Width="1.5" PointX="5.375" PointY="4.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="DonationPortalModel.Donation" Width="1.5" PointX="7.5" PointY="4.75" />
+        <EntityTypeShape EntityType="DonationPortalModel.RecentMessage" Width="1.5" PointX="3" PointY="7" />
+        <AssociationConnector Association="DonationPortalModel.FK_RecentMessages_RiderMessageDonation" />
+        <EntityTypeShape EntityType="DonationPortalModel.LocationVisit" Width="1.5" PointX="5.25" PointY="5.375" />
+        <AssociationConnector Association="DonationPortalModel.FK_RecentLocations_EventRider" />
+        <EntityTypeShape EntityType="DonationPortalModel.SocialAccount" Width="1.5" PointX="5.25" PointY="9.25" />
+        <EntityTypeShape EntityType="DonationPortalModel.TwitterHashTag" Width="1.5" PointX="7.5" PointY="9.375" />
+        <AssociationConnector Association="DonationPortalModel.FK_SocialAccount_EventRider" />
+        <AssociationConnector Association="DonationPortalModel.FK_Account_SocialAccount" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

@@ -14,6 +14,11 @@ namespace DonationPortal.Engine
     
     public partial class RiderMessageDonation
     {
+        public RiderMessageDonation()
+        {
+            this.RecentMessages = new HashSet<RecentMessage>();
+        }
+    
         public int DonationID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -29,7 +34,10 @@ namespace DonationPortal.Engine
         public string TransactionID { get; set; }
         public int EventRiderID { get; set; }
         public decimal Amount { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+        public string PaymentResource { get; set; }
     
         public virtual EventRider EventRider { get; set; }
+        public virtual ICollection<RecentMessage> RecentMessages { get; set; }
     }
 }

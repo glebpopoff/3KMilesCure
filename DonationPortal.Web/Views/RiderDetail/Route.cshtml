@@ -1,0 +1,76 @@
+﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+@{
+    Layout = null;
+}
+
+<section class="stacked-container map-container event-detail" role="region">
+    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <div class="route-details">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="map-heading">@Model.PossessiveRiderName Route</div>
+                    <div class="event-specs">Event Begins - @Model.RiderStart.ToString("h:mmtt M/d/yyyy")</div>
+                </div>
+                @Html.Partial("Timer", Model.Timer)
+                <div class="col-xs-6 col-sm-4">
+                    @*<ul class="travelled">
+                            <li class="title">Miles<br class="visible-md-block"> Travelled:</li>
+                            <li class="miles">
+                                <div class="counter-label">Miles</div>
+                                <div class="counter">@Model.MilesTravelled</div>
+                            </li>
+                            <li class="total">/ @Model.MilesGoal</li>
+                        </ul>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                @Model.RouteDescription
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="embed-responsive embed-responsive-4by3">
+                    <div class="map embed-responsive-item" id="map-canvas"></div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="module recent-messages">
+                    <h2>Recent Messages</h2>
+                    <div class="messages">
+                        @if (Model.HasRecentMessages)
+                        {
+                            foreach (var message in Model.RecentMessages)
+                            {
+                                <div class="message">
+                                    <div class="post">@message.RiderMessageDonation.Message</div>
+                                    <div class="author">@message.RiderMessageDonation.FirstName</div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="no-messages">
+                                @Model.RiderName will start receiving messages when the race begins.
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p>
+                    <a href="#" class="addthis_button_compact btn btn-lg btn-secondary"><span>Share this Event</span></a> &nbsp;
+                    <a href="#donate" class="btn btn-lg btn-tertiary"> Send Encouragement</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</section>

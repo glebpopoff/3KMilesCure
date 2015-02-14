@@ -8,6 +8,7 @@ namespace DonationPortal.Engine.PaymentProcessor
 {
 	public class ImmediatePaymentResult
 	{
+		public string PaymentResource { get; set; }
 		public string TransactionID { get; set; }
 	}
 }

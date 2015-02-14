@@ -8,6 +8,12 @@
 		<property name="configuration">dev</property>
 		<property name="target">\\devweb4\AcsysWeb\Primacy\glassappgeofence.resultsbuilder.com</property>
 		<antcall target="deploy"></antcall>
+	</target>	
+	
+	<target name="prod">
+		<property name="configuration">prod</property>
+		<property name="target">\\prodweb8\Acsysweb\3KMiles\3000events.com</property>
+		<antcall target="deploy"></antcall>
 	</target>
 
 	<target name="deploy" description="Deploy to the target environment">
@@ -27,7 +33,7 @@
 		</dn:msbuild>
 
 		<!-- copy the website files to the server, except for compiled .NET dlls and the transformed web.configs -->
-		<sync todir="${target}" includeEmptyDirs="true" failonerror="true" verbose="true">
+		<sync todir="${target}" failonerror="true" verbose="true">
 			<fileset dir="${project-directory}" casesensitive="false">
 				<!-- standard set of excludes below -->
 				<exclude name="bin/"/>
@@ -44,6 +50,7 @@
 			<preserveintarget>
 				<include name="creative-templates/"/>
 				<include name="connectionStrings.config"/>
+				<include name="paypal.config"/>
 				<!-- standard set of excludes below -->
 				<include name="bin/"/>
 				<include name="web.config"/>

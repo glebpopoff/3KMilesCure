@@ -1,0 +1,40 @@
+﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+@{
+    Layout = null;
+}
+
+<section class="stacked-container social-gallery social-dashboard" role="region">
+    <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h2>@Model.PossessiveRiderName Race</h2>
+            </div>
+            <div class="col-sm-6 txt-right hidden-xs">
+                <a href="@Url.Action("Index", "Social", new { eventUrlSlug = Model.EventUrlSlug, riderUrlSlug = Model.RiderUrlSlug })" class="btn btn-lg btn-primary">View All <i class="fa fa-chevron-right"></i></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div id="social-stream" class="loading">
+                    <!-- social-stream -->
+                    <section class="stream">
+
+                        @foreach (var item in Model.SocialFeedItems)
+                        {
+                            Html.RenderPartial("SocialItem", item);
+                        }
+
+                    </section>
+                    <!-- /social-stream -->
+                </div>
+
+            </div>
+            <div class="col-sm-12 visible-xs">
+                <a href="@Url.Action("Index", "Social", new { eventUrlSlug = Model.EventUrlSlug, riderUrlSlug = Model.RiderUrlSlug })" class="btn btn-lg btn-primary">View All <i class="fa fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </div>
+    <!-- stacked-container ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
+</section>
