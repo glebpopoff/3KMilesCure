@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -17,7 +18,7 @@ namespace DonationPortal.Web.Controllers.API
 
 		public MessageController()
 		{
-			this._messageLocationFilter = new DistanceMessageLocationFilter(new Distance(50, DistanceUnit.Meters));
+			this._messageLocationFilter = new DistanceMessageLocationFilter(new Distance(int.Parse(ConfigurationManager.AppSettings["MessageRadiusMeters"]), DistanceUnit.Meters));
 		}
 
 		[Route("events/{eventSlug}/riders/{riderSlug}/messages")]
