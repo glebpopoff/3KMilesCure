@@ -182,6 +182,7 @@ namespace DonationPortal.Web.Controllers.API
 
 			context.Clients.All.updateLocation(new CurrentLocation()
 			{
+                EventRiderID = rider.EventRiderID,
 				Latitude = mostRecentLocation.Value.Latitude.DecimalDegrees,
 				Longitude = mostRecentLocation.Value.Longitude.DecimalDegrees,
 				TotalMiles = totalDistance.ToStatuteMiles().Value

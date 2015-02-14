@@ -70,6 +70,10 @@
 
 			locationHub.client.updateLocation = function (location) {
 
+			    if (location.EventRiderID !== rider.EventRiderID) {
+			        return;
+			    }
+
 				marker.setPosition({ lat: location.Latitude, lng: location.Longitude });
 
 				$('.travelled .miles .counter').html(location.TotalMiles.toFixed(2));

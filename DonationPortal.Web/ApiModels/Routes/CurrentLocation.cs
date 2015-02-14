@@ -7,6 +7,7 @@ namespace DonationPortal.Web.ApiModels.Routes
 {
 	public class CurrentLocation
 	{
+        public int EventRiderID { get; set; }
 		public double Latitude { get; set; }
 		public double Longitude { get; set; }
 		public double TotalMiles { get; set; }
