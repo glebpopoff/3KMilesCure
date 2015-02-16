@@ -3,11 +3,19 @@
 	/**
 	 * Renders the UI with the given duration.
 	 */
-	var render = function (duration) {
+	var render = function (duration, exactly24Hours) {
 
 		var days = $(".elapsed .days .counter");
 		var hours = $(".elapsed .hours .counter");
 		var minutes = $(".elapsed .minutes .counter");
+
+		// special case.  show exactly 24 hrs, not 1 day.
+		if (exactly24Hours) {
+			hours.text('24');
+			minutes.text('00');
+
+			return;
+		}
 
 		if (duration.days() > 0) {
 			days.text(number.pad(duration.days(), 2));
@@ -37,16 +45,8 @@
 			// if the event is over, show the full event duration.  no need to refresh the time in the future
 			if (now.isAfter(riderEnd)) {
 
-				// special case.  show exactly 24 hrs, not 1 day.
-				if (exactly24Hours) {
-					hours.text('24');
-					minutes.text('00');
-
-					return;
-				}
-
 				// otherwise, update the UI normally with the full event duration.
-				render(riderDuration);
+				render(riderDuration, exactly24Hours);
 
 				// we have no further need to refresh the UI.  the event is over.
 				return;
@@ -57,7 +57,7 @@
 
 				var elapsed = moment.duration(now.diff(riderStart));
 
-				render(elapsed);
+				render(elapsed, false);
 			}
 
 			// calculate how long to wait until we refresh again.
