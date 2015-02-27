@@ -27,13 +27,13 @@ namespace DonationPortal.Web.Controllers
 	    {
 		    _messageProvider = new EventRiderMessageProvider();
 		    _locationProvider = new EventRiderLocationProvider();
-			_twitterFeedProvider = new ErrorHandlingSocialFeedProvider(new TwitterFeedProvider(new SingleUserInMemoryCredentialStore
-			{
-				ConsumerKey = ConfigurationManager.AppSettings["TwitterconsumerKey"],
-				ConsumerSecret = ConfigurationManager.AppSettings["TwitterconsumerSecret"],
-				OAuthToken = ConfigurationManager.AppSettings["TwitterOAuthToken"],
-				OAuthTokenSecret = ConfigurationManager.AppSettings["TwitterOAuthTokenSecret"]
-			}));
+
+            _twitterFeedProvider = new ErrorHandlingSocialFeedProvider(new TwitterFeedProvider(
+                ConfigurationManager.AppSettings["TwitterOAuthToken"],
+                ConfigurationManager.AppSettings["TwitterOAuthTokenSecret"],
+                ConfigurationManager.AppSettings["TwitterconsumerKey"],
+                ConfigurationManager.AppSettings["TwitterconsumerSecret"]
+            ));
 	    }
 
 	    // GET: EventDetail

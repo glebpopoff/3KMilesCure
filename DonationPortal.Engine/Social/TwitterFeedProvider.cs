@@ -6,132 +6,111 @@ using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using LinqToTwitter;
+using Tweetinvi.Core.Interfaces;
+using Tweetinvi;
+using Tweetinvi.Core.Interfaces.Models.Entities;
+using Tweetinvi.Core.Interfaces.Models.Parameters;
+using Tweetinvi.Core.Interfaces.oAuth;
 
 namespace DonationPortal.Engine.Social
 {
 	public class TwitterFeedProvider : ISocialFeedProvider
 	{
 		private static readonly ILog _log = LogManager.GetLogger(typeof (TwitterFeedProvider));
-		private readonly ICredentialStore _credentialStore;
+		
+        public TwitterFeedProvider(string oAuthToken, string oAuthTokenSecret, string consumerKey, string consumerSecret)
+        {
+            TwitterCredentials.SetCredentials(
+                oAuthToken,
+                oAuthTokenSecret,
+                consumerKey,
+                consumerSecret
+            );
+        }
 
-		public TwitterFeedProvider(ICredentialStore credentialStore)
-		{
-			_credentialStore = credentialStore;
-		}
+        public IEnumerable<SocialFeedItem> GetItems(int eventRiderID, int count = 100)
+        {
+            using (var entities = new DonationPortalEntities())
+            {
+                var rider = entities.EventRiders.SingleOrDefault(r => r.EventRiderID == eventRiderID);
 
-		public IEnumerable<SocialFeedItem> GetItems(int eventRiderID, int count = 100)
-		{
-			using (var entities = new DonationPortalEntities())
-			{
-				var rider = entities.EventRiders.SingleOrDefault(r => r.EventRiderID == eventRiderID);
+                if (rider == null)
+                {
+                    return new SocialFeedItem[0];
+                }
+     
+                var timelineTweets = new List<ITweet>();
 
-				if (rider == null)
-				{
-					return new SocialFeedItem[0];
-				}
+                foreach (var username in rider.SocialAccounts.Where(a => a.SocialType == "Twitter").Select(a => a.Username))
+                {
+                    var user = Tweetinvi.User.GetUserFromScreenName(username);
+                    timelineTweets.AddRange(user.GetUserTimeline()); //defaults to 40
+                }
 
-				using (var twitterCtx = new TwitterContext(new SingleUserAuthorizer()
-				{
-					CredentialStore = _credentialStore
-				}))
-				{
-					string strHashTags = "";
-					string strUsers = "";
+                foreach (var hashtag in rider.SocialAccounts.Where(a => a.SocialType == "Twitter")
+                                                .SelectMany(a => a.TwitterHashTags.Select(h => h.HashTag))
+                                                .Distinct())
+                {
+                    var searchParameter = Tweetinvi.Search.GenerateTweetSearchParameter("#" + hashtag);
+                    searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
-					foreach (var username in rider.SocialAccounts.Where(a => a.SocialType == "Twitter").Select(a => a.Username))
-					{
-						if (strUsers == "")
-						{
-							strUsers = String.Format("from:{0}", username);
-						}
-						else
-						{
-							strUsers += String.Format(" OR from:{0}", username);
-						}
-					}
+                    var tweets = Tweetinvi.Search.SearchTweets(searchParameter);
+                    timelineTweets.AddRange(tweets);
+                }
+                    
+                if (timelineTweets.Count == 0)
+                {
+                    return new SocialFeedItem[0];
+                }
 
-					foreach (
-						var hashtag in
-							rider.SocialAccounts.Where(a => a.SocialType == "Twitter")
-								.SelectMany(a => a.TwitterHashTags.Select(h => h.HashTag))
-								.Distinct())
-					{
-						if (strHashTags == "")
-						{
-							strHashTags = String.Format("#{0}", hashtag);
-						}
-						else
-						{
-							strHashTags += String.Format(" OR #{0}", hashtag);
-						}
-					}
+                //sort all the tweets we got from the usernames and hashtags.
+                return timelineTweets.Distinct().OrderByDescending(t => t.CreatedAt).Select(TweetItem);
+                    
+            }
+        }
 
-					var query = String.Format("{0} {1}", strHashTags, strUsers);
+        public static Tweetinvi.Core.Interfaces.IUser GetUserFromScreenName(string userName)
+        {
+            return Tweetinvi.User.UserFactory.GetUserFromScreenName(userName);
+        }
 
-					_log.DebugFormat("Search string for Twitter for rider {0} is: {1}.", eventRiderID, query);
+        private static SocialFeedItem TweetItem(ITweet tweet)
+        {
+            SocialFeedItem retweetItem = null;
+            if (tweet.Retweeted)
+            {
+                //this is a retweet
+                retweetItem = new SocialFeedItem();
+                retweetItem.ImageURL = tweet.RetweetedTweet.Creator.ProfileImageUrl;
+                retweetItem.UserName = tweet.RetweetedTweet.Creator.UserIdentifier.ScreenName;
+                retweetItem.Name = tweet.RetweetedTweet.Creator.Name;
+            }
+            string plainText = tweet.Text;
+            //edit links
+            foreach (IUrlEntity uEntity in tweet.Entities.Urls)
+            {
+                string oldURLText = uEntity.URL;
+                string newURLText = String.Format("<a target='_blank' href='{0}'>{1}</a>", oldURLText, uEntity.DisplayedURL);
+                plainText = plainText.Replace(oldURLText, newURLText);
 
-					if (string.IsNullOrWhiteSpace(query))
-					{
-						return new SocialFeedItem[0];
-					}
+                //let's also update the image url if applicable.
+                if (tweet.Entities.Medias != null && tweet.Entities.Medias.Count > 0)
+                {
+                    tweet.Entities.Medias[0].MediaURL = oldURLText;
+                }
+            }
+            foreach (IHashtagEntity htEntity in tweet.Entities.Hashtags)
+            {
+                string linkedHashTag = String.Format("<a target='_blank' href='https://twitter.com/hashtag/{0}?src=hash'>#{0}</a>", htEntity.Text);
+                plainText = plainText.Replace("#" + htEntity.Text, linkedHashTag);
+            }
+            foreach (IUserMentionEntity user in tweet.Entities.UserMentions)
+            {
+                string linkedUser = String.Format("<a target='_blank' href='https://twitter.com/{0}'>@{0}</a>", user.ScreenName);
+                plainText = plainText.Replace("@" + user.ScreenName, linkedUser);
+            }
 
-					var searchResponse =
-						(from search in twitterCtx.Search
-						 where search.Type == SearchType.Search &&
-							   search.Query == query &&
-							   search.IncludeEntities == true &&
-							   search.ResultType == ResultType.Recent &&
-							   search.Count == count
-						 select search)
-							.SingleOrDefaultAsync().Result;
-
-					if (searchResponse != null && searchResponse.Statuses != null)
-					{
-						return searchResponse.Statuses.Select(TweetItem);
-					}
-
-					return new SocialFeedItem[0];
-				}
-			}
-		}
-
-		private static SocialFeedItem TweetItem(Status tweet)
-		{
-			SocialFeedItem retweetItem = null;
-			if (tweet.RetweetedStatus.User != null)
-			{
-				//this is a retweet
-				retweetItem = new SocialFeedItem();
-				retweetItem.ImageURL = tweet.RetweetedStatus.User.ProfileImageUrl;
-				retweetItem.UserName = tweet.RetweetedStatus.User.ScreenNameResponse;
-				retweetItem.Name = tweet.RetweetedStatus.User.Name;
-			}
-			string plainText = tweet.Text;
-			//edit links
-			foreach (UrlEntity uEntity in tweet.Entities.UrlEntities)
-			{
-				string oldURLText = uEntity.Url;
-				string newURLText = String.Format("<a target='_blank' href='{0}'>{1}</a>", oldURLText, uEntity.DisplayUrl);
-				plainText = plainText.Replace(oldURLText, newURLText);
-
-				//let's also update the image url if applicable.
-				if (tweet.Entities.MediaEntities.Any())
-				{
-					tweet.Entities.MediaEntities[0].MediaUrlHttps = oldURLText;
-				}
-			}
-			foreach (HashTagEntity htEntity in tweet.Entities.HashTagEntities)
-			{
-				string linkedHashTag = String.Format("<a target='_blank' href='https://twitter.com/hashtag/{0}?src=hash'>#{0}</a>", htEntity.Tag);
-				plainText = plainText.Replace("#" + htEntity.Tag, linkedHashTag);
-			}
-			foreach (UserMentionEntity user in tweet.Entities.UserMentionEntities)
-			{
-				string linkedUser = String.Format("<a target='_blank' href='https://twitter.com/{0}'>@{0}</a>", user.ScreenName);
-				plainText = plainText.Replace("@" + user.ScreenName, linkedUser);
-			}
-
-			return new SocialFeedItem(tweet.StatusID, plainText, tweet.User.ProfileImageUrl, tweet.Entities.MediaEntities, tweet.User.ScreenNameResponse, tweet.User.Name, tweet.CreatedAt.ToLocalTime(), retweetItem);
-		}
+            return new SocialFeedItem(Convert.ToUInt64(tweet.Id), plainText, tweet.Creator.ProfileImageUrl, tweet.Media, tweet.Creator.UserIdentifier.ScreenName, tweet.Creator.Name, tweet.CreatedAt.ToLocalTime(), retweetItem);
+        }
 	}
 }

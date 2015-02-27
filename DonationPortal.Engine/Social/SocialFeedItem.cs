@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Tweetinvi.Core.Interfaces.Models.Entities;
 
 namespace DonationPortal.Engine.Social
 {
@@ -23,21 +24,22 @@ namespace DonationPortal.Engine.Social
 		public DateTime Posted { get; set; }
         public string Annotation { get; set; }
 
-        public SocialFeedItem(ulong statusID, 
-                                string text, 
-                                string url, 
-                                List<LinqToTwitter.MediaEntity> media, 
-                                string username, 
-                                string name, 
-                                DateTime posted, 
+        public SocialFeedItem(ulong statusID,
+                                string text,
+                                string url,
+                                List<IMediaEntity> media,
+                                string username,
+                                string name,
+                                DateTime posted,
                                 SocialFeedItem retweetItem)
         {
             Text = text;
             ImageURL = url;
-            if(media != null && media.Count > 0){
+            if (media != null && media.Count > 0)
+            {
                 Photo mp = new Photo();
-                mp.Src = media[0].MediaUrl;
-                mp.Href = media[0].MediaUrlHttps;
+                mp.Src = media[0].MediaURL;
+                mp.Href = media[0].MediaURLHttps;
                 MediaPhoto = mp;
             }
             UserName = username;

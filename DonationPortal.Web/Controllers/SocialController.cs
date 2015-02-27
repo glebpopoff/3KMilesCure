@@ -17,14 +17,13 @@ namespace DonationPortal.Web.Controllers
 	    private readonly ISocialFeedProvider _twitterFeedProvider;
 
 	    public SocialController()
-	    {
-		    _twitterFeedProvider = new ErrorHandlingSocialFeedProvider(new TwitterFeedProvider(new SingleUserInMemoryCredentialStore
-			{
-				ConsumerKey = ConfigurationManager.AppSettings["TwitterconsumerKey"],
-				ConsumerSecret = ConfigurationManager.AppSettings["TwitterconsumerSecret"],
-				OAuthToken = ConfigurationManager.AppSettings["TwitterOAuthToken"],
-				OAuthTokenSecret = ConfigurationManager.AppSettings["TwitterOAuthTokenSecret"]
-		    }));
+        {
+            _twitterFeedProvider = new ErrorHandlingSocialFeedProvider(new TwitterFeedProvider(
+                ConfigurationManager.AppSettings["TwitterOAuthToken"],
+                ConfigurationManager.AppSettings["TwitterOAuthTokenSecret"],
+                ConfigurationManager.AppSettings["TwitterconsumerKey"],
+                ConfigurationManager.AppSettings["TwitterconsumerSecret"]
+            ));
 	    }
 		
         public ActionResult Index(string eventUrlSlug, string riderUrlSlug)

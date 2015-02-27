@@ -18,18 +18,18 @@ namespace DonationPortal.Engine.Social
 			_socialFeedProvider = socialFeedProvider;
 		}
 
-		public IEnumerable<SocialFeedItem> GetItems(int eventRiderID, int count = 100)
-		{
-			try
-			{
-				return _socialFeedProvider.GetItems(eventRiderID, count);
-			}
-			catch (Exception ex)
-			{
-				_log.Error(string.Format("Error retrieving social feed for rider {0}.", eventRiderID), ex);
+        public IEnumerable<SocialFeedItem> GetItems(int eventRiderID, int count = 100)
+        {
+            try
+            {
+                return _socialFeedProvider.GetItems(eventRiderID, count);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(string.Format("Error retrieving social feed for rider {0}.", eventRiderID), ex);
 
-				return new SocialFeedItem[0];
-			}
-		}
+                return new SocialFeedItem[0];
+            }
+        }
 	}
 }
