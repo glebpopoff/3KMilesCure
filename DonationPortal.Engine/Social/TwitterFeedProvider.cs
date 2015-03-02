@@ -28,7 +28,7 @@ namespace DonationPortal.Engine.Social
             );
         }
 
-        public IEnumerable<SocialFeedItem> GetItems(int eventRiderID, int count = 100)
+        public IEnumerable<SocialFeedItem> GetItems(int eventRiderID, int count = 50)
         {
             using (var entities = new DonationPortalEntities())
             {
@@ -44,7 +44,7 @@ namespace DonationPortal.Engine.Social
                 foreach (var username in rider.SocialAccounts.Where(a => a.SocialType == "Twitter").Select(a => a.Username))
                 {
                     var user = Tweetinvi.User.GetUserFromScreenName(username);
-                    timelineTweets.AddRange(user.GetUserTimeline()); //defaults to 40
+                    timelineTweets.AddRange(user.GetUserTimeline(count)); //GetUserTimeline defaults to 40 if left out
                 }
 
                 foreach (var hashtag in rider.SocialAccounts.Where(a => a.SocialType == "Twitter")
@@ -64,7 +64,7 @@ namespace DonationPortal.Engine.Social
                 }
 
                 //sort all the tweets we got from the usernames and hashtags.
-                return timelineTweets.Distinct().OrderByDescending(t => t.CreatedAt).Select(TweetItem);
+                return timelineTweets.Distinct().OrderByDescending(t => t.CreatedAt).Take(count).Select(TweetItem);
                     
             }
         }

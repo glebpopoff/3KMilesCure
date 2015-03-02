@@ -45,7 +45,7 @@ namespace DonationPortal.Web.Controllers
 					return HttpNotFound();
 				}
 
-		        var items = _twitterFeedProvider.GetItems(rider.EventRiderID);
+		        var items = _twitterFeedProvider.GetItems(rider.EventRiderID,100);
 
 		        var model = new SocialViewModel
 		        {
