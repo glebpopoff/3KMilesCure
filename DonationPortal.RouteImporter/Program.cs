@@ -22,8 +22,8 @@ namespace DonationPortal.RouteImporter
 			//var import = new CsvRouteImporter(4);
 			//import.Import(@"C:\github\3KMilesCure\DonationPortal.RouteImporter\Samples\farmington.csv");
 
-			var importer = new CsvRouteImporter(5);
-			importer.Import(@"c:\github\3KMilesCure\DonationPortal.RouteImporter\Samples\seymour.csv");
+			var importer = new CsvRouteImporter(7);
+			importer.Import(@"c:\github\3KMilesCure\DonationPortal.RouteImporter\Samples\raam.csv");
 		}
 	}
 }
