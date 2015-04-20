@@ -40,6 +40,7 @@ namespace DonationPortal.Engine.Social
                 }
      
                 var timelineTweets = new List<ITweet>();
+                var hashtagTweets = new List<ITweet>();
 
                 foreach (var username in rider.SocialAccounts.Where(a => a.SocialType == "Twitter").Select(a => a.Username))
                 {
@@ -55,8 +56,11 @@ namespace DonationPortal.Engine.Social
                     searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
 
                     var tweets = Tweetinvi.Search.SearchTweets(searchParameter);
-                    timelineTweets.AddRange(tweets);
+                    hashtagTweets.AddRange(tweets);
                 }
+
+                
+                timelineTweets.Intersect(hashtagTweets);
                     
                 if (timelineTweets.Count == 0)
                 {
