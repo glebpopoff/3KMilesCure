@@ -28,20 +28,26 @@ namespace DonationPortal.RouteImporter
 
 				entities.Routes.Single(r => r.RouteID == _routeID).RouteVertexes.Clear();
 
+				var vertices = new List<RouteVertex>();
+
 				while (csvReader.Read())
 				{
 					var latitude = csvReader.GetField<float>("Latitude");
 					var longitude = csvReader.GetField<float>("Longitude");
 					var order = i++;
 
-					entities.RouteVertexes.Add(new RouteVertex
+					vertices.Add(new RouteVertex
 					{
 						Latitude = latitude,
 						Longitude = longitude,
 						Order = order,
 						RouteID = _routeID
 					});
+
+					Console.WriteLine("Added vertex " + i);
 				}
+
+				entities.RouteVertexes.AddRange(vertices);
 
 				entities.SaveChanges();
 			}
