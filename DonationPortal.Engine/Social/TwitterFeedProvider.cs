@@ -94,7 +94,22 @@ namespace DonationPortal.Engine.Social
             foreach (IUrlEntity uEntity in tweet.Entities.Urls)
             {
                 string oldURLText = uEntity.URL;
+                string oldExpandedURLText = uEntity.ExpandedURL;
                 string newURLText = String.Format("<a target='_blank' href='{0}'>{1}</a>", oldURLText, uEntity.DisplayedURL);
+
+                // Do this if it is a youtube url e.g. youtu.be/QIIz_OwIfW4.
+                if (oldExpandedURLText.Contains("youtu.be"))
+                {
+                    // Let's get the ID of the youtube video based on the url.
+                    string youtubeId = oldExpandedURLText.Substring(oldExpandedURLText.LastIndexOf('/') + 1);
+
+                    if (!string.IsNullOrEmpty(youtubeId))
+                    {
+                        // Replace the url with an image
+                        newURLText = string.Format("<br /><a href='{0}' target='_blank'><img src='http://img.youtube.com/vi/{1}/0.jpg' /></a></br/>", oldURLText, youtubeId);
+                    }
+                }
+
                 plainText = plainText.Replace(oldURLText, newURLText);
 
                 //let's also update the image url if applicable.
