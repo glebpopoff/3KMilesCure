@@ -1,33 +1,26 @@
 ﻿@using DonationPortal.Engine.Helpers
 @model DonationPortal.Engine.Social.SocialFeedItem
-<div class="social-block social-twitter">
-    <h1>Facebook</h1>
-    @if (Model.MediaPhoto != null)
-    {
-        <a href="@Model.MediaPhoto.Href" class="social-media" target="_blank"><img src="@Model.MediaPhoto.Src" alt="placeholder"></a>
-    }
+<div class="social-block social-facebook">
     <div class="inner">
         <div class="social-thumb">
-            @if (Model.ReTweetItem != null)
+            @if (!string.IsNullOrEmpty(Model.ImageIcon))
             {
-                <div class="social-user" style="margin:0;font-weight:bold;">@Model.Name retweeted</div>
-                <a target="_blank" href="https://twitter.com/@Model.ReTweetItem.UserName" class="thumb"><img src="@Model.ReTweetItem.ImageURL" alt=""></a>
+                <a target="_blank" href="@Model.ImageURL" class="thumb"><img src="@Model.ImageIcon" alt=""></a>
                 <div class="social-user">
-                    <a target="_blank" href="https://twitter.com/@Model.ReTweetItem.UserName"><strong>@Model.ReTweetItem.Name</strong><br>@@@Model.ReTweetItem.UserName</a>
+                    <a target="_blank" href="@Model.ImageURL"><strong>@Model.Name</strong><br>@Model.UserName</a>
                 </div>
             }
             else
             {
-                <a target="_blank" href="https://twitter.com/@Model.UserName" class="thumb"><img src="@Model.ImageURL" alt=""></a>
                 <div class="social-user">
-                    <a target="_blank" href="https://twitter.com/@Model.UserName"><strong>@Model.Name</strong><br>@@@Model.UserName</a>
+                    <a target="_blank" href="https://www.facebook.com/3ktoacure"><strong>@Model.Name</strong><br>@Model.UserName</a>
                 </div>
             }
         </div>
         <div class="social-text">@MvcHtmlString.Create(HttpUtility.HtmlDecode(Model.Text))</div>
         <div class="social-details">
-            <a href="https://twiter.com/@Model.UserName">Tweeted</a> <span>@Model.Posted.ToAgo() ago</span>
+            <a href="@Model.ImageURL">Posted</a> <span>@Model.Posted.ToAgo() ago</span>
         </div>
-        <a href="https://twitter.com" class="social-icon" title="twitter"><span class="icon-font"></span></a>
+        <a href="https://facebook.com" class="social-icon" title="facebook"><span class="icon-font"></span></a>
     </div>
 </div>

@@ -65,16 +65,8 @@ namespace DonationPortal.Engine.Social
             }
 
 
-            ImageURL = post.picture;
-
-            if (!string.IsNullOrEmpty(post.picture))
-            {
-                
-                Photo mp = new Photo();
-                mp.Src = post.picture;
-                mp.Href = post.link;
-                MediaPhoto = mp;
-            }
+            ImageURL = post.link;
+            ImageIcon = post.picture;
             UserName = post.from.name;
             Name = post.name;
             Posted = tempDateTime;
