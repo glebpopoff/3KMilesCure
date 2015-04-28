@@ -259,7 +259,9 @@
     <Content Include="ui\scripts\vendor\underscore\underscore.js" />
     <Content Include="ui\scripts\vendor\underscore\underscore.min.js" />
     <Content Include="ui\scripts\viewScroll.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiModels\EventDonations\RiderDonation.cs" />
@@ -437,6 +439,10 @@
     <Content Include="ui\less\main-styles.css.map">
       <DependentUpon>main-styles.css</DependentUpon>
     </Content>
+    <Content Include="appSettings.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Shared\FacebookSocialItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

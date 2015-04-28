@@ -1,4 +1,5 @@
 ﻿@model DonationPortal.Web.ViewModels.RiderDetail.RiderDetailViewModel
+@using DonationPortal.Engine.Social
 @{
     Layout = null;
 }
@@ -21,9 +22,16 @@
                     <!-- social-stream -->
                     <section class="stream">
 
-                        @foreach (var item in Model.SocialFeedItems)
+                        @foreach (SocialFeedItem item in Model.SocialFeedItems)
                         {
-                            Html.RenderPartial("SocialItem", item);
+                            if (item.Type == SocialFeedItem.SocialType.Twitter)
+                            {
+                                Html.RenderPartial("SocialItem", item);
+                            }
+                            else if (item.Type == SocialFeedItem.SocialType.Facebook)
+                            {
+                                Html.RenderPartial("FacebookSocialItem", item);
+                            }
                         }
 
                     </section>

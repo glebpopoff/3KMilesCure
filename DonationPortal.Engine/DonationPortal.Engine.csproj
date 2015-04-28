@@ -60,6 +60,10 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <HintPath>..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="LinqToTwitter.AspNet">
       <HintPath>..\packages\LinqToTwitter.3.1.2\lib\net45\LinqToTwitter.AspNet.dll</HintPath>
     </Reference>
@@ -213,6 +217,7 @@
       <DependentUpon>DonationPortalEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Social\ErrorHandlingSocialFeedProvider.cs" />
+    <Compile Include="Social\FacebookFeedProvider.cs" />
     <Compile Include="Social\TwitterFeedProvider.cs" />
     <Compile Include="Social\ISocialFeedProvider.cs" />
     <Compile Include="Social\SocialFeedItem.cs" />

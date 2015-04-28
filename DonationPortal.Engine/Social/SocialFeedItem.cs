@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Tweetinvi.Core.Interfaces.Models.Entities;
 
 namespace DonationPortal.Engine.Social
@@ -23,7 +24,9 @@ namespace DonationPortal.Engine.Social
 		public string Text { get; set; }
 		public DateTime Posted { get; set; }
         public string Annotation { get; set; }
+        public SocialType Type { get; set; }
 
+       
         public SocialFeedItem(ulong statusID,
                                 string text,
                                 string url,
@@ -47,8 +50,37 @@ namespace DonationPortal.Engine.Social
             Posted = posted;
             ItemID = statusID;
             ReTweetItem = retweetItem;
+            Type = SocialType.Twitter;
         }
 
+        public SocialFeedItem(dynamic post)
+        {
+            Text = post.message;
+
+            DateTime tempDateTime = new DateTime();
+
+            if (post.ContainsKey("updated_time"))
+            {
+                DateTime.TryParse(post.updated_time, out tempDateTime);
+            }
+
+
+            ImageURL = post.picture;
+
+            if (!string.IsNullOrEmpty(post.picture))
+            {
+                
+                Photo mp = new Photo();
+                mp.Src = post.picture;
+                mp.Href = post.link;
+                MediaPhoto = mp;
+            }
+            UserName = post.from.name;
+            Name = post.name;
+            Posted = tempDateTime;
+            Type = SocialType.Facebook;
+        }
+        
         public SocialFeedItem()
         {
             // TODO: Complete member initialization

@@ -30,7 +30,14 @@
                             <div class="grid-sizer"></div>
                             @foreach (SocialFeedItem item in Model.Items)
                             {
-                                Html.RenderPartial("SocialItem", item);
+                                if(item.Type == SocialFeedItem.SocialType.Twitter)
+                                {
+                                    Html.RenderPartial("SocialItem", item);
+                                }
+                                else if (item.Type == SocialFeedItem.SocialType.Facebook)
+                                {
+                                    Html.RenderPartial("FacebookSocialItem", item);
+                                }
                             }
 
                         </section>

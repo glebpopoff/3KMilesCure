@@ -15,6 +15,7 @@ namespace DonationPortal.Web.Controllers
     public class SocialController : Controller
     {
 	    private readonly ISocialFeedProvider _twitterFeedProvider;
+        private readonly ISocialFeedProvider _facebookFeedProvider;
 
 	    public SocialController()
         {
@@ -24,6 +25,11 @@ namespace DonationPortal.Web.Controllers
                 ConfigurationManager.AppSettings["TwitterconsumerKey"],
                 ConfigurationManager.AppSettings["TwitterconsumerSecret"]
             ));
+
+            _facebookFeedProvider = new ErrorHandlingSocialFeedProvider(new FacebookFeedProvider(
+               ConfigurationManager.AppSettings["FacebookPageId"],
+               ConfigurationManager.AppSettings["FacebookAccessToken"]
+           ));
 	    }
 		
         public ActionResult Index(string eventUrlSlug, string riderUrlSlug)
@@ -45,13 +51,17 @@ namespace DonationPortal.Web.Controllers
 					return HttpNotFound();
 				}
 
-		        var items = _twitterFeedProvider.GetItems(rider.EventRiderID,100);
+		        var twitterItems = _twitterFeedProvider.GetItems(rider.EventRiderID,100);
+
+                var facebookItems = _facebookFeedProvider.GetItems(rider.EventRiderID, 100);
+
+                var items = twitterItems.Union(facebookItems);
 
 		        var model = new SocialViewModel
 		        {
 					EventName = @event.Name,
 					RiderName = rider.Name,
-					Items = items
+					Items = items.OrderByDescending(i=> i.Posted).Take(100).ToList()
 		        };
 
                 return View("Index", model);

@@ -22,6 +22,7 @@ namespace DonationPortal.Web.Controllers
 		private readonly EventRiderLocationProvider _locationProvider;
 	    private readonly EventRiderMessageProvider _messageProvider;
 	    private readonly ISocialFeedProvider _twitterFeedProvider;
+        private readonly ISocialFeedProvider _facebookFeedProvider;
 
 	    public RiderDetailController()
 	    {
@@ -34,6 +35,11 @@ namespace DonationPortal.Web.Controllers
                 ConfigurationManager.AppSettings["TwitterconsumerKey"],
                 ConfigurationManager.AppSettings["TwitterconsumerSecret"]
             ));
+
+            _facebookFeedProvider = new ErrorHandlingSocialFeedProvider(new FacebookFeedProvider(
+              ConfigurationManager.AppSettings["FacebookPageId"],
+              ConfigurationManager.AppSettings["FacebookAccessToken"]
+          ));
 	    }
 
 	    // GET: EventDetail
@@ -55,7 +61,11 @@ namespace DonationPortal.Web.Controllers
 			        return HttpNotFound();
 		        }
 
-		        var socialItems = _twitterFeedProvider.GetItems(riderEntity.EventRiderID, 10);
+                var twitterItems = _twitterFeedProvider.GetItems(riderEntity.EventRiderID, 10);
+
+                var facebookItems = _facebookFeedProvider.GetItems(riderEntity.EventRiderID, 10);
+
+                var socialItems = twitterItems.Union(facebookItems);
 
 		        var model = new RiderDetailViewModel
 		        {
@@ -82,7 +92,7 @@ namespace DonationPortal.Web.Controllers
 					RiderUrlSlug = riderUrlSlug,
 					Timer = new TimerViewModel(riderEntity.DurationGoal, riderEntity.End, riderEntity.Start),
 					RecentMessages = _messageProvider.GetMessages(riderEntity.EventRiderID, 5),
-					SocialFeedItems = socialItems,
+                    SocialFeedItems = socialItems.OrderByDescending(i => i.Posted).Take(10).ToList(),
 					DonateButtonText = riderEntity.DonateButtonText
 		        };
 
