@@ -439,9 +439,6 @@
     <Content Include="ui\less\main-styles.css.map">
       <DependentUpon>main-styles.css</DependentUpon>
     </Content>
-    <Content Include="appSettings.config">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="Views\Shared\FacebookSocialItem.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
