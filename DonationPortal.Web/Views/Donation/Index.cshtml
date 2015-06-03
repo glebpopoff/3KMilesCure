@@ -40,7 +40,7 @@
                         <div class="form-group donate-options @(Html.HasError(m => m.SelectedDonationAmount) ? "has-error" : null)">
                             <div><label class="required control-label">Select donation amount:</label></div>
                             <label class="radio-inline">
-                                @Html.RadioButtonFor(m => m.SelectedDonationAmount, "25") $25
+                                @Html.RadioButtonFor(m => m.SelectedDonationAmount, "25", new { Checked = "checked" }) $25
                             </label>
                             <label class="radio-inline">
                                 @Html.RadioButtonFor(m => m.SelectedDonationAmount, "50") $50
@@ -65,130 +65,185 @@
                             </div>
                             @Html.ValidationMessageFor(m => m.OtherDonationAmount, null, new { @class = "help-block" })
                         </div>
-                        @*<div class="form-group @(Html.HasError(m => m.DonationType) ? "has-error" : null)">
-                            <div><label class="required control-label">Donation type:</label></div>
+                        <div class="form-group">
+                            <div><label for="donate-via" class="control-label">Donate via:</label></div>
                             <label class="radio-inline">
-                                @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.OneTimeDonation.ToString()) One-time donation
+                                <input type="radio" name="donatetype" checked="checked" value="paypal" />PayPal
                             </label>
                             <label class="radio-inline">
-                                @Html.RadioButtonFor(m => m.DonationType, NonEventDonationType.MonthlyRecurringDonation.ToString()) Monthly recurring donation
+                                <input type="radio" name="donatetype" value="creditcard" id="creditcardtype"/>Credit Card
                             </label>
-                            @Html.ValidationMessageFor(m => m.DonationType, null, new { @class = "help-block" })
-                        </div>*@
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2>Billing Information</h2>
-                                <hr>
-                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group @(Html.HasError(m => m.FirstName) ? "has-error" : null)">
-                                    <label for="first-name" class="required control-label">First Name:</label>
-                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control required-field", placeholder = "", id = "first-name" })
-                                    @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "help-block" })
+                        <div id="PayPalInfo">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h2>Donation Schedule</h2>
+                                    <hr>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group @(Html.HasError(m => m.LastName) ? "has-error" : null)">
-                                    <label for="last-name" class="required control-label">Last Name:</label>
-                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control required-field", placeholder = "", id = "last-name" })
-                                    @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "help-block" })
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <label class="radio-inline">
+                                            <input type="radio" name="recurringdonation" checked="checked" value="false" />Single
+                                        </label>
+                                        <label class="radio-inline">
+                                            <input type="radio" name="recurringdonation" value="true" />Monthly Recurring
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
+                            <p><button class="btn btn-primary btn-lg" onclick="DonateViaPayPal(event);" type="button">Donate Now</button></p>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group @(Html.HasError(m => m.StreetAddress1) ? "has-error" : null)">
-                                    <label for="street-address-1" class="required control-label">Street Address 1:</label>
-                                    @Html.TextBoxFor(m => m.StreetAddress1, new { @class = "form-control required-field", placeholder = "", id = "street-address-1" })
-                                    @Html.ValidationMessageFor(m => m.StreetAddress1, null, new { @class = "help-block" })
+                        <div id="CreditCardInfo" style="display:none;">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h2>Billing Information</h2>
+                                    <hr>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-                                <div class="form-group @(Html.HasError(m => m.StreetAddress2) ? "has-error" : null)">
-                                    <label for="street-address-2" class="control-label">Street Address 2:</label>
-                                    @Html.TextBoxFor(m => m.StreetAddress2, new { @class = "form-control required-field", placeholder = "", id = "street-address-2" })
-                                    @Html.ValidationMessageFor(m => m.StreetAddress2, null, new { @class = "help-block" })
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group @(Html.HasError(m => m.FirstName) ? "has-error" : null)">
+                                        <label for="first-name" class="required control-label">First Name:</label>
+                                        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control required-field", placeholder = "", id = "first-name" })
+                                        @Html.ValidationMessageFor(m => m.FirstName, null, new { @class = "help-block" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group @(Html.HasError(m => m.LastName) ? "has-error" : null)">
+                                        <label for="last-name" class="required control-label">Last Name:</label>
+                                        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control required-field", placeholder = "", id = "last-name" })
+                                        @Html.ValidationMessageFor(m => m.LastName, null, new { @class = "help-block" })
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group @(Html.HasError(m => m.City) ? "has-error" : null)">
-                                    <label for="city" class="required control-label">City:</label>
-                                    @Html.TextBoxFor(m => m.City, new { @class = "form-control required-field", placeholder = "", id = "city" })
-                                    @Html.ValidationMessageFor(m => m.City, null, new { @class = "help-block" })
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group @(Html.HasError(m => m.StreetAddress1) ? "has-error" : null)">
+                                        <label for="street-address-1" class="required control-label">Street Address 1:</label>
+                                        @Html.TextBoxFor(m => m.StreetAddress1, new { @class = "form-control required-field", placeholder = "", id = "street-address-1" })
+                                        @Html.ValidationMessageFor(m => m.StreetAddress1, null, new { @class = "help-block" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group @(Html.HasError(m => m.StreetAddress2) ? "has-error" : null)">
+                                        <label for="street-address-2" class="control-label">Street Address 2:</label>
+                                        @Html.TextBoxFor(m => m.StreetAddress2, new { @class = "form-control required-field", placeholder = "", id = "street-address-2" })
+                                        @Html.ValidationMessageFor(m => m.StreetAddress2, null, new { @class = "help-block" })
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-group @(Html.HasError(m => m.State) ? "has-error" : null)">
-                                    <label for="state" class="required control-label">State:</label>
-                                    @Html.DropDownListFor(m => m.State, Model.States, new { @class = "form-control required-field", id = "state" })
-                                    @Html.ValidationMessageFor(m => m.State, null, new { @class = "help-block" })
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group @(Html.HasError(m => m.City) ? "has-error" : null)">
+                                        <label for="city" class="required control-label">City:</label>
+                                        @Html.TextBoxFor(m => m.City, new { @class = "form-control required-field", placeholder = "", id = "city" })
+                                        @Html.ValidationMessageFor(m => m.City, null, new { @class = "help-block" })
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group @(Html.HasError(m => m.State) ? "has-error" : null)">
+                                        <label for="state" class="required control-label">State:</label>
+                                        @Html.DropDownListFor(m => m.State, Model.States, new { @class = "form-control required-field", id = "state" })
+                                        @Html.ValidationMessageFor(m => m.State, null, new { @class = "help-block" })
+                                    </div>
+                                </div>
 
-                            <div class="col-sm-4">
-                                <div class="form-group @(Html.HasError(m => m.ZipCode) ? "has-error" : null)">
-                                    <label for="zip" class="required control-label">Zip:</label>
-                                    @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control required-field", placeholder = "", id = "zip" })
-                                    @Html.ValidationMessageFor(m => m.ZipCode, null, new { @class = "help-block" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group @(Html.HasError(m => m.Email) ? "has-error" : null)">
-                                    <label for="email" class="required control-label">Email:</label>
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control required-field", placeholder = "", id = "email" })
-                                    @Html.ValidationMessageFor(m => m.Email, null, new { @class = "help-block" })
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <h2>Payment Information</h2>
-                                <hr>
-                            </div>
-                            <div class="col-sm-5">
-                                <div class="form-group @(Html.HasError(m => m.CreditCardNumber) ? "has-error" : null)">
-                                    <label for="credit-card" class="required control-label">Credit Card Number:</label>
-                                    @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control required-field", placeholder = "", id = "credit-card" })
-                                    @Html.ValidationMessageFor(m => m.CreditCardNumber, null, new { @class = "help-block" })
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="form-inline expiration-fields">
-                                    <div class="form-group @(Html.HasError(m => m.ExpirationMonth) || Html.HasError(m => m.ExpirationYear) ? "has-error" : null)">
-                                        <div><label for="date" class="required control-label">Expiration Date:</label></div>
-                                        @Html.DropDownListFor(m => m.ExpirationMonth, Model.ExpirationMonths, new { @class = "form-control required-field", id = "date" })
-                                        <label for="year" class="sr-only control-label">Expiration Date:</label>
-                                        @Html.DropDownListFor(m => m.ExpirationYear, Model.ExpirationYears, new { @class = "form-control required-field", id = "year" })
-                                        @Html.ValidationMessageFor(m => m.ExpirationMonth, null, new { @class = "help-block" })
-                                        @Html.ValidationMessageFor(m => m.ExpirationYear, null, new { @class = "help-block" })
+                                <div class="col-sm-4">
+                                    <div class="form-group @(Html.HasError(m => m.ZipCode) ? "has-error" : null)">
+                                        <label for="zip" class="required control-label">Zip:</label>
+                                        @Html.TextBoxFor(m => m.ZipCode, new { @class = "form-control required-field", placeholder = "", id = "zip" })
+                                        @Html.ValidationMessageFor(m => m.ZipCode, null, new { @class = "help-block" })
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-group @(Html.HasError(m => m.CvvNumber) ? "has-error" : null)">
-                                    <div></div>
-                                    <label for="cvv" class="control-label required">CVV Number:</label>
-                                    <div class="row">
-                                        <div class="col-sm-6">
-                                            @Html.TextBoxFor(m => m.CvvNumber, new { @class = "form-control required-field", id = "cvv" })
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <a href="#" style="margin-left: 5px;" data-toggle="tooltip" title="For MasterCard, Visa or Discover, it's the last three digits in the signature area on the back of your card. For American Express, it's the four digits on the front of the card.">What's This?</a>
-                                        </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group @(Html.HasError(m => m.Email) ? "has-error" : null)">
+                                        <label for="email" class="required control-label">Email:</label>
+                                        @Html.TextBoxFor(m => m.Email, new { @class = "form-control required-field", placeholder = "", id = "email" })
+                                        @Html.ValidationMessageFor(m => m.Email, null, new { @class = "help-block" })
                                     </div>
-                                    @Html.ValidationMessageFor(m => m.CvvNumber, null, new { @class = "help-block" })
                                 </div>
                             </div>
-                            <div class="clearfix"></div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h2>Payment Information</h2>
+                                    <hr>
+                                </div>
+                                <div class="col-sm-5">
+                                    <div class="form-group @(Html.HasError(m => m.CreditCardNumber) ? "has-error" : null)">
+                                        <label for="credit-card" class="required control-label">Credit Card Number:</label>
+                                        @Html.TextBoxFor(m => m.CreditCardNumber, new { @class = "form-control required-field", placeholder = "", id = "credit-card" })
+                                        @Html.ValidationMessageFor(m => m.CreditCardNumber, null, new { @class = "help-block" })
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-inline expiration-fields">
+                                        <div class="form-group @(Html.HasError(m => m.ExpirationMonth) || Html.HasError(m => m.ExpirationYear) ? "has-error" : null)">
+                                            <div><label for="date" class="required control-label">Expiration Date:</label></div>
+                                            @Html.DropDownListFor(m => m.ExpirationMonth, Model.ExpirationMonths, new { @class = "form-control required-field", id = "date" })
+                                            <label for="year" class="sr-only control-label">Expiration Date:</label>
+                                            @Html.DropDownListFor(m => m.ExpirationYear, Model.ExpirationYears, new { @class = "form-control required-field", id = "year" })
+                                            @Html.ValidationMessageFor(m => m.ExpirationMonth, null, new { @class = "help-block" })
+                                            @Html.ValidationMessageFor(m => m.ExpirationYear, null, new { @class = "help-block" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group @(Html.HasError(m => m.CvvNumber) ? "has-error" : null)">
+                                        <div></div>
+                                        <label for="cvv" class="control-label required">CVV Number:</label>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                @Html.TextBoxFor(m => m.CvvNumber, new { @class = "form-control required-field", id = "cvv" })
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <a href="#" style="margin-left: 5px;" data-toggle="tooltip" title="For MasterCard, Visa or Discover, it's the last three digits in the signature area on the back of your card. For American Express, it's the four digits on the front of the card.">What's This?</a>
+                                            </div>
+                                        </div>
+                                        @Html.ValidationMessageFor(m => m.CvvNumber, null, new { @class = "help-block" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                            <p><button class="btn btn-primary btn-lg" id="step-3-button">Donate Now</button></p>
                         </div>
-                        <p><button class="btn btn-primary btn-lg" id="step-3-button">Donate Now</button></p>
+
                     }
+                    <form style="opacity: 1;" target="_top" class="paypal-button" action="@System.Configuration.ConfigurationManager.AppSettings["PayPalUrl"]" method="post" id="PayPalPost">
+                        <div id="errorBox" class="hide"></div>
+                        <input value="donate" name="button" type="hidden">
+                        <input value="@System.Configuration.ConfigurationManager.AppSettings["PayPalBusinessID"]" name="business" type="hidden">
+                        <input value="3000 Mile Donation" name="item_name" type="hidden">
+                        <input value="" name="quantity" type="hidden">
+                        <input value="25.00" name="amount" type="hidden" id="DonateAmount">
+                        <input value="" name="currency_code" type="hidden">
+                        <input value="" name="shipping" type="hidden">
+                        <input value="" name="tax" type="hidden">
+                        <input value="" name="notify_url" type="hidden">
+                        <input value="_donations" name="cmd" type="hidden">
+                        <input value="JavaScriptButton_donate" name="bn" type="hidden">
+                    </form>
+                    <form style="opacity: 1;" target="_top" class="paypal-button" action="@System.Configuration.ConfigurationManager.AppSettings["PayPalUrl"]" method="post" id="PayPalSubscribe">
+                        <div id="errorBox" class="hide"></div>
+                        <input value="subscribe" name="button" type="hidden">
+                        <input value="@System.Configuration.ConfigurationManager.AppSettings["PayPalBusinessID"]" name="business" type="hidden">
+                        <input value="3000 Mile Donation" name="item_name" type="hidden">
+                        <input value="" name="quantity" type="hidden">
+                        <input value="" name="currency_code" type="hidden">
+                        <input value="" name="shipping" type="hidden">
+                        <input value="" name="tax" type="hidden">
+                        <input value="" name="notify_url" type="hidden">
+                        <input value="25.00" name="a3" type="hidden" id="a3">
+                        <input type="hidden" name="p3" value="1">
+                        <input type="hidden" name="t3" value="M">
+                        <input value="_xclick-subscriptions" name="cmd" type="hidden">
+                        <input value="JavaScriptButton_donate" name="bn" type="hidden">
+                        <input type="hidden" name="src" value="1">
+                        <input type="hidden" name="sra" value="1">
+                    </form>
                 </div>
                 <div class="col-sm-4">
                     <div class="module callout-promo">
@@ -220,3 +275,67 @@
 
     <!-- main ends   ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
 </div>
+<script>
+    function PagePostInit() {
+
+        $("input[name='donatetype']").on("change", function (e) {
+            if (this.value == "creditcard") {
+                $("#CreditCardInfo").show();
+                $("#PayPalInfo").hide();
+            } else {
+                $("#CreditCardInfo").hide();
+                $("#PayPalInfo").show();
+            }
+        });
+
+        $("input[name='SelectedDonationAmount']").on("change", function (e) {
+            if (isNaN(this.value) == false)
+            {
+                $("#DonateAmount").val(this.value);
+                $("#a3").val(this.value);
+            } else {
+                $("#DonateAmount").val("");
+                $("#a3").val("");
+            }
+        });
+
+        $("#OtherDonationAmount").on("keyup", function (e)
+        {
+            if (isNaN(this.value) == false)
+            {
+                $("#DonateAmount").val(this.value);
+                $("#a3").val(this.value);
+            } else {
+                $("#DonateAmount").val("");
+                $("#a3").val("");
+            }
+
+        });
+
+
+        @if (Html.HasAnyErrors())
+        {
+            <text>
+            $("#creditcardtype").click();
+            </text>
+        }
+    }
+
+    function DonateViaPayPal(e) {
+        var recur = $("input[name='recurringdonation']:checked").val();
+        if ($("#DonateAmount").val() == "")
+        {
+            $("#OtherDonationAmount").addClass("input-validation-error");
+            $("#OtherDonationAmount").parents(".form-group").addClass("has-error");
+        } else {
+            if (recur == "true")
+            {
+                document.getElementById("PayPalSubscribe").submit();
+            } else {
+                document.getElementById("PayPalPost").submit();
+            }
+        }
+
+        e.preventDefault();
+    }
+</script>

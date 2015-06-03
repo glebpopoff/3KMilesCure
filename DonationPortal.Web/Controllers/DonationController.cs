@@ -8,7 +8,8 @@ using DonationPortal.Engine;
 using DonationPortal.Engine.PaymentProcessor;
 using DonationPortal.Web.Attributes;
 using DonationPortal.Web.ViewModels.Donation;
-
+using System.Net;
+using System.IO;
 namespace DonationPortal.Web.Controllers
 {
 	[ConditionalRequireHttps]
@@ -36,7 +37,69 @@ namespace DonationPortal.Web.Controllers
 			return View("Index", model);
 		}
 
+
+        [HttpPost]
+        [Route("/Donation/Complete")]
+        public ActionResult Complete()
+        {
+            WebRequest req = WebRequest.Create(System.Configuration.ConfigurationManager.AppSettings["PayPalUrl"] + "?cmd=_notify-validate&" + Request.Form.ToString());
+            WebResponse resp = req.GetResponse();
+            Stream dataStream = resp.GetResponseStream();
+            // Open the stream using a StreamReader for easy access.
+            StreamReader reader = new StreamReader(dataStream);
+            // Read the content. 
+            string responseFromServer = reader.ReadToEnd();
+            if (responseFromServer.Equals("VERIFIED") && Request.Form["payment_status"].Equals("Completed"))
+            {
+                string encodedCookie = HttpUtility.UrlDecode(Request.Cookies["donation"].Value);
+
+                var originalSubmission = System.Web.Helpers.Json.Decode(encodedCookie);
+                string eventSlug = originalSubmission.eventSlug;
+                string riderSlug = originalSubmission.riderSlug;
+                using (var entities = new DonationPortalEntities())
+                {
+                    var @event = entities.Events.SingleOrDefault(e => e.UrlSlug.Equals(eventSlug));
+
+
+                    var rider = @event.EventRiders.SingleOrDefault(r => r.UrlSlug.Equals(riderSlug));
+
+                    entities.RiderMessageDonations.Add(new RiderMessageDonation
+                    {
+                        City = Request.Form["address_city"],
+                        Email = Request.Form["payer_email"],
+                        FirstName = Request.Form["first_name"],
+                        LastName = Request.Form["last_name"],
+                        Latitude = Double.Parse(originalSubmission.Latitude),
+                        Longitude = Double.Parse(originalSubmission.Longitude),
+                        Message = originalSubmission.Message,
+                        State = Request.Form["address_state"],
+                        StreetAddress1 = Request.Form["address_street"],
+                        StreetAddress2 = "",
+                        TransactionID = Request.Form["txn_id"],
+                        PaymentResource = Request.Form["payer_id"],
+                        ZipCode = Request.Form["address_zip"],
+                        EventRider = rider,
+                        Amount = Decimal.Parse(Request.Form["mc_gross"]),
+                        Date = DateTime.Now
+                    });
+
+                    entities.SaveChanges();
+
+                    Request.Cookies.Remove("donation");
+                }
+
+                return View("Complete");
+            }
+            else
+            {
+                return View("Failue");
+            }
+
+            
+        }
+
 		[HttpPost]
+        [Route("/Donation")]
 		public ActionResult Index(DonationViewModel model)
 		{
 			if (!ModelState.IsValid)
@@ -72,35 +135,6 @@ namespace DonationPortal.Web.Controllers
 
 			transactionID = result.TransactionID;
 			paymentResource = result.PaymentResource;
-			/*	}
-				break;
-			case NonEventDonationType.MonthlyRecurringDonation:
-				{
-					var request = new RecurringPaymentRequest
-					{
-						Amount = model.DonationAmount,
-						City = model.City,
-						CvvNumber = model.CvvNumber,
-						Email = model.Email,
-						ExpirationMonth = model.ExpirationMonth,
-						ExpirationYear = model.ExpirationYear,
-						FirstName = model.FirstName,
-						LastName = model.LastName,
-						State = model.State,
-						StreetAddress1 = model.StreetAddress1,
-						StreetAddress2 = model.StreetAddress2,
-						ZipCode = model.ZipCode,
-						CreditCardNumber = model.CreditCardNumber
-					};
-
-					var result = _recurringPaymentProcessor.Process(request);
-
-					transactionID = result.TransactionID;
-				}
-				break;
-			default:
-				throw new InvalidOperationException("Unexpected donation type " + model.DonationType);
-			}*/
 
 			using (var entities = new DonationPortalEntities())
 			{

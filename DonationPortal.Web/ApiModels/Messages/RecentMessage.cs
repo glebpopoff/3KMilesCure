@@ -7,5 +7,6 @@ namespace DonationPortal.Web.ApiModels.Messages
 		public DateTime DateReceived { get; set; }
 		public string Username { get; set; }
 		public string Message { get; set; }
+        public decimal Amount { get; set; }
 	}
 }

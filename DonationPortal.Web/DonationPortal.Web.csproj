@@ -178,6 +178,7 @@
     <Content Include="ui\less\main-styles.min.css">
       <DependentUpon>main-styles.css</DependentUpon>
     </Content>
+    <Content Include="ui\scripts\jquery.cookie.js" />
     <Content Include="ui\scripts\number.js" />
     <Content Include="ui\scripts\riderTime.js" />
     <Content Include="ui\scripts\vendor\moment\moment.min.js" />
@@ -440,6 +441,8 @@
       <DependentUpon>main-styles.css</DependentUpon>
     </Content>
     <Content Include="Views\Shared\FacebookSocialItem.cshtml" />
+    <Content Include="Views\Donation\Complete.cshtml" />
+    <Content Include="Views\Donation\Failure.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

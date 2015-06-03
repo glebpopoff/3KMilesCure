@@ -12,7 +12,7 @@ using DonationPortal.Web.Attributes;
 using DonationPortal.Web.ViewModels;
 using DonationPortal.Web.ViewModels.RiderDetail;
 using LinqToTwitter;
-
+using DonationPortal.Web.ViewModels.Donation;
 namespace DonationPortal.Web.Controllers
 {
 	[ConditionalRequireHttps]

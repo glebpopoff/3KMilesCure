@@ -76,7 +76,7 @@
 {
     <script type="text/javascript">
 
-        require(['riderDonate', 'riderLocation'], function (riderDonate, riderLocation) {
+        require(['jqueryCookie', 'riderDonate', 'riderLocation'], function (Cookies, riderDonate, riderLocation) {
 
             riderDonate.setup('@Model.EventUrlSlug', '@Model.RiderUrlSlug');
             riderLocation.setup('@Model.EventUrlSlug', '@Model.RiderUrlSlug');

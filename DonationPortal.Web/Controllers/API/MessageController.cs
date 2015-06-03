@@ -70,7 +70,8 @@ namespace DonationPortal.Web.Controllers.API
 					{
 						DateReceived = d.DateReceived,
 						Username = d.RiderMessageDonation.FirstName + " " + d.RiderMessageDonation.LastName,
-						Message = d.RiderMessageDonation.Message
+						Message = d.RiderMessageDonation.Message,
+                        Amount = d.RiderMessageDonation.Amount
 					})
 					.ToList();
 
@@ -163,7 +164,8 @@ namespace DonationPortal.Web.Controllers.API
 				DateReceived = message.DateReceived,
 				EventRiderID = rider.EventRiderID,
 				Sender = message.RiderMessageDonation.FirstName,
-				Text = message.RiderMessageDonation.Message
+				Text = message.RiderMessageDonation.Message,
+                Amount = message.RiderMessageDonation.Amount
 			});
 		}
 

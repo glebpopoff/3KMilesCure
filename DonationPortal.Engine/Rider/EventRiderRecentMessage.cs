@@ -12,5 +12,6 @@ namespace DonationPortal.Engine.Rider
 		public string Text { get; set; }
 		public string Sender { get; set; }
 		public DateTime DateReceived { get; set; }
+        public decimal Amount { get; set; }
 	}
 }

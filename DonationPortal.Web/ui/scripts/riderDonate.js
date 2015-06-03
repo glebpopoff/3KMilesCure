@@ -1,6 +1,6 @@
 ﻿define(
-    ['jquery', 'underscore', 'snapToRoute', 'async!//maps.google.com/maps/api/js?sensor=false', 'jquery.serializeObject', 'viewScroll'],
-    function ($, _, SnapToRoute, googleMaps, jquerySerializeObject, viewScroll) {
+    ['jquery', 'underscore', 'snapToRoute', 'async!//maps.google.com/maps/api/js?sensor=false', 'jquery.serializeObject', 'viewScroll', 'jqueryCookie'],
+    function ($, _, SnapToRoute, googleMaps, jquerySerializeObject, viewScroll, Cookies) {
 
     	var eventSlug = null;
     	var riderSlug = null;
@@ -20,14 +20,11 @@
                     mapOptions);
 
     			var marker = new google.maps.Marker({
-    				position: { lat: rider.MarkerLatitude, lng: rider.MarkerLongitude },
     				map: map,
     				draggable: true
     			});
 
-    			// set the lat/lng hidden fields to the marker's initial position
-    			document.getElementsByName('Latitude')[0].value = marker.position.lat();
-    			document.getElementsByName('Longitude')[0].value = marker.position.lng();
+
 
     			// whenever the map pane gets expanded, trigger a resize refresh
     			$('#step-2-content').on('shown.bs.collapse', function (e) {
@@ -83,6 +80,20 @@
     					var oSnap = new SnapToRoute(map);
 
     					oSnap.init(map, marker, lines);
+
+    				    // update the marker location with the rider's last known position.
+    					$.getJSON('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/location').done(function (location) {
+
+    					    if (!location) {
+    					        return;
+    					    }
+    					    var closestPoint = oSnap.getClosestLatLng(new google.maps.LatLng(location.Latitude, location.Longitude))
+    					    marker.setPosition(closestPoint);
+    					    // set the lat/lng hidden fields to the marker's initial position
+    					    document.getElementsByName('Latitude')[0].value = marker.position.lat();
+    					    document.getElementsByName('Longitude')[0].value = marker.position.lng();
+
+    					});
     				});
     			});
     		});
@@ -123,84 +134,94 @@
 
     					delete submission.DonationOption;
     					delete submission.OtherAmount;
+    					delete submission.donatetype;
 
     					$('.dynamic-help').remove();
     					$('.form-group').removeClass('has-error');
     					$('#donation-form .alert').hide();
-					    $('#step-3-button').text('Processing ...');
+    					$('#step-3-button').text('Processing ...');
+    					if ($("#paypaltype").is(":checked"))
+    					{
+    					    Cookies.set('donation', JSON.stringify(submission), { expires: 1, path: '/' });
+    					    document.getElementById("PayPalPost").submit();
+    					} else {
+    					    delete submission.eventSlug;
+    					    delete submission.riderSlug;
+    					    $.post('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/donations', submission)
+                                    .done(function (response) {
+                                        $('#success-alert').show();
+                                        viewScroll.scrollIntoView(document.getElementById('donation-form'));
+                                        $('#step-3-button').text('Donate Now');
 
-    					$.post('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/donations', submission)
-							.done(function (response) {
-								$('#success-alert').show();
-								viewScroll.scrollIntoView(document.getElementById('donation-form'));
-								$('#step-3-button').text('Donate Now');
+                                        // clear the form
+                                        form.trigger('reset');
 
-								// clear the form
-								form.trigger('reset');
+                                        // set the lat/lng hidden fields to the marker's position
+                                        document.getElementsByName('Latitude')[0].value = marker.position.lat();
+                                        document.getElementsByName('Longitude')[0].value = marker.position.lng();
 
-								// set the lat/lng hidden fields to the marker's position
-								document.getElementsByName('Latitude')[0].value = marker.position.lat();
-								document.getElementsByName('Longitude')[0].value = marker.position.lng();
+                                    })
+                                    .fail(function (jqXHR) {
 
-						    })
-    						.fail(function (jqXHR) {
+                                        if (jqXHR.status === 400) {
 
-    							if (jqXHR.status === 400) {
+                                            var response = JSON.parse(jqXHR.responseText);
 
-    								var response = JSON.parse(jqXHR.responseText);
+                                            var fields = response.ModelState;
 
-    								var fields = response.ModelState;
+                                            for (var i in fields) {
+                                                if (fields.hasOwnProperty(i)) {
+                                                    var fieldName = i.substring(i.indexOf('.') + 1); // cut off before the first dot: e.g. "donation.FirstName".  We only want FirstName.
 
-    								for (var i in fields) {
-    									if (fields.hasOwnProperty(i)) {
-    										var fieldName = i.substring(i.indexOf('.') + 1); // cut off before the first dot: e.g. "donation.FirstName".  We only want FirstName.
+                                                    var messages = fields[i];
 
-    										var messages = fields[i];
+                                                    var formGroup;
 
-    										var formGroup;
+                                                    switch (fieldName) {
+                                                        case 'DonationAmount':
+                                                            {
+                                                                formGroup = $('.donate-options');
+                                                            }
+                                                            break;
+                                                        case 'Latitude':
+                                                        case 'Longitude':
+                                                            {
+                                                                formGroup = $('#map-form-group');
+                                                            }
+                                                            break;
+                                                        default:
+                                                            {
+                                                                formGroup = $('[name=' + fieldName + ']').closest('.form-group');
+                                                            }
+                                                    }
 
-    										switch (fieldName) {
-    											case 'DonationAmount':
-    												{
-    													formGroup = $('.donate-options');
-    												}
-    												break;
-    											case 'Latitude':
-    											case 'Longitude':
-    												{
-    													formGroup = $('#map-form-group');
-    												}
-    												break;
-    											default:
-    												{
-    													formGroup = $('[name=' + fieldName + ']').closest('.form-group');
-    												}
-    										}
+                                                    for (var j in messages) {
 
-    										for (var j in messages) {
+                                                        formGroup.append('<span class="dynamic-help help-block">' + messages[j] + '</span>');
 
-    											formGroup.append('<span class="dynamic-help help-block">' + messages[j] + '</span>');
+                                                        formGroup.addClass('has-error');
+                                                    }
 
-    											formGroup.addClass('has-error');
-    										}
+                                                }
+                                            }
 
-    									}
-    								}
+            $('#validation-error-alert').show();
 
-    								$('#validation-error-alert').show();
+            // open the first pane that has errors on it.
+            // don't collapse the last panel if we're already on it (the check for not .in)
+            $('#donation-form .form-group.has-error:first').closest('.panel-collapse').not('.in').closest('.panel').find('.panel-heading a').click();
 
-    								// open the first pane that has errors on it.
-									// don't collapse the last panel if we're already on it (the check for not .in)
-    								$('#donation-form .form-group.has-error:first').closest('.panel-collapse').not('.in').closest('.panel').find('.panel-heading a').click();
+        } else {
+            $('#error-alert').show();
+        }
 
-							    } else {
-    								$('#error-alert').show();
-    							}
+        viewScroll.scrollIntoView(document.getElementById('donation-form'));
+        $('#step-3-button').text('Donate Now');
 
-    							viewScroll.scrollIntoView(document.getElementById('donation-form'));
-    							$('#step-3-button').text('Donate Now');
+    });
+    					}
+					    
 
-    						});
     				});
     			});
     		}

@@ -4,7 +4,8 @@ define([
 	"client.navigation",
 	"client.userInterface",
 	"client.carousel",
-	"client-socialStream"
+	"client-socialStream",
+    "jqueryCookie"
 ], function ($) {
 	"use strict";
 
@@ -22,6 +23,14 @@ define([
 
 	function initApp(){
 		log('init app');
+	}
+
+	if (typeof (PageInit) != "undefined") {
+	    PageInit();
+	}
+
+	if (typeof (PagePostInit) != "undefined") {
+	    PagePostInit();
 	}
 
 	return{
