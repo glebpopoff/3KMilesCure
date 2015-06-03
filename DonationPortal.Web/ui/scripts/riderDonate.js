@@ -142,8 +142,28 @@
     					$('#step-3-button').text('Processing ...');
     					if ($("#paypaltype").is(":checked"))
     					{
-    					    Cookies.set('donation', JSON.stringify(submission), { expires: 1, path: '/' });
-    					    document.getElementById("PayPalPost").submit();
+    					    if ($("#Message").val() == "")
+    					    {
+    					        var formGroup = $("#Message").closest('.form-group');
+    					        formGroup.append('<span class="dynamic-help help-block">The Message field is required.</span>');
+
+    					        formGroup.addClass('has-error');
+
+
+    					        $('#validation-error-alert').show();
+
+    					        // open the first pane that has errors on it.
+    					        // don't collapse the last panel if we're already on it (the check for not .in)
+    					        $('#donation-form .form-group.has-error:first').closest('.panel-collapse').not('.in').closest('.panel').find('.panel-heading a').click();
+
+    					        $('#step-3-button').text('Donate Now');
+    					    } else {
+    					        Cookies.set('donation', JSON.stringify(submission), { expires: 1, path: '/' });
+    					        document.getElementById("PayPalPost").submit();
+    					    }
+    					    
+
+
     					} else {
     					    delete submission.eventSlug;
     					    delete submission.riderSlug;
