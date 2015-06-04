@@ -7,7 +7,7 @@
 
     <section class="stacked-container hero" id="skipToContent" role="region">
         <!-- stacked-container starts ||||||||||||||||||||||||||||||||||||||||||||||||||| -->
-        <figure class="hero-image"><img class="img-responsive" src="/ui/images/Hero-Rob-01.jpg" alt="Hope Loves Action."></figure>
+        <figure class="hero-image"><img class="img-responsive" src="/ui/images/heroes/Hero-Rob-01.jpg" alt="Hope Loves Action."></figure>
         <div class="container">
             <div class="hero-content">
                 <h1 role="heading">LET's DO THIS</h1>
@@ -73,14 +73,14 @@
                     </div>
                     @Html.Partial("Timer", Model.FeaturedRider.Timer)
                     <div class="col-xs-6 col-sm-4">
-                        @*<ul class="travelled">
+                        <ul class="travelled">
                                 <li class="title">Miles Travelled:</li>
                                 <li class="miles">
                                     <div class="counter-label">Miles</div>
                                     <div class="counter">@Model.FeaturedRider.TotalMiles.ToString("N")</div>
                                 </li>
                                 <li class="total">@(Model.FeaturedRider.HasDistanceGoal ? "/ " + Model.FeaturedRider.DistanceGoal : null)</li>
-                            </ul>*@
+                            </ul>
                     </div>
                 </div>
             </div>

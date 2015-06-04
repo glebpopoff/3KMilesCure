@@ -63,9 +63,9 @@ namespace DonationPortal.Web.Controllers
 
                 var twitterItems = _twitterFeedProvider.GetItems(riderEntity.EventRiderID, 10);
 
-                var facebookItems = _facebookFeedProvider.GetItems(riderEntity.EventRiderID, 10);
+                //var facebookItems = _facebookFeedProvider.GetItems(riderEntity.EventRiderID, 10);
 
-                var socialItems = twitterItems.Union(facebookItems);
+                var socialItems = twitterItems;//.Union(facebookItems);
 
 		        var model = new RiderDetailViewModel
 		        {

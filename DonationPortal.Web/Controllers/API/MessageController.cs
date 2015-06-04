@@ -119,7 +119,8 @@ namespace DonationPortal.Web.Controllers.API
 						Latitude = (float)d.Latitude,
 						Longitude = (float)d.Longitude,
 						Message = d.Message,
-						Sender = d.FirstName + " " + d.LastName
+						Sender = d.FirstName + " " + d.LastName,
+                         Amount = d.Amount
 					}).ToList();
 
 				// finally, store a reference to the messages we are passing back as having been received by the rider.

@@ -198,8 +198,8 @@
     <Content Include="ui\images\glyphicons-halflings-white.png" />
     <Content Include="ui\images\glyphicons-halflings.png" />
     <Content Include="ui\images\hero-image-hp.png" />
-    <Content Include="ui\images\Hero-Maria-01.jpg" />
-    <Content Include="ui\images\Hero-Rob-01.jpg" />
+    <Content Include="ui\images\heroes\Hero-Maria-01.jpg" />
+    <Content Include="ui\images\heroes\Hero-Rob-01.jpg" />
     <Content Include="ui\images\icon-selectBox-arrow.png" />
     <Content Include="ui\images\img-homepage-hero.jpg" />
     <Content Include="ui\images\img-maria-event-details.jpg" />
@@ -443,6 +443,7 @@
     <Content Include="Views\Shared\FacebookSocialItem.cshtml" />
     <Content Include="Views\Donation\Complete.cshtml" />
     <Content Include="Views\Donation\Failure.cshtml" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

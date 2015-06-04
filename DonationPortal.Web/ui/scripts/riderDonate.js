@@ -83,16 +83,16 @@
 
     				    // update the marker location with the rider's last known position.
     					$.getJSON('/api/v1/events/' + eventSlug + '/riders/' + riderSlug + '/location').done(function (location) {
-
+    					    var closestPoint;
     					    if (!location) {
-    					        return;
+    					        closestPoint = oSnap.getClosestLatLng(new google.maps.LatLng(rider.MarkerLatitude, rider.MarkerLongitude))
+    					    } else {
+    					        closestPoint = oSnap.getClosestLatLng(new google.maps.LatLng(location.Latitude, location.Longitude))
     					    }
-    					    var closestPoint = oSnap.getClosestLatLng(new google.maps.LatLng(location.Latitude, location.Longitude))
     					    marker.setPosition(closestPoint);
     					    // set the lat/lng hidden fields to the marker's initial position
     					    document.getElementsByName('Latitude')[0].value = marker.position.lat();
     					    document.getElementsByName('Longitude')[0].value = marker.position.lng();
-
     					});
     				});
     			});
