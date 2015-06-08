@@ -63,6 +63,9 @@
           <Property Name="ChooseLocationText" Type="nvarchar(max)" />
           <Property Name="DetailTeaser" Type="nvarchar(max)" />
           <Property Name="DonateButtonText" Type="varchar" MaxLength="255" />
+          <Property Name="HideFromSite" Type="bit" Nullable="false" />
+          <Property Name="IsFeatured" Type="bit" Nullable="false" />
+          <Property Name="MilesTraveled" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="EventRiderRoute">
           <Key>
@@ -355,7 +358,10 @@
           <Property Name="DetailTeaser" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="SocialAccounts" Relationship="DonationPortalModel.FK_SocialAccount_EventRider" FromRole="EventRider" ToRole="SocialAccount" />
           <Property Name="DonateButtonText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-        </EntityType>
+          <Property Name="HideFromSite" Type="Boolean" Nullable="false" />
+          <Property Name="IsFeatured" Type="Boolean" Nullable="false" />
+          <Property Name="MilesTraveled" Type="Double" Nullable="false" />
+          </EntityType>
         <EntityType Name="Route">
           <Key>
             <PropertyRef Name="RouteID" />
@@ -612,6 +618,9 @@
           <EntitySetMapping Name="EventRiders">
             <EntityTypeMapping TypeName="DonationPortalModel.EventRider">
               <MappingFragment StoreEntitySet="EventRider">
+                <ScalarProperty Name="MilesTraveled" ColumnName="MilesTraveled" />
+                <ScalarProperty Name="IsFeatured" ColumnName="IsFeatured" />
+                <ScalarProperty Name="HideFromSite" ColumnName="HideFromSite" />
                 <ScalarProperty Name="DonateButtonText" ColumnName="DonateButtonText" />
                 <ScalarProperty Name="DetailTeaser" ColumnName="DetailTeaser" />
                 <ScalarProperty Name="ChooseLocationText" ColumnName="ChooseLocationText" />

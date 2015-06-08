@@ -48,6 +48,9 @@ namespace DonationPortal.Engine
         public string ChooseLocationText { get; set; }
         public string DetailTeaser { get; set; }
         public string DonateButtonText { get; set; }
+        public bool HideFromSite { get; set; }
+        public bool IsFeatured { get; set; }
+        public double MilesTraveled { get; set; }
     
         public virtual Event Event { get; set; }
         public virtual ICollection<Route> Routes { get; set; }

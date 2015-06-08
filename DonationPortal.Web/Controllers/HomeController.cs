@@ -29,7 +29,7 @@ namespace DonationPortal.Web.Controllers
 	        {
 		        var urlHelper = new UrlHelper(this.ControllerContext.RequestContext);
 
-		        var featuredRider = entities.EventRiders.Include(r => r.Event).Single(r => r.EventRiderID == 12); //rob
+		        var featuredRider = entities.EventRiders.Include(r => r.Event).Single(r => r.IsFeatured); //rob
 
 		        var model = new HomeViewModel
 		        {
@@ -49,7 +49,7 @@ namespace DonationPortal.Web.Controllers
 						RecentMessages = _messageProvider.GetMessages(featuredRider.EventRiderID, 5),
 						Timer = new TimerViewModel(featuredRider.DurationGoal, featuredRider.End, featuredRider.Start)
 					},
-					Riders = entities.EventRiders.Include(r => r.Event).Include(r => r.RiderMessageDonations).ToList().Select(rider => new RiderViewModel
+					Riders = entities.EventRiders.Include(r => r.Event).Include(r => r.RiderMessageDonations).Where(r => r.HideFromSite == false).ToList().Select(rider => new RiderViewModel
 					{
 						DonationGoal = rider.DonationGoal,
 						EventName = rider.Event.Name,

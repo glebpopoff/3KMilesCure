@@ -71,7 +71,8 @@ namespace DonationPortal.Web.Controllers.API
 						DateReceived = d.DateReceived,
 						Username = d.RiderMessageDonation.FirstName + " " + d.RiderMessageDonation.LastName,
 						Message = d.RiderMessageDonation.Message,
-                        Amount = d.RiderMessageDonation.Amount
+                        Amount = d.RiderMessageDonation.Amount,
+                        TotalAmount = rider.RiderMessageDonations.Sum(r => r.Amount)
 					})
 					.ToList();
 

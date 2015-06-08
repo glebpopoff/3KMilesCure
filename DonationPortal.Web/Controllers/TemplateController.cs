@@ -22,7 +22,7 @@ namespace DonationPortal.Web.Controllers
 				var model = new HeaderViewModel
 				{
 					// another symptom of having 1:1 between riders and events at the moment...
-					Riders = entities.EventRiders.Include(r => r.Event).ToList().Select(rider => new EventViewModel
+					Riders = entities.EventRiders.Include(r => r.Event).Where(r => r.HideFromSite == false).ToList().Select(rider => new EventViewModel
 					{
 						Name = rider.Event.NavigationName,
 						Url = urlHelper.Action("Index", "RiderDetail", new { EventUrlSlug = rider.Event.UrlSlug, RiderUrlSlug = rider.UrlSlug }),
