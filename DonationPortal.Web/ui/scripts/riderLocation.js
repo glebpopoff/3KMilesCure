@@ -35,18 +35,46 @@
 
 					var route = routes[i];
 
-					// create a line for this route and draw it on the map
-					var line = new google.maps.Polyline({
-						path: _.map(route.Vertices, function (vertex) { return new google.maps.LatLng(vertex.Latitude, vertex.Longitude); }),
-						geodisc: true,
-						strokeColor: route.Color,
-						strokeOpacity: 1.0,
-						strokeWeight: 3
-					});
+				    // create a line for this route and draw it on the map
+					if (route.UnvisitedVertices != null && route.VisitedVertices != null)
+					{
+					    var line = new google.maps.Polyline({
+					        path: _.map(route.UnvisitedVertices, function (vertex) { return new google.maps.LatLng(vertex.Latitude, vertex.Longitude); }),
+					        geodisc: true,
+					        strokeColor: route.Color,
+					        strokeOpacity: 1.0,
+					        strokeWeight: 3
+					    });
 
-					line.setMap(map);
+					    line.setMap(map);
 
-					lines.push(line);
+					    lines.push(line);
+
+					    var line = new google.maps.Polyline({
+					        path: _.map(route.VisitedVertices, function (vertex) { return new google.maps.LatLng(vertex.Latitude, vertex.Longitude); }),
+					        geodisc: true,
+					        strokeColor: "#0000FF",
+					        strokeOpacity: 1.0,
+					        strokeWeight: 3
+					    });
+
+					    line.setMap(map);
+
+					    lines.push(line);
+					} else {
+					    var line = new google.maps.Polyline({
+					        path: _.map(route.Vertices, function (vertex) { return new google.maps.LatLng(vertex.Latitude, vertex.Longitude); }),
+					        geodisc: true,
+					        strokeColor: route.Color,
+					        strokeOpacity: 1.0,
+					        strokeWeight: 3
+					    });
+
+					    line.setMap(map);
+
+					    lines.push(line);
+					}
+
 				}
 			});
 

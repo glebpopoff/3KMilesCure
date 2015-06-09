@@ -6,7 +6,10 @@ using DonationPortal.Engine;
 using DonationPortal.Engine.Rider;
 using DonationPortal.Web.ApiModels.Routes;
 using RouteVertex = DonationPortal.Web.ApiModels.Routes.RouteVertex;
-
+using DotSpatial.Positioning;
+using System;
+using System.Collections.Generic;
+using System.Collections;
 namespace DonationPortal.Web.Controllers.API
 {
 	[RoutePrefix("api/v1")]
@@ -40,6 +43,8 @@ namespace DonationPortal.Web.Controllers.API
 						string.Format("Rider {0} not found for event {1}.", riderSlug, eventSlug));
 				}
 
+               
+
 				var routes = rider.Routes.Select(route => new EventRiderRoute()
 				{
 					Name = route.Name,
@@ -52,6 +57,53 @@ namespace DonationPortal.Web.Controllers.API
 						Longitude = (float)vertex.Longitude
 					}).ToList() // need to materialize now, otherwise the database will already be disposed when the message is serialized.
 				}).ToList(); // see above
+
+                if (routes.Count == 1 && rider.Routes.First().Circular == false)
+                {
+                    var mostRecentLocation = _locationProvider.GetLocation(rider.EventRiderID);
+                    if (mostRecentLocation.HasValue)
+                    {
+                        var route = routes[0];
+                        int minKey = 0;
+                        int maxKey = route.Vertices.Count();
+                        int currentTry = maxKey / 2;
+                        var currentPos = new Position(new Latitude(route.Vertices.ElementAt(currentTry).Latitude), new Longitude(route.Vertices.ElementAt(currentTry).Longitude));
+                        var startPos = new Position(new Latitude(route.Vertices.First().Latitude), new Longitude(route.Vertices.First().Longitude));
+                        var endPos = new Position(new Latitude(route.Vertices.Last().Latitude), new Longitude(route.Vertices.Last().Longitude));
+                        var currentBestDistance = Double.MaxValue;
+
+
+                        while (maxKey != minKey)
+                        {
+                            currentTry = (minKey + maxKey) / 2;
+                            RouteVertex vertex = route.Vertices.ElementAt(currentTry);
+                            var pos = new Position(new Latitude(vertex.Latitude), new Longitude(vertex.Longitude));
+                            var currentDistance = pos.DistanceTo(mostRecentLocation.Value).ToMeters().Value;
+                            if (pos.DistanceTo(startPos) < pos.DistanceTo(endPos))
+                            {
+                                endPos = pos;
+                                maxKey = currentTry;
+                            }
+                            else
+                            {
+                                startPos = pos;
+                                minKey = currentTry;
+                            }
+                            if (currentDistance < currentBestDistance)
+                            {
+                               currentBestDistance = currentDistance;
+                            }
+                        }
+
+                       
+                        route.VisitedVertices = route.Vertices.Take(currentTry).ToList();
+                       
+                        route.UnvisitedVertices = route.Vertices.Skip(currentTry).ToList();
+                       
+                        route.Vertices = null; //Save on response data
+                    }
+                }
+
 
 				return Request.CreateResponse(HttpStatusCode.OK, routes);
 			}

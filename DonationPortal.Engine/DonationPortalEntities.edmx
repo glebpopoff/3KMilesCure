@@ -123,6 +123,7 @@
           <Property Name="Name" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="Color" Type="char" MaxLength="6" Nullable="false" />
           <Property Name="UrlSlug" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Circular" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="RouteVertex">
           <Key>
@@ -372,6 +373,7 @@
           <NavigationProperty Name="EventRiders" Relationship="Self.EventRiderRoute" FromRole="Route" ToRole="EventRider" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="UrlSlug" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Circular" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="RouteVertex">
           <Key>
@@ -653,6 +655,7 @@
           <EntitySetMapping Name="Routes">
             <EntityTypeMapping TypeName="DonationPortalModel.Route">
               <MappingFragment StoreEntitySet="Route">
+                <ScalarProperty Name="Circular" ColumnName="Circular" />
                 <ScalarProperty Name="UrlSlug" ColumnName="UrlSlug" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="RouteID" ColumnName="RouteID" />

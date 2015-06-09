@@ -31,7 +31,7 @@ namespace DonationPortal.Engine.Rider
 			{
                 var rider = entities.EventRiders.SingleOrDefault(r => r.EventRiderID == eventRiderID);
 
-                if (rider == null)
+                if (rider != null)
                 {
                     // only look at locations visited during the race.  not before or after.
                     var visits = entities.LocationVisits
@@ -40,7 +40,7 @@ namespace DonationPortal.Engine.Rider
 
                     if (visits.Count < 2)
                     {
-                        return new Distance();
+                        return new Distance(rider.MilesTraveled, DistanceUnit.StatuteMiles);
                     }
 
                     var previous = visits[0];

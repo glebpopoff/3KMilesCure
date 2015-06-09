@@ -24,6 +24,7 @@ namespace DonationPortal.Engine
         public string Color { get; set; }
         public string Name { get; set; }
         public string UrlSlug { get; set; }
+        public bool Circular { get; set; }
     
         public virtual ICollection<RouteVertex> RouteVertexes { get; set; }
         public virtual ICollection<EventRider> EventRiders { get; set; }
