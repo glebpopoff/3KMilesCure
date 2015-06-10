@@ -70,7 +70,7 @@ namespace DonationPortal.Web.Controllers.API
                         var currentPos = new Position(new Latitude(route.Vertices.ElementAt(currentTry).Latitude), new Longitude(route.Vertices.ElementAt(currentTry).Longitude));
                         var startPos = new Position(new Latitude(route.Vertices.First().Latitude), new Longitude(route.Vertices.First().Longitude));
                         var endPos = new Position(new Latitude(route.Vertices.Last().Latitude), new Longitude(route.Vertices.Last().Longitude));
-                        var currentBestDistance = Double.MaxValue;
+                        var currentBestDistance = mostRecentLocation.Value.DistanceTo(startPos).Value;
 
 
                         while (maxKey != minKey)
@@ -79,19 +79,32 @@ namespace DonationPortal.Web.Controllers.API
                             RouteVertex vertex = route.Vertices.ElementAt(currentTry);
                             var pos = new Position(new Latitude(vertex.Latitude), new Longitude(vertex.Longitude));
                             var currentDistance = pos.DistanceTo(mostRecentLocation.Value).ToMeters().Value;
-                            if (pos.DistanceTo(startPos) < pos.DistanceTo(endPos))
+                            if (currentDistance < currentBestDistance)
                             {
-                                endPos = pos;
-                                maxKey = currentTry;
+                                if (pos.DistanceTo(startPos).Value < pos.DistanceTo(endPos).Value)
+                                {
+                                    endPos = pos;
+                                    maxKey = currentTry;
+                                }
+                                else
+                                {
+                                    startPos = pos;
+                                    minKey = currentTry;
+                                }
+                               currentBestDistance = currentDistance;
                             }
                             else
                             {
-                                startPos = pos;
-                                minKey = currentTry;
-                            }
-                            if (currentDistance < currentBestDistance)
-                            {
-                               currentBestDistance = currentDistance;
+                                if (mostRecentLocation.Value.DistanceTo(startPos).Value < mostRecentLocation.Value.DistanceTo(endPos).Value)
+                                {
+                                    endPos = pos;
+                                    maxKey = currentTry;
+                                }
+                                else
+                                {
+                                    startPos = pos;
+                                    minKey = currentTry;
+                                }
                             }
                         }
 
