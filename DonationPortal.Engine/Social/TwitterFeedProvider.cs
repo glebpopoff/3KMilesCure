@@ -52,23 +52,18 @@ namespace DonationPortal.Engine.Social
                                                 .SelectMany(a => a.TwitterHashTags.Select(h => h.HashTag))
                                                 .Distinct())
                 {
-                    var searchParameter = Tweetinvi.Search.GenerateTweetSearchParameter("#" + hashtag);
-                    searchParameter.TweetSearchFilter = TweetSearchFilter.OriginalTweetsOnly;
-
-                    var tweets = Tweetinvi.Search.SearchTweets(searchParameter);
-                    hashtagTweets.AddRange(tweets);
+                    var timeline = timelineTweets.Where(s => s.Hashtags.Select(t => t.Text.ToLower()).Contains(hashtag));
+                    hashtagTweets.AddRange(timeline);
                 }
 
-                
-                timelineTweets.Intersect(hashtagTweets);
-                    
-                if (timelineTweets.Count == 0)
+
+                if (hashtagTweets.Count == 0)
                 {
                     return new SocialFeedItem[0];
                 }
 
                 //sort all the tweets we got from the usernames and hashtags.
-                return timelineTweets.Distinct().OrderByDescending(t => t.CreatedAt).Take(count).Select(TweetItem);
+                return hashtagTweets.Distinct().OrderByDescending(t => t.CreatedAt).Take(count).Select(TweetItem);
                     
             }
         }

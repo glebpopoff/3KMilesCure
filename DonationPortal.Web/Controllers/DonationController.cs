@@ -10,12 +10,15 @@ using DonationPortal.Web.Attributes;
 using DonationPortal.Web.ViewModels.Donation;
 using System.Net;
 using System.IO;
+using log4net;
+using System.Data.Entity.Validation;
 namespace DonationPortal.Web.Controllers
 {
 	[ConditionalRequireHttps]
 	public class DonationController : Controller
 	{
 		private const string SuccessfulDonationKey = "successful_donation";
+        private static readonly ILog _log = LogManager.GetLogger(typeof(DonationController));
 
 		private readonly IImmediatePaymentProcessor _immediatePaymentProcessor;
 		private readonly IRecurringPaymentProcessor _recurringPaymentProcessor;
@@ -56,37 +59,63 @@ namespace DonationPortal.Web.Controllers
                 var originalSubmission = System.Web.Helpers.Json.Decode(encodedCookie);
                 string eventSlug = originalSubmission.eventSlug;
                 string riderSlug = originalSubmission.riderSlug;
-                using (var entities = new DonationPortalEntities())
+                try
                 {
-                    var @event = entities.Events.SingleOrDefault(e => e.UrlSlug.Equals(eventSlug));
-
-
-                    var rider = @event.EventRiders.SingleOrDefault(r => r.UrlSlug.Equals(riderSlug));
-
-                    entities.RiderMessageDonations.Add(new RiderMessageDonation
+                    using (var entities = new DonationPortalEntities())
                     {
-                        City = Request.Form["address_city"],
-                        Email = Request.Form["payer_email"],
-                        FirstName = Request.Form["first_name"],
-                        LastName = Request.Form["last_name"],
-                        Latitude = Double.Parse(originalSubmission.Latitude),
-                        Longitude = Double.Parse(originalSubmission.Longitude),
-                        Message = originalSubmission.Message,
-                        State = Request.Form["address_state"],
-                        StreetAddress1 = Request.Form["address_street"],
-                        StreetAddress2 = "",
-                        TransactionID = Request.Form["txn_id"],
-                        PaymentResource = Request.Form["payer_id"],
-                        ZipCode = Request.Form["address_zip"],
-                        EventRider = rider,
-                        Amount = Decimal.Parse(Request.Form["mc_gross"]),
-                        Date = DateTime.Now
-                    });
+                        var @event = entities.Events.SingleOrDefault(e => e.UrlSlug.Equals(eventSlug));
 
-                    entities.SaveChanges();
 
-                    Request.Cookies.Remove("donation");
+                        var rider = @event.EventRiders.SingleOrDefault(r => r.UrlSlug.Equals(riderSlug));
+
+                        entities.RiderMessageDonations.Add(new RiderMessageDonation
+                        {
+                            City = Request.Form["address_city"],
+                            Email = Request.Form["payer_email"],
+                            FirstName = Request.Form["first_name"],
+                            LastName = Request.Form["last_name"],
+                            Latitude = Double.Parse(originalSubmission.Latitude),
+                            Longitude = Double.Parse(originalSubmission.Longitude),
+                            Message = originalSubmission.Message,
+                            State = Request.Form["address_state"],
+                            StreetAddress1 = Request.Form["address_street"],
+                            StreetAddress2 = "",
+                            TransactionID = Request.Form["txn_id"],
+                            PaymentResource = Request.Form["payer_id"],
+                            ZipCode = Request.Form["address_zip"],
+                            EventRider = rider,
+                            Amount = Decimal.Parse(Request.Form["mc_gross"]),
+                            Date = DateTime.Now
+                        });
+
+
+                        entities.SaveChanges();
+
+                        Request.Cookies.Remove("donation");
+                    }
+                } 
+                catch (DbEntityValidationException ex)
+                {
+                    _log.Error("Error adding rider via callback", ex);
+                    if (ex.EntityValidationErrors != null)
+                    {
+                        foreach (DbEntityValidationResult result in ex.EntityValidationErrors)
+                        {
+                            if (result.ValidationErrors != null)
+                            {
+                                foreach (DbValidationError error in result.ValidationErrors)
+                                {
+                                    _log.Error(error.PropertyName + ": " + error.ErrorMessage);
+                                }
+                            }
+                        }
+                    }
                 }
+                catch (Exception ex)
+                {
+                    _log.Error("Error adding rider via callback", ex);
+                }
+
 
                 return View("Complete");
             }
